@@ -1,0 +1,49 @@
+==============================================================================
+Spec                                                                          
+==============================================================================
+[ ERROR ] Error in file '/mnt/wt/pyrosuite/robo/spec/01__sauce_browser.txt': Resource file 'resource.txt' does not exist.
+Spec.Sauce Browser :: A test suite with a single test for valid login. This...
+==============================================================================
+Open Google Using Sauce                                               | FAIL |
+No keyword with name 'Open Login Page' found.
+
+Also teardown failed:
+No keyword with name 'Close Browser' found.
+------------------------------------------------------------------------------
+Spec.Sauce Browser :: A test suite with a single test for valid lo... | FAIL |
+1 critical test, 0 passed, 1 failed
+1 test total, 0 passed, 1 failed
+==============================================================================
+[ ERROR ] Error in file '/mnt/wt/pyrosuite/robo/resource.txt': Importing variable file '/mnt/wt/pyrosuite/robo/ondemand.py' failed: SyntaxError: invalid syntax (ondemand.py, line 15)
+Traceback (most recent call last):
+  None
+PYTHONPATH:
+  /usr/local/lib/python2.7/dist-packages/robot/libraries
+  /usr/local/lib/python2.7/dist-packages
+  /usr/local/bin
+  /usr/lib/python2.7
+  /usr/lib/python2.7/plat-linux2
+  /usr/lib/python2.7/lib-tk
+  /usr/lib/python2.7/lib-old
+  /usr/lib/python2.7/lib-dynload
+  /usr/lib/python2.7/dist-packages
+  /usr/lib/python2.7/dist-packages/gtk-2.0
+  /usr/lib/pymodules/python2.7
+  .
+  /mnt/wt/pyrosuite
+Spec.Sauce Browser Onconnect :: A test suite with a single test for valid l...
+==============================================================================
+Valid Login                                                           | FAIL |
+Non-existing variable '${BROWSER}'.
+------------------------------------------------------------------------------
+Spec.Sauce Browser Onconnect :: A test suite with a single test fo... | FAIL |
+1 critical test, 0 passed, 1 failed
+1 test total, 0 passed, 1 failed
+==============================================================================
+Spec                                                                  | FAIL |
+2 critical tests, 0 passed, 2 failed
+2 tests total, 0 passed, 2 failed
+==============================================================================
+Output:  /mnt/wt/pyrosuite/robo_android_Linux_4.0_Output.xml
+Log:     /mnt/wt/pyrosuite/log.html
+Report:  /mnt/wt/pyrosuite/report.html

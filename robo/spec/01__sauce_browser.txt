@@ -1,0 +1,15 @@
+*** Settings ***
+Documentation  A test suite with a single test for valid login. This test has a workflow that is created using keywords from the resource file.
+
+Resource       resource.txt
+
+*** Variables ***
+${LOGIN_URL}        http://www.google.ca
+${TITLE}            Google
+
+*** Test Cases ***
+Open Google Using Sauce
+    Open Login Page
+	Check Url    ${TITLE} 
+	Submit Neo Login
+	[Teardown]  Close Browser

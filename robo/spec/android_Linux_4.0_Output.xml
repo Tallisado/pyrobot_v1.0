@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generated="20140312 18:49:59.336" generator="Robot 2.8.4 (Python 2.7.3 on linux2)">
+<suite source="/mnt/wt/pyrosuite/robo/spec" id="s1" name="Spec">
+<suite source="/mnt/wt/pyrosuite/robo/spec/01__sauce_browser.txt" id="s1-s1" name="Sauce Browser">
+<test id="s1-s1-t1" name="Open Google Using Sauce">
+<kw type="kw" name="Open Login Page">
+<doc></doc>
+<arguments>
+</arguments>
+<msg timestamp="20140312 18:49:59.590" level="FAIL">No keyword with name 'Open Login Page' found.</msg>
+<status status="FAIL" endtime="20140312 18:49:59.590" starttime="20140312 18:49:59.590"></status>
+</kw>
+<kw type="teardown" name="Close Browser">
+<doc></doc>
+<arguments>
+</arguments>
+<msg timestamp="20140312 18:49:59.591" level="FAIL">No keyword with name 'Close Browser' found.</msg>
+<status status="FAIL" endtime="20140312 18:49:59.591" starttime="20140312 18:49:59.591">No keyword with name 'Close Browser' found.</status>
+</kw>
+<doc></doc>
+<tags>
+</tags>
+<status status="FAIL" endtime="20140312 18:49:59.591" critical="yes" starttime="20140312 18:49:59.589">No keyword with name 'Open Login Page' found.
+
+Also teardown failed:
+No keyword with name 'Close Browser' found.</status>
+</test>
+<doc>A test suite with a single test for valid login. This test has a workflow that is created using keywords from the resource file.</doc>
+<metadata>
+</metadata>
+<status status="FAIL" endtime="20140312 18:49:59.593" starttime="20140312 18:49:59.580"></status>
+</suite>
+<suite source="/mnt/wt/pyrosuite/robo/spec/02__sauce_browser_onconnect.txt" id="s1-s2" name="Sauce Browser Onconnect">
+<test id="s1-s2-t1" name="Valid Login">
+<kw type="kw" name="resource.Open Login Page">
+<doc></doc>
+<arguments>
+</arguments>
+<kw type="kw" name="Selenium2Library.Open Browser">
+<doc>Opens a new browser instance to given URL.</doc>
+<arguments>
+<arg>${LOGIN URL}</arg>
+<arg>${BROWSER}</arg>
+</arguments>
+<msg timestamp="20140312 18:49:59.718" level="INFO">Opening browser 'Chrome' to base url 'http://10.10.9.129/Login/index.php'</msg>
+<status status="PASS" endtime="20140312 18:50:02.619" starttime="20140312 18:49:59.718"></status>
+</kw>
+<kw type="kw" name="Selenium2Library.Maximize Browser Window">
+<doc>Maximizes current browser window.</doc>
+<arguments>
+</arguments>
+<status status="PASS" endtime="20140312 18:50:02.864" starttime="20140312 18:50:02.620"></status>
+</kw>
+<kw type="kw" name="Selenium2Library.Set Selenium Speed">
+<doc>Sets the delay in seconds that is waited after each Selenium command.</doc>
+<arguments>
+<arg>${DELAY}</arg>
+</arguments>
+<status status="PASS" endtime="20140312 18:50:02.865" starttime="20140312 18:50:02.864"></status>
+</kw>
+<status status="PASS" endtime="20140312 18:50:02.865" starttime="20140312 18:49:59.717"></status>
+</kw>
+<kw type="kw" name="resource.Check Url">
+<doc></doc>
+<arguments>
+<arg>${TITLE}</arg>
+</arguments>
+<kw type="kw" name="Selenium2Library.Title Should Be">
+<doc>Verifies that current page title equals `title`.</doc>
+<arguments>
+<arg>${target_url}</arg>
+</arguments>
+<msg timestamp="20140312 18:50:02.915" level="INFO">Page title is 'ADTRAN Neo'.</msg>
+<status status="PASS" endtime="20140312 18:50:02.915" starttime="20140312 18:50:02.867"></status>
+</kw>
+<status status="PASS" endtime="20140312 18:50:02.915" starttime="20140312 18:50:02.866"></status>
+</kw>
+<kw type="kw" name="resource.Input Neo Username">
+<doc></doc>
+<arguments>
+<arg>${VALID USER}</arg>
+</arguments>
+<kw type="kw" name="Selenium2Library.Wait Until Element Is Visible">
+<doc>Waits until element specified with `locator` is visible.</doc>
+<arguments>
+<arg>loginnameid-inputEl</arg>
+<arg>timeout=5</arg>
+</arguments>
+<status status="PASS" endtime="20140312 18:50:03.135" starttime="20140312 18:50:02.917"></status>
+</kw>
+<kw type="kw" name="Selenium2Library.Input Text">
+<doc>Types the given `text` into text field identified by `locator`.</doc>
+<arguments>
+<arg>loginnameid-inputEl</arg>
+<arg>${username}</arg>
+</arguments>
+<msg timestamp="20140312 18:50:03.136" level="INFO">Typing text '3011' into text field 'loginnameid-inputEl'</msg>
+<status status="PASS" endtime="20140312 18:50:03.423" starttime="20140312 18:50:03.135"></status>
+</kw>
+<status status="PASS" endtime="20140312 18:50:03.423" starttime="20140312 18:50:02.915"></status>
+</kw>
+<kw type="kw" name="resource.Input Neo Password">
+<doc></doc>
+<arguments>
+<arg>${VALID PASSWD}</arg>
+</arguments>
+<kw type="kw" name="Selenium2Library.Input Text">
+<doc>Types the given `text` into text field identified by `locator`.</doc>
+<arguments>
+<arg>loginpasswordid-inputEl</arg>
+<arg>${password}</arg>
+</arguments>
+<msg timestamp="20140312 18:50:03.425" level="INFO">Typing text '1234' into text field 'loginpasswordid-inputEl'</msg>
+<status status="PASS" endtime="20140312 18:50:03.572" starttime="20140312 18:50:03.425"></status>
+</kw>
+<status status="PASS" endtime="20140312 18:50:03.573" starttime="20140312 18:50:03.424"></status>
+</kw>
+<kw type="teardown" name="Selenium2Library.Close Browser">
+<doc>Closes the current browser.</doc>
+<arguments>
+</arguments>
+<status status="PASS" endtime="20140312 18:50:03.682" starttime="20140312 18:50:03.574"></status>
+</kw>
+<doc>Testing the browser : Chrome</doc>
+<tags>
+</tags>
+<status status="PASS" endtime="20140312 18:50:03.682" critical="yes" starttime="20140312 18:49:59.716"></status>
+</test>
+<doc>Testing the browser : Chrome</doc>
+<metadata>
+</metadata>
+<status status="PASS" endtime="20140312 18:50:03.684" starttime="20140312 18:49:59.596"></status>
+</suite>
+<doc></doc>
+<metadata>
+</metadata>
+<status status="FAIL" endtime="20140312 18:50:03.687" starttime="20140312 18:49:59.337"></status>
+</suite>
+<statistics>
+<total>
+<stat fail="1" pass="1">Critical Tests</stat>
+<stat fail="1" pass="1">All Tests</stat>
+</total>
+<tag>
+</tag>
+<suite>
+<stat fail="1" pass="1" id="s1" name="Spec">Spec</stat>
+<stat fail="1" pass="0" id="s1-s1" name="Sauce Browser">Spec.Sauce Browser</stat>
+<stat fail="0" pass="1" id="s1-s2" name="Sauce Browser Onconnect">Spec.Sauce Browser Onconnect</stat>
+</suite>
+</statistics>
+<errors>
+<msg timestamp="20140312 18:49:59.586" level="ERROR">Error in file '/mnt/wt/pyrosuite/robo/spec/01__sauce_browser.txt': Resource file 'resource.txt' does not exist.</msg>
+<msg timestamp="20140312 18:49:59.611" level="ERROR">Error in file '/mnt/wt/pyrosuite/robo/resource.txt': Importing variable file '/mnt/wt/pyrosuite/robo/ondemand.py' failed: SyntaxError: invalid syntax (ondemand.py, line 15)
+Traceback (most recent call last):
+  None
+PYTHONPATH:
+  /usr/local/lib/python2.7/dist-packages/robot/libraries
+  /usr/local/lib/python2.7/dist-packages
+  /usr/local/bin
+  /usr/lib/python2.7
+  /usr/lib/python2.7/plat-linux2
+  /usr/lib/python2.7/lib-tk
+  /usr/lib/python2.7/lib-old
+  /usr/lib/python2.7/lib-dynload
+  /usr/lib/python2.7/dist-packages
+  /usr/lib/python2.7/dist-packages/gtk-2.0
+  /usr/lib/pymodules/python2.7
+  .
+  /mnt/wt/pyrosuite</msg>
+</errors>
+</robot>

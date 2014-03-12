@@ -1,0 +1,34 @@
+*** Variables ***
+
+${DELAY}         0
+
+*** Settings ***
+Documentation  A resource file containing the demo app specific keywords and variables that create our own domain specific language. Also SeleniumLibrary itself is imported here so that tests only need to import this resource file.
+
+Variables      ondemand.py
+Library        Selenium2Library
+
+*** Keywords ***
+
+Open Login Page
+	Open Browser  ${LOGIN URL}    ${BROWSER}
+    Maximize Browser Window
+    Set Selenium Speed  ${DELAY}
+
+Check Url  [Arguments]  ${target_url}
+    Title Should Be  ${target_url}
+	
+Input Neo Username  [Arguments]  ${username}
+	Wait Until Element Is Visible    loginnameid-inputEl    timeout=5
+    Input Text  loginnameid-inputEl  ${username}
+
+Input Neo Password  [Arguments]  ${password}
+    Input Text  loginpasswordid-inputEl  ${password}
+
+Submit Neo Login
+    Wait For Condition    Get Element Attribute    loginbuttonid@x-item-disabled == false
+	Click Element  loginbuttonid-btnIconEl
+
+Account Page Should Be Open
+    Location Should Be  ${ACCOUNT URL}
+    Title Should Be  Account Info - Sauce Labs

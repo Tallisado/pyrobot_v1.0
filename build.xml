@@ -1,0 +1,34 @@
+
+<project name="QA" basedir=".">
+	
+   <condition property="python.path" value="python"><os family="unix" /></condition>  
+	
+   <macrodef name="run-python">
+		<sequential>
+			<echo message=": executing: ${python.path} pyrosuite_full.py"/>
+			<exec executable="${python.path}" resultproperty="test.run">
+				<env key="DISPLAY" value=":60"/>
+				<arg value="pyrosuite_full.py"/>
+			</exec>
+		</sequential>
+   </macrodef>
+
+   <macrodef name="finally">
+		<sequential>
+			<echo message="-- [PYRO_FINAL] "/>
+         <echo message="      -- test.run result: ${test.run}"/>
+			<fail message="some tests failed !">
+            <condition>
+               <not>
+						<equals arg1="${test.run}" arg2="0"/>
+               </not>
+            </condition>
+			</fail>
+      </sequential>
+   </macrodef>	
+	
+	<target name="pyro">
+		<run-python/>
+		<finally/>
+   </target>
+</project>
