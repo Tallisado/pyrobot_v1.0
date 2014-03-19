@@ -5,10 +5,11 @@
 	
    <macrodef name="run-python">
 		<sequential>
-			<echo message=": executing: ${python.path} pyrosuite_full.py"/>
+			<echo message=": executing: ${python.path} pyrobot.py"/>
 			<exec executable="${python.path}" resultproperty="test.run">
 				<env key="DISPLAY" value=":60"/>
-				<arg value="pyrosuite_full.py"/>
+				<arg value="pyrobot.py"/>
+				<arg value="dev/ui/01__sauce_browser.txt"/>
 			</exec>
 		</sequential>
    </macrodef>

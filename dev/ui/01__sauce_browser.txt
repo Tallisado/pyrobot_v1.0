@@ -1,0 +1,33 @@
+*** Settings ***
+Documentation  A browser test case for sauce local test (non-onconnect)
+
+Resource       ../resources/resource.txt
+
+
+*** Variables ***
+${LOGIN_URL}        http://www.google.ca
+${TITLE}            Google
+#@{FULL_BROWSER}    browser=firefox    remote_url=http://talliskane:6c3ed64b-e065-4df4-b921-75336e2cb9cf@ondemand.saucelabs.com:80/wd/hub    desired_capabilities=name:chrome_Linux_4.0,platform:Linux,version:32,browserName:chrome,javascriptEnabled:True
+#${BROWSER}    firefox
+#${REMOTE}     http://talliskane:6c3ed64b-e065-4df4-b921-75336e2cb9cf@ondemand.saucelabs.com:80/wd/hub
+#${CAPS}       name:chrome_Linux_4.0,platform:Linux,version:32,browserName:chrome,javascriptEnabled:True
+
+
+
+
+*** Test Cases ***
+Open Google Using Sauce
+	Open Pyrobot	  ${PYRO_BROWSER}
+	[Teardown]  Close Browser
+	
+Open Google Using Local Chrome
+	Open Browser 	  ${LOGIN_URL}    chrome
+	[Teardown]  Close Browser
+
+Open Google Using Local Default Browser
+	Open Pyrobot 	  ${LOGIN_URL}
+	[Teardown]  Close Browser
+    
+Open NEO Using Sauce
+	Open Pyrobot	  ${PYRO_BROWSER}
+	[Teardown]  Close Browser

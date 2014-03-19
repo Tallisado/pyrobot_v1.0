@@ -1,18 +1,25 @@
 *** Variables ***
 
-${DELAY}         0
+${DELAY}           0
+#@{FULL_BROWSER}    "http://www.google.ca android remote_url=http://talliskane:6c3ed64b-e065-4df4-b921-75336e2cb9cf@ondemand.saucelabs.com:80/wd/hub desired_capabilities=name:chrome_Linux_4.0,platform:Linux,version:32,browserName:chrome,javascriptEnabled:True
+@{PYRO_BROWSER}       ${BROWSER}    ${REMOTE}    ${CAPS}
+
 
 *** Settings ***
 Documentation  A resource file containing the demo app specific keywords and variables that create our own domain specific language. Also SeleniumLibrary itself is imported here so that tests only need to import this resource file.
 
 Variables      ondemand.py
 Library        Selenium2Library
+Library        pybotLib.py
 
 *** Keywords ***
 
 Open Login Page
-	Open Browser  ${LOGIN URL}    ${BROWSER}
-    Maximize Browser Window
+	Log             @{FULL_BROWSER}
+	Open Browser    @{FULL_BROWSER}
+#	Open Browser  http://www.google.ca    ${BROWSER}  
+#	Open Browser   ${LOGIN URL}    android    remote_url=http://talliskane:6c3ed64b-e065-4df4-b921-75336e2cb9cf@ondemand.saucelabs.com:80/wd/hub     desired_capabilities=name:android_Linux_4.0,platform:Linux,version:4.0,browserName:android,javascriptEnabled:True
+#	Maximize Browser Window
     Set Selenium Speed  ${DELAY}
 
 Check Url  [Arguments]  ${target_url}
