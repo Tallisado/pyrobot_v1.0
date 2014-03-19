@@ -58,10 +58,14 @@ class BrowserData:
         # else 
             # getDefaultUrl()
     def setPyrobotEnvForTest(self, i, config, test_name):
+        if not os.environ.get('BASE_URL'):
+            os.environ['BASE_URL'] = config.BASE_URL
         os.environ[self.envname_pyrobot_default_browser] = config.DEFAULT_SOLO_BROWSER
         os.environ[self.envname_pyrobot_browser] = self.getValue("browser", i)
         os.environ[self.envname_pyrobot_remote_url] = 'http://%s:%s@ondemand.saucelabs.com:80/wd/hub' % (self.getUserName(i), self.getAccessKey(i))
         os.environ[self.envname_pyrobot_caps] = 'name:%s,platform:%s,version:%s,browserName:%s,javascriptEnabled:True' % (test_name, self.getOS(i), self.getBrowserVersion(i), self.getBrowser(i))
+        
+        
         # if os.environ.get(self.envname_pyrobot_browser):
             # os.environ[self.envname_pyrobot_browser] = self.browser_override 
             # os.environ[self.envname_pyrobot_remote_url] = 'http://%s:%s@ondemand.saucelabs.com:80/wd/hub' % (getUserName(index), getAccessKey(index))
@@ -137,79 +141,4 @@ class BrowserData:
 
     def getUserExtensionsURL(self, index):
         return self.getValue('user-extensions-url', index)    
-    # def getDefaultUrl(self, username=, accesskey):
-        # return 'sauce-ondemand:?username=%s&access-key=%s&os=Windows 2012 R2&browser=internet explorer&browser-version=11&max-duration=null&idle-timeout=null' % (SAUCE_USERNAME, SAUCE_ACCESSKEY)
-        # #sauce-ondemand:?username=talliskane&access-key=6c3ed64b-e065-4df4-b921-75336e2cb9cf&os=Windows 2012 R2&browser=internet explorer&browser-version=11&max-duration=null&idle-timeout=null
             
-        
-class ParseSauceJson:
-    def __init__(self, json_raw):
-        self.browser_holder = []
-        
-        self.json_raw = json_raw
-        self.data = json.loads(json_raw) 
-        
-        for url in self.data:
-            browser = {}
-            for attribute, value in url.iteritems():
-                browser[attribute] = value
-                
-            self.browser_holder.append(browser.copy())
-        print self.browser_holder       
-        
-    def getBrowserCount(self):
-        return len(self.data)
-        
-    # def getUrlList(self):
-        # url_list = []
-        # for browsers in data:
-            # for attribute, value in browsers.iteritems():
-                # print attribute, value # example usage
-                # #if attribute == 'url'
-                    # #url_list.append(attribute)
-        # return url_list
-            
-    def getValue(self, key):
-        if key in self.fields:
-            return self.fields[key]
-        else:
-            return ""
-
-    def getUserName(self):
-        return self.getValue("username")
-
-    def getAccessKey(self):
-        return self.getValue("access-key")
-
-    def getJobName(self):
-        return self.getValue("job-name")
-
-    def getOS(self):
-        return self.getValue("os")
-    
-    def getBrowser(self):
-        return self.getValue('browser')
-
-    def getBrowserVersion(self):
-        return self.getValue('browser-version')
-    
-    def getFirefoxProfilejson_raw(self):
-        return self.getValue('firefox-profile-json_raw')
-
-    def getMaxDuration(self):
-        try:
-            return int(self.getValue('max-duration'))
-        except:
-            return 0
-
-    def getIdleTimeout(self):
-        try:
-            return int(self.getValue('idle-timeout'))
-        except:
-            return 0
-
-    def getUserExtensionsjson_raw(self):
-        return self.getValue('user-extensions-json_raw')
-
-    def tojson_raw(self):
-        return json_raw.dumps(self.fields, sort_keys=False)

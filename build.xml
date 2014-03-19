@@ -1,16 +1,29 @@
 
 <project name="QA" basedir=".">
 	
+	<condition property="runtime.payload" value="" else="${qa.payload}">								    <not><isset property="qa.payload"/></not></condition> 
+	<condition property="runtime.base_url" value="" else="${qa.base_url}">								 <not><isset property="qa.base_url"/></not></condition>
+	
    <condition property="python.path" value="python"><os family="unix" /></condition>  
+	
+	<fail message="Property qa.payload needs to be set to a value">	<condition><not><isset property="qa.payload"/></not></condition></fail>
+	<fail message="Property qa.base_url needs to be set to a value">	<condition><not><isset property="qa.base_url"/></not></condition></fail>
 	
    <macrodef name="run-python">
 		<sequential>
-			<echo message=": executing: ${python.path} pyrobot.py"/>
+			<echo message=": executing: ${python.path} pyrobot.py  "/>
 			<exec executable="${python.path}" resultproperty="test.run">
-				<env key="DISPLAY" value=":60"/>
+				<env key="DISPLAY"  value=":60"/>
+				<env key="BASE_URL" value="${runtime.base_url}"/>
+				<env key="PAYLOAD"  value="${runtime.payload}"/>
 				<arg value="pyrobot.py"/>
 				<arg value="dev/ui/01__sauce_browser.txt"/>
 			</exec>
+			<echo message="
+			[PYBOT RUNTIME]${line.separator}
+			runtime.payload             : ${runtime.payload}${line.separator}
+			runtime.base_url            : ${runtime.base_url}${line.separator}
+			"/>
 		</sequential>
    </macrodef>
 

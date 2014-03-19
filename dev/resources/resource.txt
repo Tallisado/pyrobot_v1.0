@@ -2,7 +2,7 @@
 
 ${DELAY}           0
 #@{FULL_BROWSER}    "http://www.google.ca android remote_url=http://talliskane:6c3ed64b-e065-4df4-b921-75336e2cb9cf@ondemand.saucelabs.com:80/wd/hub desired_capabilities=name:chrome_Linux_4.0,platform:Linux,version:32,browserName:chrome,javascriptEnabled:True
-@{PYRO_BROWSER}       ${BROWSER}    ${REMOTE}    ${CAPS}
+@{PYRO_BROWSER}    ${BASE_URL}    ${BROWSER}    ${REMOTE}    ${CAPS}
 
 
 *** Settings ***

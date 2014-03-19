@@ -16,18 +16,18 @@ ${TITLE}            Google
 
 
 *** Test Cases ***
-Open Google Using Sauce
-	Open Pyrobot	  ${PYRO_BROWSER}
+Local TestLevel URL Default Browser
+	Open Pyrobot	  ${LOGIN_URL}
 	[Teardown]  Close Browser
 	
-Open Google Using Local Chrome
-	Open Browser 	  ${LOGIN_URL}    chrome
+Local TestLevel URL Non-Default Browser
+	Open Pyrobot 	  ${LOGIN_URL}    chrome
 	[Teardown]  Close Browser
 
-Open Google Using Local Default Browser
-	Open Pyrobot 	  ${LOGIN_URL}
+Sauce TestLevel URL Browser
+	Open Pyrobot 	  ${PYRO_BROWSER}    ${LOGIN_URL}
 	[Teardown]  Close Browser
     
-Open NEO Using Sauce
-	Open Pyrobot	  ${PYRO_BROWSER}
+Sauce BaseUrl URL Browser
+	Open Pyrobot	  ${PYRO_BROWSER}  
 	[Teardown]  Close Browser

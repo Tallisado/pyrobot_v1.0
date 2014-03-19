@@ -18,7 +18,7 @@ import string
 import random
 import shutil
  
-from ParseSauceURL import *
+from BrowserData import *
 from SauceRest import *
  
 class Jybot():
@@ -176,7 +176,7 @@ log_folder = config.LOG_DIR
 #os.environ['SAUCE_ONDEMAND_BROWSERS'] =  '[{"platform":"LINUX","os":"Linux","browser":"chrome","url":"sauce-ondemand:?os=Linux&browser=chrome&browser-version=32&username=talliskane&access-key=6c3ed64b-e065-4df4-b921-75336e2cb9cf","browser-version":"32"},{"platform":"LINUX","os":"Linux","browser":"android","url":"sauce-ondemand:?os=Linux&browser=android&browser-version=4.0&username=talliskane&access-key=6c3ed64b-e065-4df4-b921-75336e2cb9cf","browser-version":"4.0"}]'
 
 # Example of Single Browser (TeamCity)
-#os.environ['SELENIUM_DRIVER'] = "sauce-ondemand:?username=talliskane&access-key=6c3ed64b-e065-4df4-b921-75336e2cb9cf&os=Windows 2012 R2&browser=internet explorer&browser-version=11&max-duration=null&idle-timeout=null"
+os.environ['SELENIUM_DRIVER'] = "sauce-ondemand:?username=talliskane&access-key=6c3ed64b-e065-4df4-b921-75336e2cb9cf&os=Windows 2012 R2&browser=internet explorer&browser-version=11&max-duration=null&idle-timeout=null"
 
 # parsing command line arguments
 #parseArgs(sys.argv[1:])  
@@ -184,9 +184,14 @@ arglist = sys.argv[1:]
 if len(arglist)<1:
     usage()
     sys.exit(2)
-    
-payload = arglist[len(arglist)-1]
-payload_given = payload
+
+os.environ['DISPLAY'] = config.DEFAULT_BROWSER_DISPLAY
+
+if os.environ.get('PAYLOAD'):
+    payload = os.environ['PAYLOAD']
+else:
+    payload = arglist[len(arglist)-1]
+
 suite_name = os.path.basename(os.path.normpath(payload))
 client_cwd = os.path.realpath(base_dir)
 workspace_home = os.path.join("/mnt/wt/pyrobot/workspace/", ''.join(random.choice(string.ascii_uppercase) for i in range(12)))
@@ -195,14 +200,12 @@ os.mkdir(workspace_home, 0755)
 payload = os.path.join(os.path.realpath(base_dir), payload)
 if not os.path.exists(payload):
     print "FATAL - Pyro must be given a payload that exists: %s\n" % payload
-    exit(1)
+    sys.exit(2)
    
     
 #####
 ####  log_folder = os.path.abspath(log_folder)
 log_folder = payload
-
-os.environ['DISPLAY'] = config.DEFAULT_BROWSER_DISPLAY
 
 print "Base dir:         %s" % base_dir  
 print "Client dir:       %s" % client_cwd
