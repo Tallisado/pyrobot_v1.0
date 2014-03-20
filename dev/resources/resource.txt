@@ -3,7 +3,9 @@
 ${DELAY}           0
 #@{FULL_BROWSER}    "http://www.google.ca android remote_url=http://talliskane:6c3ed64b-e065-4df4-b921-75336e2cb9cf@ondemand.saucelabs.com:80/wd/hub desired_capabilities=name:chrome_Linux_4.0,platform:Linux,version:32,browserName:chrome,javascriptEnabled:True
 @{PYRO_BROWSER}    ${BASE_URL}    ${BROWSER}    ${REMOTE}    ${CAPS}
-
+${Neo}            http://${DEVICE_IP}
+${DEVICE_IP}      ${EMPTY}
+${ATTR_VALUE}      ${EMPTY}
 
 *** Settings ***
 Documentation  A resource file containing the demo app specific keywords and variables that create our own domain specific language. Also SeleniumLibrary itself is imported here so that tests only need to import this resource file.
@@ -11,31 +13,108 @@ Documentation  A resource file containing the demo app specific keywords and var
 Variables      ondemand.py
 Library        Selenium2Library
 Library        pybotLib.py
+Library           Collections
+Library           RequestsLibrary
 
 *** Keywords ***
-
-Open Login Page
-	Log             @{FULL_BROWSER}
-	Open Browser    @{FULL_BROWSER}
-#	Open Browser  http://www.google.ca    ${BROWSER}  
-#	Open Browser   ${LOGIN URL}    android    remote_url=http://talliskane:6c3ed64b-e065-4df4-b921-75336e2cb9cf@ondemand.saucelabs.com:80/wd/hub     desired_capabilities=name:android_Linux_4.0,platform:Linux,version:4.0,browserName:android,javascriptEnabled:True
-#	Maximize Browser Window
-    Set Selenium Speed  ${DELAY}
-
-Check Url  [Arguments]  ${target_url}
-    Title Should Be  ${target_url}
 	
-Input Neo Username  [Arguments]  ${username}
+Selenium Login
+	[Arguments]    ${USERNAME}    ${PASSWORD}    ${ELEMENT}
+#	Open Pyrobot    ${PYRO_BROWSER}    ${Neo}
+	Open Pyrobot    ${Neo}    firefox
+	Maximize Browser Window
+    Set Selenium Speed    1
 	Wait Until Element Is Visible    loginnameid-inputEl    timeout=5
-    Input Text  loginnameid-inputEl  ${username}
+	Wait Until Element Is Visible    loginpasswordid-inputEl    timeout=5
+	Input Text    loginnameid-inputEl    ${USERNAME}
+	Input Text    loginpasswordid-inputEl    ${PASSWORD}
+	Wait Until Element Is Visible    id=loginbuttonid-btnIconEl   timeout=5
+	Click Element    id=loginbuttonid-btnIconEl
+	Wait Until Element Is Visible    id=${ELEMENT}   timeout=5
 
-Input Neo Password  [Arguments]  ${password}
-    Input Text  loginpasswordid-inputEl  ${password}
+Selenium Drag And Drop
+	[Arguments]    ${LOCTYPE}    ${ELEMENT_SOURCE}    ${ELEMENT_DESTINATION}
+	run keyword if    '${LOCTYPE}'=='id'    Drag And Drop    id=${ELEMENT_SOURCE}    id=${ELEMENT_DESTINATION}
+	run keyword if    '${LOCTYPE}'=='xpath'    Drag And Drop    xpath=${ELEMENT_SOURCE}    xpath=${ELEMENT_DESTINATION}
+	run keyword if    '${LOCTYPE}'=='name'    Drag And Drop    name=${ELEMENT_SOURCE}    name=${ELEMENT_DESTINATION}
+	
+Selenium Check
+	[Arguments]    ${LOCTYPE}    ${BOX}
+	run keyword if    '${LOCTYPE}'=='id'    Select Checkbox    id=${BOX}
+	run keyword if    '${LOCTYPE}'=='xpath'    Select Checkbox    xpath=${BOX}
+	run keyword if    '${LOCTYPE}'=='name'    Select Checkbox    name=${BOX}
 
-Submit Neo Login
-    Wait For Condition    Get Element Attribute    loginbuttonid@x-item-disabled == false
-	Click Element  loginbuttonid-btnIconEl
+Selenium Uncheck
+	[Arguments]    ${LOCTYPE}    ${BOX}
+	run keyword if    '${LOCTYPE}'=='id'    Unselect Checkbox    id=${BOX}
+	run keyword if    '${LOCTYPE}'=='xpath'    Unselect Checkbox    xpath=${BOX}
+	run keyword if    '${LOCTYPE}'=='name'    Unselect Checkbox    name=${BOX}
 
-Account Page Should Be Open
-    Location Should Be  ${ACCOUNT URL}
-    Title Should Be  Account Info - Sauce Labs
+Selenium Wait For Element Present
+	[Arguments]    ${LOCTYPE}    ${ELEMENT}
+	run keyword if    '${LOCTYPE}'=='id'    Wait Until Page Contains Element    id=${ELEMENT}
+	run keyword if    '${LOCTYPE}'=='xpath'    Wait Until Page Contains Element    xpath=${ELEMENT}
+	run keyword if    '${LOCTYPE}'=='name'    Wait Until Page Contains Element    name=${ELEMENT}
+	
+Selenium Verify Text From Element
+	[Arguments]    ${LOCTYPE}    ${ELEMENT}    ${TEXT}
+	run keyword if    '${LOCTYPE}'=='id'    Element Text Should Be    id=${ELEMENT}    ${TEXT}
+	run keyword if    '${LOCTYPE}'=='xpath'    Element Text Should Be    xpath=${ELEMENT}    ${TEXT}
+	run keyword if    '${LOCTYPE}'=='name'    Element Text Should Be    name=${ELEMENT}    ${TEXT}
+	
+Selenium Reload
+	Reload Page
+	
+Selenium Type
+	[Arguments]    ${LOCTYPE}    ${ELEMENT}    ${TEXT}
+	run keyword if    '${LOCTYPE}'=='id'    Input Text    id=${ELEMENT}    ${TEXT}
+	run keyword if    '${LOCTYPE}'=='xpath'    Input Text    xpath=${ELEMENT}    ${TEXT}
+	run keyword if    '${LOCTYPE}'=='name'    Input Text    name=${ELEMENT}    ${TEXT}
+	
+Selenium Clear
+	[Arguments]    ${LOCTYPE}    ${ELEMENT}
+	run keyword if    '${LOCTYPE}'=='id'    Input Text    id=${ELEMENT}    ${EMPTY}
+	run keyword if    '${LOCTYPE}'=='xpath'    Input Text    xpath=${ELEMENT}    ${EMPTY}
+	run keyword if    '${LOCTYPE}'=='name'    Input Text    name=${ELEMENT}    ${EMPTY}
+	
+Selenium Verify Attribute From Element
+	[Arguments]    ${LOCTYPE}    ${ELEMENT}    ${ELEMENT_CLASS}    ${TEXT}
+	${ATTR_VALUE}=    Get Element Attribute    ${LOCTYPE}=${ELEMENT}@${ELEMENT_CLASS}
+	Should Contain    ${TEXT}    ${ATTR_VALUE}
+
+Selenium Click
+	[Arguments]    ${LOCTYPE}    ${ELEMENT}
+	run keyword if    '${LOCTYPE}'=='id'    Click Element    id=${ELEMENT}
+	run keyword if    '${LOCTYPE}'=='xpath'    Click Element    xpath=${ELEMENT}
+	run keyword if    '${LOCTYPE}'=='name'    Click Element    name=${ELEMENT}
+	
+Selenium Click Text From Combobox
+	[Arguments]    ${LOCTYPE}    ${ELEMENT}    ${TEXT}
+	Selenium Wait For Element Present    ${LOCTYPE}    ${ELEMENT}
+	Selenium Click    ${LOCTYPE}    ${ELEMENT}
+	Selenium Click    xpath    //li[contains(@class, 'x-boundlist-item') and contains(text(),'${TEXT}')]
+
+Selenium Populate Combo And Click Text
+	[Arguments]    ${LOCTYPE}    ${ELEMENT}    ${TEXT}
+	Selenium Wait For Element Present    ${LOCTYPE}    ${ELEMENT}
+	Selenium Click    ${LOCTYPE}    ${ELEMENT}  
+	Selenium Click    xpath    //div[contains(concat(' ', @class, ' '), 'x-trigger-index-0 x-form-trigger x-form-arrow-trigger x-form-trigger-first')]
+	Sleep    5
+	Selenium Click    xpath    //li[contains(text(), '${TEXT}')]
+	
+Selenium Double Click
+	[Arguments]    ${LOCTYPE}    ${ELEMENT}
+	run keyword if    '${LOCTYPE}'=='id'    Double Click Element    id=${ELEMENT}
+	run keyword if    '${LOCTYPE}'=='xpath'    Double Click Element    xpath=${ELEMENT}
+	run keyword if    '${LOCTYPE}'=='name'    Double Click Element    name=${ELEMENT}
+	
+Selenium Element Should Not Be Visible
+	[Arguments]    ${LOCTYPE}    ${ELEMENT}
+	run keyword if    '${LOCTYPE}'=='id'    Element Should Not Be Visible    id=${ELEMENT}
+	run keyword if    '${LOCTYPE}'=='xpath'    Element Should Not Be Visible    xpath=${ELEMENT}
+	run keyword if    '${LOCTYPE}'=='name'    Element Should Not Be Visible    name=${ELEMENT}
+	
+Selenium Click By Script
+	[Arguments]    ${ELEMENT}
+	Execute Javascript    window.document.getElementById('${ELEMENT}').click();
+	

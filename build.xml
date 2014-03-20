@@ -41,7 +41,7 @@
       </sequential>
    </macrodef>	
 	
-	<target name="pyro">
+	<target name="pyrobot">
 		<run-python/>
 		<finally/>
    </target>

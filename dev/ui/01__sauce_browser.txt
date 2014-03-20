@@ -5,29 +5,36 @@ Resource       ../resources/resource.txt
 
 
 *** Variables ***
-${LOGIN_URL}        http://www.google.ca
-${TITLE}            Google
-#@{FULL_BROWSER}    browser=firefox    remote_url=http://talliskane:6c3ed64b-e065-4df4-b921-75336e2cb9cf@ondemand.saucelabs.com:80/wd/hub    desired_capabilities=name:chrome_Linux_4.0,platform:Linux,version:32,browserName:chrome,javascriptEnabled:True
-#${BROWSER}    firefox
-#${REMOTE}     http://talliskane:6c3ed64b-e065-4df4-b921-75336e2cb9cf@ondemand.saucelabs.com:80/wd/hub
-#${CAPS}       name:chrome_Linux_4.0,platform:Linux,version:32,browserName:chrome,javascriptEnabled:True
-
+${GOOGLE_URL}       http://www.google.ca
+${GOOGLE_TITLE}     Google
+${REDDIT_TITLE}     reddit: the front page of the internet
+${NEO_URL}          http://10.10.9.129/Login/index.php
+${NEO_TITLE}        ADTRAN Neo
 
 
 
 *** Test Cases ***
-Local TestLevel URL Default Browser
-	Open Pyrobot	  ${LOGIN_URL}
+Local Default Browser TestLevel URL 
+	Open Pyrobot	  ${GOOGLE_URL}
+    Check Title       ${GOOGLE_TITLE}
 	[Teardown]  Close Browser
 	
-Local TestLevel URL Non-Default Browser
-	Open Pyrobot 	  ${LOGIN_URL}    chrome
+Local Non-Default Browser TestLevel URL 
+	Open Pyrobot 	  ${GOOGLE_URL}    chrome
+	Check Title       ${GOOGLE_TITLE}
 	[Teardown]  Close Browser
 
-Sauce TestLevel URL Browser
-	Open Pyrobot 	  ${PYRO_BROWSER}    ${LOGIN_URL}
+Sauce Browser TestLevel URL
+	Open Pyrobot 	  ${PYRO_BROWSER}    ${GOOGLE_URL}
+	[Teardown]        Close Browser
+    Check Title       ${GOOGLE_TITLE}
+	
+Sauce Browser BaseUrl URL
+	Open Pyrobot	  ${PYRO_BROWSER}  
+	Check Title       ${REDDIT_TITLE}
 	[Teardown]  Close Browser
     
-Sauce BaseUrl URL Browser
-	Open Pyrobot	  ${PYRO_BROWSER}  
+Sauce Browser OnConnect
+	Open Pyrobot	  ${PYRO_BROWSER}    ${NEO_URL}
+	Check Title       ${NEO_TITLE}
 	[Teardown]  Close Browser

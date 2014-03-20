@@ -37,7 +37,6 @@ def open_pyrobot(arglist, opt_arg=""):
         if opt_arg == "":
             url = arglist[0]
         elif "http" in opt_arg:
-            print 'HTTP FOUND IN LOGIN'
             url = opt_arg
         else:
             raise ValueError(opt_arg + " is not a valid url.")

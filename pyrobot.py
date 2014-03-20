@@ -176,22 +176,34 @@ log_folder = config.LOG_DIR
 #os.environ['SAUCE_ONDEMAND_BROWSERS'] =  '[{"platform":"LINUX","os":"Linux","browser":"chrome","url":"sauce-ondemand:?os=Linux&browser=chrome&browser-version=32&username=talliskane&access-key=6c3ed64b-e065-4df4-b921-75336e2cb9cf","browser-version":"32"},{"platform":"LINUX","os":"Linux","browser":"android","url":"sauce-ondemand:?os=Linux&browser=android&browser-version=4.0&username=talliskane&access-key=6c3ed64b-e065-4df4-b921-75336e2cb9cf","browser-version":"4.0"}]'
 
 # Example of Single Browser (TeamCity)
-os.environ['SELENIUM_DRIVER'] = "sauce-ondemand:?username=talliskane&access-key=6c3ed64b-e065-4df4-b921-75336e2cb9cf&os=Windows 2012 R2&browser=internet explorer&browser-version=11&max-duration=null&idle-timeout=null"
+#os.environ['SELENIUM_DRIVER'] = "sauce-ondemand:?username=talliskane&access-key=6c3ed64b-e065-4df4-b921-75336e2cb9cf&os=Windows 2012 R2&browser=internet explorer&browser-version=11&max-duration=null&idle-timeout=null"
+
+if not os.environ.get('SAUCE_ONDEMAND_BROWSERS') and not os.environ.get('SELENIUM_DRIVER'):
+    print 'WARNING: Pyrobot was unable to intersect the sauce environment variables'
+    print '  -> SAUCE_ONDEMAND_BROWSERS SELENIUM_DRIVER'
+    print '  Entering test mode by overriding SELENIUM_DRIVER with a fake value'
+    print ''
+    os.environ['SELENIUM_DRIVER'] = "sauce-ondemand:?username=talliskane&access-key=6c3ed64b-e065-4df4-b921-75336e2cb9cf&os=Windows 2012 R2&browser=internet explorer&browser-version=11&max-duration=null&idle-timeout=null"
 
 # parsing command line arguments
 #parseArgs(sys.argv[1:])  
-arglist = sys.argv[1:] 
-if len(arglist)<1:
-    usage()
-    sys.exit(2)
+ 
+# if len(arglist)<1:
+    # usage()
+    # sys.exit(2)
 
 os.environ['DISPLAY'] = config.DEFAULT_BROWSER_DISPLAY
 
+arglist = sys.argv[1:]
 if os.environ.get('PAYLOAD'):
     payload = os.environ['PAYLOAD']
 else:
-    payload = arglist[len(arglist)-1]
-
+    try:
+        payload = arglist[len(arglist)-1]
+    except:
+        usage()
+        sys.exit(2)
+            
 suite_name = os.path.basename(os.path.normpath(payload))
 client_cwd = os.path.realpath(base_dir)
 workspace_home = os.path.join("/mnt/wt/pyrobot/workspace/", ''.join(random.choice(string.ascii_uppercase) for i in range(12)))
