@@ -13,3 +13,10 @@ Pybot serial execution
 
 Rebot file management
 - concat  pybot's resulting output and reports
+
+
+How to run:
+-start vnc for local firefox to run in (if necessary)
+	#> vncserver :60 -geometry 1280x1024
+-execute pybot
+	#> BASE_URL=http://<IP REMOVED>/Login/index.php python pyrobot.py dev/spec/01__sauce_browser.txt
