@@ -33,10 +33,9 @@ pyrobot
 ### TeamCity Sauce Plugin interpretation
   * The SauceCI plugin provides either SAUCE_ONDEMAND_BROWSERS or BROWSER, when multiple or single browser selection within the build feature respectively
   * These environment vaiables are intersected and intrepreted to provide a remote webdriver instantiation to Robot Framework
-### Standalone 
+### Standalone
   * Pyrobot can be executed from the commandline, using ant, or directly with the python script itself. When in standalone mode, the browser object is created based on the default values in __./PyrobotConfig__
-  * (vnc,Xvfb..) for the display buffer if necessary
-  ``` vncserver :60 -geometry 1280x1024 ```
+  * ``` vncserver :60 -geometry 1280x1024 ``` or ``` Xvfb ... ```
   * ```BASE_URL=http://10.10.9.129/Login/index.php python pyrobot.py dev/spec/01__sauce_browser.txt ```
   
 ### Pybot wrapper
@@ -47,16 +46,16 @@ pyrobot
   * ``` SAUCE_USERNAME = "yourname" ```
   * ``` SAUCE_ACCESSKEY = "yourkey" ```
   * ``` DEFAULT_SAUCEURL = "sauce-ondemand:?username=%s&access-key=%s&os=Windows 2012 R2&browser=%s&browser-version=11&max-duration=null&idle-timeout=null" ```
-  1. when executed in standalone, this remote webdriver is instanciated if using sauce
+    1. when executed in standalone, this remote webdriver is instanciated if using sauce
   * ``` DEFAULT_SOLO_BROWSER = 'firefox' ```
-  1. when executed in standalone, this remote webdriver is instanciated if using local browser
+    1. when executed in standalone, this remote webdriver is instanciated if using local browser
   * ``` DEFAULT_BROWSER_DISPLAY = ":60" ```
   * ``` BASE_URL = "http://www.google.ca" ```
     1. when not provided through ant/python, base_url default here
   
 #### Pyrobot Robot Framework
 1. Reference the resource file: 
-  * ``` **Resource       ../resources/resource.txt** ```
+  * ``` Resource       ../resources/resource.txt ```
 2. Various Invocations:
   1. 	``` Open Pyrobot	  http://www.google.ca                              __Local Default Browser TestLevel URL__ ```
   2. 	``` Open Pyrobot 	  http://www.google.ca      chrome                  __Local Non-Default Browser TestLevel URL__ ```
