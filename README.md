@@ -10,19 +10,19 @@ pyrobot
 - SAUCE_ONDEMAND_BROWSERS or BROWSER, depending on if single or multiple
 - Also runs in standalone mode
 
-## Pybot serial execution
+### Pybot serial execution
 - Spawns pybot processes in serial
 - Stages each pybot test suite with the target browser
 - Browser information is embedded into log
 
-## Rebot file management
+### Rebot file management
 - Concat  pybot's resulting output and reports
 
 
 ## How it works:
 1. A Teamcity build is started, and as such invokes; [Sauce CI - Plugin](http://saucelabs.com/teamcity/1 "SauceLabs Teamcity plugin") and Pyrobot, the build feature and build step respectively.
-  * Example Build Feature ![Build Feature](docs/teamcitybuildfeature_sauce.JPG?raw=true)
-  * Example Pyrobot ![Pyrobot](docs/teamcitybuild_sauce.JPG?raw=true)
+  * __Example Build__ Feature ![Build Feature](docs/teamcitybuildfeature_sauce.JPG?raw=true)
+  * __Example Pyrobot__ ![Pyrobot](docs/teamcitybuild_sauce.JPG?raw=true)
 2. Teamcity will start OnConnect (if selected)
 3. Pyrobot executes the payload, either a single file or entire directory
   * If a directory is provided, the directory contents can be enumerated to allow the files to be ordered.
@@ -35,8 +35,8 @@ pyrobot
   * These environment vaiables are intersected and intrepreted to provide a remote webdriver instantiation to Robot Framework  
 ### Standalone 
   * Pyrobot can be executed from the commandline, using ant, or directly with the python script itself. When in standalone mode, the browser object is created based on the default values in __./PyrobotConfig__
-  * eg:**vncserver :60 -geometry 1280x1024** (vnc,Xvfb..) for the display buffer if necessary
-  * eg:**#>BASE_URL=http://10.10.9.129/Login/index.php python pyrobot.py dev/spec/01__sauce_browser.txt**
+  * eg: **vncserver :60 -geometry 1280x1024** (vnc,Xvfb..) for the display buffer if necessary
+  * eg: ```#>BASE_URL=http://10.10.9.129/Login/index.php python pyrobot.py dev/spec/01__sauce_browser.txt```
 ### Pybot wrapper
   * Pybot is executed for each payload specified, and all selected browsers in the Build Feature in Sauce CI.
   * The Selenium2Library is augmented to provided integration to the Sauce service (see Pyrobot Robot Framework)
