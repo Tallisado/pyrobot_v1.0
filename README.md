@@ -21,8 +21,8 @@ pyrobot
 
 ## How it works:
 1. A Teamcity build is started, and as such invokes; [Sauce CI - Plugin](http://saucelabs.com/teamcity/1 "SauceLabs Teamcity plugin") and Pyrobot, the build feature and build step respectively.
-  * Example Build Feature ![Build Feature](docs/teamcitybuildfeature_sauce.jpg?raw=true)
-  * Example Pyrobot ![Pyrobot](docs/teamcitybuild_sauce.jpg?raw=true)
+  * Example Build Feature ![Build Feature](docs/teamcitybuildfeature_sauce.JPG?raw=true)
+  * Example Pyrobot ![Pyrobot](docs/teamcitybuild_sauce.JPG?raw=true)
 2. Teamcity will start OnConnect (if selected)
 3. Pyrobot executes the payload, either a single file or entire directory
   * If a directory is provided, the directory contents can be enumerated to allow the files to be ordered.
