@@ -1,0 +1,90 @@
+*** Settings ***
+Suite Setup
+Suite Teardown    Close Browser
+Library           Selenium2Library
+Library           Collections
+Resource          ../resources/resource.txt
+
+*** Variables ***
+${Neo}            http://${DEVICE_IP}
+${DEVICE_IP}      10.10.9.63
+
+*** Test Cases ***
+Login to PPM
+	Selenium Login    3011    1234    settingsButton-btnIconEl
+
+Verify Attribute From Element
+	Selenium Wait For Element Present    id    settingsButton-btnIconEl
+	Selenium Click    id    settingsButton-btnIconEl
+	Selenium Wait For Element Present    id    settingsProfile
+	Selenium Click    id    settingsProfile
+	Selenium Verify Attribute From Element    name    HomeNumber    value    (613) 599-0100
+	Selenium Click    id    saveUserProfileId-btnIconEl
+	
+Drag and Drop and Verify Text From Element
+	Selenium Wait For Element Present    id    settingsButton-btnIconEl
+	Selenium Click   id    settingsButton-btnIconEl
+	Selenium Wait For Element Present    id    settingsPhone
+	Selenium Click   id    settingsPhone
+	Selenium Wait For Element Present    id    phone_btn0_lbl
+	Selenium Drag And Drop    id    phoneFunc0_6    phone_btn2
+	Selenium Verify Text From Element    id    phone_btn2_lbl    Mailbox	
+	Selenium Reload
+	
+Uncheck Box
+	Selenium Wait For Element Present    id    settingsButton-btnIconEl
+	Selenium Click   id    settingsButton-btnIconEl
+	Selenium Wait For Element Present    id    settingsVoicemail
+	Selenium Click   id    settingsVoicemail
+	Selenium Wait For Element Present    id    autoPlayMessage_checkbox-inputEl
+	Selenium Uncheck   id    autoPlayMessage_checkbox-inputEl
+	Selenium Click   id    settingVMConfigClose-btnIconEl
+	
+Check Box
+	Selenium Wait For Element Present    id    settingsButton-btnIconEl
+	Selenium Click   id    settingsButton-btnIconEl
+	Selenium Wait For Element Present    id    settingsVoicemail
+	Selenium Click   id    settingsVoicemail
+	Selenium Wait For Element Present    id    autoPlayMessage_checkbox-inputEl
+	Selenium Check   id    autoPlayMessage_checkbox-inputEl
+	Selenium Click   id    settingVMConfigClose-btnIconEl
+	
+Clear and Type in Text Box
+	Selenium Wait For Element Present    id    settingsButton-btnIconEl
+	Selenium Click    id    settingsButton-btnIconEl
+	Selenium Wait For Element Present    id    settingsProfile
+	Selenium Click    id    settingsProfile
+	Selenium Clear    name    HomeNumber
+	Selenium Type    name    HomeNumber    8880000101
+	Selenium Verify Attribute From Element    name    HomeNumber    value    8880000101
+	Selenium Clear    name    HomeNumber
+	Selenium Type    name    HomeNumber    (613) 599-0100
+	Selenium Click    id    saveUserProfileId-btnIconEl
+	
+Click Text From Combobox
+	Selenium Wait For Element Present    id    settingsButton-btnIconEl
+	Selenium Click    id    settingsButton-btnIconEl
+	Selenium Wait For Element Present    id    settingsVoicemail
+	Selenium Click    id    settingsVoicemail
+	Selenium Click Text From Combobox    id    primaryEmailNotification_combobox-inputEl    Never
+	Selenium Click Text From Combobox    id    primaryEmailNotification_combobox-inputEl    Always
+	#Selenium Click Text From Combobox    id    secondaryEmailNotification_combobox-inputEl    Never
+	#Selenium Click Text From Combobox    id    secondaryEmailNotification_combobox-inputEl    Always
+	Selenium Click    id    settingVMConfigClose-btnIconEl
+	
+Selenium Populate Combo And Click Text
+	Selenium Wait For Element Present    id    settingsButton-btnIconEl
+	Selenium Click   id    settingsButton-btnIconEl
+	Selenium Wait For Element Present    id    settingsPhone
+	Selenium Click   id    settingsPhone
+	Selenium Wait For Element Present    id    phone_btn0_lbl
+	Selenium Drag And Drop    id    phoneFunc0_6    phone_btn2
+	Selenium Verify Text From Element    id    phone_btn2_lbl    Mailbox	
+	Selenium Double Click    id    phone_btn2
+	Selenium Populate Combo And Click Text    id    mailbox_combobox-inputEl    Wizard User
+	Selenium Drag And Drop    id    phoneFunc0_9    phone_btn3
+	Selenium Verify Text From Element    id    phone_btn3_lbl    Paging G...	
+	Selenium Double Click    id    phone_btn3
+	Selenium Populate Combo And Click Text    id    paginggroup_combobox-inputEl    Paging Group
+	
+*** Keywords ***
