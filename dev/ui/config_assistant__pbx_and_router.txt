@@ -3,7 +3,7 @@ Suite Setup
 Suite Teardown    Close Browser
 Library           Selenium2Library
 Library           Collections
-Variables         phone_dictionary.py
+Variables         ../resources/phone_dictionary.py
 Resource          ../resources/resource.txt
 
 *** Variables ***
