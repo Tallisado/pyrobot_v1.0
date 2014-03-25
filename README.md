@@ -35,8 +35,10 @@ pyrobot
   * These environment vaiables are intersected and intrepreted to provide a remote webdriver instantiation to Robot Framework  
 ### Standalone 
   * Pyrobot can be executed from the commandline, using ant, or directly with the python script itself. When in standalone mode, the browser object is created based on the default values in __./PyrobotConfig__
-  * eg: **vncserver :60 -geometry 1280x1024** (vnc,Xvfb..) for the display buffer if necessary
-  * eg: ```#>BASE_URL=http://10.10.9.129/Login/index.php python pyrobot.py dev/spec/01__sauce_browser.txt```
+  * (vnc,Xvfb..) for the display buffer if necessary
+  ``` vncserver :60 -geometry 1280x1024 ```
+  * ```#>BASE_URL=http://10.10.9.129/Login/index.php python pyrobot.py dev/spec/01__sauce_browser.txt ```
+  
 ### Pybot wrapper
   * Pybot is executed for each payload specified, and all selected browsers in the Build Feature in Sauce CI.
   * The Selenium2Library is augmented to provided integration to the Sauce service (see Pyrobot Robot Framework)
