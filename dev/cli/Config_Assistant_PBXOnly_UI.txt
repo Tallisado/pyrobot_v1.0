@@ -1,0 +1,247 @@
+*** Settings ***
+Suite Setup
+Suite Teardown    Close Browser
+Library           Selenium2Library
+Library           Collections
+Variables         phone_dictionary.py
+
+*** Variables ***
+${Neo}            http://admin:password@${DEVICE_IP}:81
+${DEVICE_IP}      10.10.9.164
+${VOICE_USER_NUMBER}    2
+
+*** Test Cases ***
+Go to Neo
+    Open Browser to ${Neo}
+
+Go to Wizard
+    Click Image    WizardToggleIcon
+    #we can open it here but I have no way to move to it...yet    Execute Javascript    openStartupWizard()
+    Selenium2Library.Go To    ${DEVICE_IP}:81/main/wizard/startup/startup_welcome.html
+
+Create New Configuration
+    [Tags]    new
+    Click Link    createNew
+    Click Link    modal-upload-submit
+
+Network Configuration
+    Select PBX and Router
+	Selenium2Library.Click Element    remoteAdminEnabled
+    Configure WAN Port Settings    10.10.9.129    255.255.248.0    10.10.8.1    10.10.8.2
+    Configure LAN Port Settings    10.10.50.1    255.255.255.0
+    Next
+    Sleep    1
+    Next
+
+General System Setup
+    Configure Admin    admin    password
+    Next
+
+Trunk Configuration
+    Create SIP Trunk
+    Create Analog Trunk
+    Create PRI Trunk
+    Next
+
+Analog Trunk Configuration
+    Trunk Description    FXO 1
+    Select FXO Port 0/1
+    Allow Trunk to Trunk Calls    true
+    Assign to SLA    false
+    Add Another Trunk
+    Trunk Description    FXO 2
+    Select FXO Port 0/2
+    Allow Trunk to Trunk Calls    true
+    Assign to SLA    false
+    Add Another Trunk
+    Trunk Description    FXO 3
+    Select FXO Port 0/3
+    Allow Trunk to Trunk Calls    true
+    Assign to SLA    false
+    Add Another Trunk
+    Trunk Description    FXO 4
+    Select FXO Port 0/4
+    Allow Trunk to Trunk Calls    true
+    Assign to SLA    false
+    Add Another Trunk
+    Trunk Description    FXO 5
+    Select FXO Port 0/5
+    Allow Trunk to Trunk Calls    true
+    Assign to SLA    false
+    Add Another Trunk
+    Trunk Description    FXO 6
+    Select FXO Port 0/6
+    Allow Trunk to Trunk Calls    true
+    Assign to SLA    false
+    Next
+
+#Resume Previous Session
+#    [Tags]    resume
+#    Selenium2Library.Execute Javascript    resumeFunction()
+
+PRI Trunk Configuration
+    [Documentation]    Switch types are ISDN, ATT, NORTEL, and LUCENT
+    Trunk Description    PRI Trunk
+    Main Phone Number    6135999698
+    Use as outbount caller ID    true
+    Channels    1    23
+    Switch Type NORTEL
+    Allow Trunk to Trunk Calls    true
+    Assign to SLA    false
+    Next
+
+SIP Trunk Configuration
+    Trunk Description    ITSP Trunk
+    Main Phone Number    8885999698
+    SIP Server    10.10.9.173
+    SIP Server Port
+    SIP Proxy
+    SIP Proxy Port
+    Enable SIP Authentication    False
+    Allow Trunk to Trunk Calls    True
+    Next
+
+Inband Call Routing
+    [Documentation]    Select to route incoming calls to the Autoattendant (id=autoattendant) or operator group (id=operatorgroup)
+    Run Keyword And Continue On Failure    Selenium2Library.Radio Button Should Be Set To    radioGroup    autoattendant
+    Next
+    Next
+
+User Configuration
+	Create User    3011	   Wizard   User     VVX500    0004f2ad3012
+    Next
+
+Summary page
+    Next
+
+*** Keywords ***
+Add Phone User
+    [Arguments]    ${extension}    ${first_name}    ${last_name}
+    Execute Javascript    var iframe = document.getElementById('user_table_frame'); var innerDoc = iframe.contentDocument || iframe.contentWindow.document;
+    ${numbeOfPhones}=    ${numberOfPhones + 1}
+
+Open Browser to ${URL}
+    Open Browser    ${URL}
+    Maximize Browser Window
+    Set Selenium Speed    1
+
+Configure Admin
+    [Arguments]    ${name}    ${password}
+    Selenium2Library.Input Text    adminUserName    ${name}
+    Selenium2Library.Input Text    adminPassword    ${password}
+    Selenium2Library.Input Text    verifyPassword    ${password}
+
+Select PBX ${function}
+    [Documentation]    if ${function}==Only will select optionB else if ${function}==and Router will select optionA
+    Run Keyword if    '${function}'=='Only'    Select Radio Button    network_radiobutton    optionB
+    Run Keyword if    '${function}'=='Only'    Click Link    use_dhcp
+    Run Keyword if    '${function}'=='and Router'    Select Radio Button    network_radiobutton    optionA
+    Selenium2Library.Click Button    next
+
+Next
+    Execute Javascript    nextFunction()
+
+Check Box
+    [Arguments]    ${box}
+    Selenium2Library.Click Element    ${box}
+
+Trunk Description
+    [Arguments]    ${description}
+    Selenium2Library.Input Text    trunk_description    ${description}
+
+Create ${type} Trunk
+    run keyword if    '${type}'=='Analog'    Check Box    trunk_fxo_checkbox
+    run keyword if    '${type}'=='SIP'    Check Box    trunk_voip_checkbox
+    run keyword if    '${type}'=='PRI'    Check Box    trunk_pri_checkbox
+
+Select FXO Port ${port}
+    Selenium2Library.Select From List By Label    fxo_port    FXO ${port}
+
+Assign to SLA
+    [Arguments]    ${bool}
+    ${bool}    Convert to Boolean    ${bool}
+    Run Keyword if    ${bool}    Check Box    slaGroup_chkbox
+
+Allow Trunk to Trunk Calls
+    [Arguments]    ${bool}
+    ${bool}    Convert to Boolean    ${bool}
+    Run Keyword if    ${bool}    Check Box    rejectExternal_checkbox
+
+Add Another Trunk
+    Click Button    add_trunk_button
+
+Main Phone Number
+    [Arguments]    ${number}
+    Selenium2Library.Input Text    main_number    ${number}
+
+Use as outbount caller ID
+    [Arguments]    ${bool}
+    ${bool}    Convert to Boolean    ${bool}
+    Run Keyword if    ${bool}    Check Box    outboundCallId_chkbox
+
+Channels
+    [Arguments]    ${start}    ${end}
+    log    ${start} to ${end}
+
+Switch Type ${type}
+    run keyword if    '${type}'=='ISDN'    Selenium2Library.Select From List By Label    priSwitchType    National ISDN 2
+    run keyword if    '${type}'=='ATT'    Selenium2Library.Select From List By Label    priSwitchType    ATT 4ESS
+    run keyword if    '${type}'=='LUCENT'    Selenium2Library.Select From List By Label    priSwitchType    LUCENT 5ESS
+    run keyword if    '${type}'=='NORTEL'    Selenium2Library.Select From List By Label    priSwitchType    Nortel DMS-100
+
+Configure WAN Port Settings
+    [Arguments]    ${address}    ${mask}    ${gateway}    ${dns}
+    Selenium2Library.Input Text    wan_ip    ${address}
+    Selenium2Library.Input Text    wan_subnet    ${mask}
+    Selenium2Library.Input Text    defaultGateway    ${gateway}
+    Selenium2Library.Input Text    primaryDns    ${dns}
+
+Use DHCP
+    Check Box    use_dhcp
+
+Configure LAN Port Settings
+    [Arguments]    ${address}    ${mask}
+    Selenium2Library.Input Text    voiceLanIpAddr    ${address}
+    Selenium2Library.Input Text    voiceLanSubnetMask    ${mask}
+
+SIP Server
+    [Arguments]    ${server}    # may be IP address or host name
+    Selenium2Library.Input Text    sip_server_address    ${server}
+
+SIP Server Port
+    [Arguments]    ${port}=5060
+    Run Keyword if    ${port}!=5060    Selenium2Library.Input Text    sip_server_port    ${port}
+
+SIP Proxy
+    [Arguments]    ${host}=""
+    Run Keyword if    ${host}!=""    Selenium2Library.Input Text    sip_proxy    ${host}
+
+SIP Proxy Port
+    [Arguments]    ${port}=5060
+    Run Keyword if    ${port}!=5060    Selenium2Library.Input Text    sip_server_port    ${port}
+
+Enable SIP Authentication
+    [Arguments]    ${bool}
+    ${bool}    Convert to Boolean    ${bool}
+    Run Keyword if    ${bool}    Check Box    sipAuthEnabled_chkbox
+
+Create User
+    [Arguments]    ${extension}    ${first_name}    ${last_name}    ${phone_model}    ${MAC}=""    ${operator_group}=false
+    Select Frame    user_table_frame
+    Selenium2Library.Click Element    bottom_area
+    Selenium2Library.Input Text    extension${VOICE_USER_NUMBER}    ${extension}
+    Selenium2Library.Input Text    first_name${VOICE_USER_NUMBER}    ${first_name}
+    Selenium2Library.Input Text    last_name${VOICE_USER_NUMBER}    ${last_name}
+    ${phone}=    Collections.Get From Dictionary    ${PHONE_MODELS}    ${phone_model}
+    log    ${phone}
+    Selenium2Library.Select From List    phoneModel${VOICE_USER_NUMBER}    ADTRAN/Polycom VVX 500
+    Selenium2Library.Input Text    mac_address${VOICE_USER_NUMBER}    ${MAC}
+    ${bool}    Convert to Boolean    ${operator_group}
+    Run Keyword If    ${bool}    Check Box    opr${VOICE_USER_NUMBER}
+    Unselect Frame
+    ${number}=    Evaluate    ${VOICE_USER_NUMBER} + 1
+    Set Global Variable    ${VOICE_USER_NUMBER}    ${number}
+
+Select Phone Model
+    [Arguments]    ${phone_model}
+    Collections.Get From Dictionary    ${PHONE_MODELS}    ${phone_model}

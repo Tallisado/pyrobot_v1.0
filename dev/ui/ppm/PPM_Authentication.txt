@@ -1,0 +1,32 @@
+*** Settings ***
+Suite Setup
+Suite Teardown    Close Browser
+Library           Selenium2Library
+Library           Collections
+Resource          ../../resources/resource_ui.txt
+Resource          ../../resources/resource_pyrobot.txt
+
+*** Variables ***
+${Neo}            http://${DEVICE_IP}
+${DEVICE_IP}      10.10.9.164
+
+*** Test Cases ***
+Test PPM Login and Logout
+	Selenium Login    3011    1234    settingsButton-btnIconEl
+	Title Should Be    ADTRAN Neo
+	Selenium Click    id    logout-btnEl
+	Selenium Wait For Element Present    id    loginnameid-inputEl
+
+Test Invalid Password
+	Selenium Type    id    loginnameid-inputEl    3011
+	Selenium Type    id    loginpasswordid-inputEl    password
+	Selenium Click    id    loginbuttonid-btnIconEl
+	Element Should Not Be Visible    id=settingsButton-btnEl
+	
+Test Invalid PIN
+	Selenium Type    id    loginnameid-inputEl    3011
+	Selenium Type    id    loginpasswordid-inputEl    4567
+	Selenium Click    id    loginbuttonid-btnIconEl
+	Element Should Not Be Visible    id=settingsButton-btnEl
+
+*** Keywords ***

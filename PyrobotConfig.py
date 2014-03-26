@@ -29,7 +29,7 @@ SAUCE_USERNAME = 'talliskane'
 SAUCE_ACCESSKEY = "6c3ed64b-e065-4df4-b921-75336e2cb9cf"
 DEFAULT_SAUCEURL = "sauce-ondemand:?username=%s&access-key=%s&os=Windows 2012 R2&browser=%s&browser-version=11&max-duration=null&idle-timeout=null"
 DEFAULT_SOLO_BROWSER = 'firefox'
-DEFAULT_BROWSER_DISPLAY = ":60"
+DEFAULT_BROWSER_DISPLAY = ":80"
 
 
 BROWSER_CAPABILITIES = 'name:%s,platform:%s,version:%s,browserName:%s,javascriptEnabled:True'

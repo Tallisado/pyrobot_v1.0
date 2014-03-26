@@ -1,0 +1,20 @@
+*** Settings ***
+Suite Setup
+Suite Teardown    Close Browser
+Library           Selenium2Library
+Library           Collections
+Resource          ../resources/resource_ui.txt
+
+*** Variables ***
+${Neo}            http://${DEVICE_IP}
+${DEVICE_IP}      10.10.9.164
+
+*** Test Cases ***
+Go to Neo
+    Open Browser to ${Neo}
+
+Check Login Page
+	Selenium Wait For Element Present    id    loginnameid-inputEl
+	Title Should Be    ADTRAN Neo
+
+*** Keywords ***

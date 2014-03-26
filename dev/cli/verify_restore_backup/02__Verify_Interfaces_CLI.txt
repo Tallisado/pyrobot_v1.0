@@ -1,0 +1,96 @@
+*** Settings ***
+Documentation     DVT Test resource for Robot Framework
+Library           String
+Library           Telnet
+Library           Collections
+
+*** Variables ***
+${DEVICE_IP}               10.10.9.164
+${TELNET_USER_NAME}        admin
+${TELNET_PASSWORD}         password
+${ENABLE_PASSWORD}         password
+${TELNET_LOGIN_PROMPT}     Username:
+${TELNET_PASSWORD_PROMPT}  Password:
+#${COMMAND_FAIL_REGEX}      (?m)(%\ Unrecognized\ command)|(%\ Invalid\ or\ incomplete)|(%Input\ has\ invalid\ format)|(%-+)
+${PROMPT}                  >
+${SHOW_VOICE_USERS}        show voice users
+
+
+*** Test Cases ***
+Login via Telnet
+    [Documentation]    This creates a telnet session, logs into the unit, and stores the unit's hostname in "${HOSTNAME}". \ This keyword leaves you at global enable mode on an AOS unit.
+    ${telnet_id_temp}    Telnet.Open Connection    ${DEVICE_IP}    timeout=10 seconds
+    Set Global Variable    ${TELNET_ID}    ${telnet_id_temp}
+    Telnet.Login    ${TELNET_USER_NAME}    ${TELNET_PASSWORD}    ${TELNET_LOGIN_PROMPT}    ${TELNET_PASSWORD_PROMPT}
+    Telnet.Set Prompt    ${PROMPT}
+    Telnet.Write    ${EMPTY}
+    ${out}=    Telnet.Read Until Prompt
+    ${out}=    Replace String    ${out}    >    ${EMPTY}
+    Set Global Variable    ${HOSTNAME}    ${out}
+    Telnet.Write    enable
+    Telnet.Read Until    Password:
+    Telnet.Set Prompt    ${HOSTNAME}#    prompt_is_regexp=False
+    Telnet.Write    ${ENABLE_PASSWORD}
+    Telnet.Write    no events
+    Telnet.Write    terminal length 0
+    Telnet.Read Until Prompt
+
+Check Interface Ethernet 0/1
+    Telnet.Write    show interface gigabit-ethernet 0/1
+    ${interface}=    Telnet.Read Until Prompt
+	Should Contain    ${interface}    giga-eth 0/1 is UP, line protocol is UP
+	Should Contain    ${interface}    Internet address is 10.10.9.129, netmask is 255.255.248.0  (via DHCP)
+	
+Check Interface Ethernet 0/2
+    Telnet.Write    show interface gigabit-ethernet 0/2
+    ${interface}=    Telnet.Read Until Prompt
+	Should Contain    ${interface}    giga-eth 0/2 is UP, line protocol is UP
+	Should Contain    ${interface}    Ip address is 10.10.10.1, netmask is 255.255.255.0
+
+Check Interface FXO 0/1
+    Telnet.Write    show interface fxo 0/1
+    ${interface}=    Telnet.Read Until Prompt
+	Should Contain    ${interface}    fxo 0/1 is UP
+	
+Check Interface FXO 0/2
+    Telnet.Write    show interface fxo 0/2
+    ${interface}=    Telnet.Read Until Prompt
+	Should Contain    ${interface}    fxo 0/2 is UP
+	
+Check Interface FXO 0/3
+    Telnet.Write    show interface fxo 0/3
+    ${interface}=    Telnet.Read Until Prompt
+	Should Contain    ${interface}    fxo 0/3 is UP
+	
+Check Interface FXO 0/4
+    Telnet.Write    show interface fxo 0/4
+    ${interface}=    Telnet.Read Until Prompt
+	Should Contain    ${interface}    fxo 0/4 is UP
+	
+Check Interface FXO 0/5
+    Telnet.Write    show interface fxo 0/5
+    ${interface}=    Telnet.Read Until Prompt
+	Should Contain    ${interface}    fxo 0/5 is UP
+	
+Check Interface FXO 0/6
+    Telnet.Write    show interface fxo 0/6
+    ${interface}=    Telnet.Read Until Prompt
+	Should Contain    ${interface}    fxo 0/6 is UP
+	
+Check Interface FXS 0/1
+    Telnet.Write    show interface fxs 0/1
+    ${interface}=    Telnet.Read Until Prompt
+	Should Contain    ${interface}    fxs 0/1 is UP
+	
+Check Interface FXS 0/2
+    Telnet.Write    show interface fxs 0/2
+    ${interface}=    Telnet.Read Until Prompt
+	Should Contain    ${interface}    fxs 0/2 is UP
+	
+Check Interface PRI
+    Telnet.Write    show interface pri 1
+    ${interface}=    Telnet.Read Until Prompt
+	Should Contain    ${interface}    Switch protocol:  National ISDN 2
+	Should Contain    ${interface}    Calling-party number:  2565552222
+	Should Contain    ${interface}    Signaling role:  user (TE)
+	

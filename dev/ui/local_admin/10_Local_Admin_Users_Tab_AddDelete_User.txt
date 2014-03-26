@@ -1,0 +1,76 @@
+*** Settings ***
+Suite Setup
+Suite Teardown    Close Browser
+Library           Selenium2Library
+Library           Collections
+Resource          ../../resources/resource_ui.txt
+Resource          ../../resources/resource_pyrobot.txt
+
+*** Variables ***
+${Neo}            http://${DEVICE_IP}
+${DEVICE_IP}      10.10.9.164
+
+*** Test Cases ***
+Verify User extension 3003 Does Not Exist
+	Selenium Login    admin    password    helpButton-btnIconEl
+	Selenium Wait For Element Present    id    users_tab
+	Selenium Click    id    users_tab
+	Selenium Wait For Element Present    id	   users_panel_create_btn-btnEl
+	Selenium Click    id    users_panel_create_btn-btnEl
+	Selenium Wait For Element Present    id    createUsersWizardFirstNameField_txtinput-inputEl
+	Selenium Type    id    createUsersWizardFirstNameField_txtinput-inputEl    Automated
+	Selenium Type    id    createUsersWizardLastNameField_txtinput-inputEl     User3
+    Selenium Type    id    createUsersWizardDescriptionField_txtinput-inputEl    Creating user for automated test
+	Selenium Clear   id    createUsersWizardExtensionNumberField_txtinput-inputEl
+	Selenium Type    id    createUsersWizardExtensionNumberField_txtinput-inputEl    3003
+	Selenium Type    id    createUsersWizardCellPhoneField_txtinput-inputEl    6135550134
+	Selenium Element Should Not Be Visible    xpath    //div[@role='presentation' and @style='']
+
+Create User 3003
+	Selenium Reload
+	Selenium Wait For Element Present    id    users_tab
+	Selenium Click    id    users_tab
+	Selenium Wait For Element Present    id	   users_panel_create_btn-btnEl
+	Selenium Click    id    users_panel_create_btn-btnEl
+	Selenium Wait For Element Present    id    createUsersWizardFirstNameField_txtinput-inputEl
+	Selenium Type    id    createUsersWizardFirstNameField_txtinput-inputEl    Automated
+	Selenium Type    id    createUsersWizardLastNameField_txtinput-inputEl     User3
+    Selenium Type    id    createUsersWizardDescriptionField_txtinput-inputEl    Creating user for automated test
+	Selenium Clear   id    createUsersWizardExtensionNumberField_txtinput-inputEl
+	Selenium Type    id    createUsersWizardExtensionNumberField_txtinput-inputEl    3003
+	Selenium Type    id    createUsersWizardCellPhoneField_txtinput-inputEl    6135550134
+	Selenium Element Should Not Be Visible    xpath    //a[@id='createUserWiz_next_btn' and contains(concat(' ', @class, ' '), ' x-btn-disabled ')]
+	Selenium Click    id    createUserWiz_next_btn-btnWrap
+	Selenium Wait For Element Present    id    default_radio-inputEl
+	Selenium Click    xpath    //*[@id="default_radio-inputEl"]
+	Selenium Click    id    createUserWiz_next_btn-btnWrap
+	Selenium Element Should Not Be Visible    xpath    //a[@id='createUserWiz_skip_btn-btnIconEl' and contains(concat(' ', @class, ' '), ' x-btn-disabled ')]
+	Selenium Wait For Element Present    id    createUserWiz_skip_btn-btnIconEl
+	Selenium Click    id    createUserWiz_skip_btn-btnIconEl
+	Selenium Wait For Element Present    id    createUserWiz_save_btn-btnEl
+	Selenium Click    id    createUserWiz_save_btn-btnEl
+
+Verify User Extension 3003 Exists
+	Selenium Reload
+	Selenium Wait For Element Present    id    users_tab
+	Selenium Click    id    users_tab
+	Selenium Wait For Element Present    xpath    //*[@id="users_panel_users_grid-body"]/div/table/tbody/tr[4]
+	Selenium Verify Text From Element    xpath    //*[@id="users_panel_users_grid-body"]/div/table/tbody/tr[4]/td[3]/div    3003
+	
+Delete User Extension 3003
+    Selenium Reload
+	Selenium Wait For Element Present    id    users_tab
+	Selenium Click    id    users_tab
+	Selenium Wait For Element Present    xpath    //*[@id="users_panel_users_grid-body"]/div/table/tbody/tr[4]
+	Selenium Click    xpath    //*[@id="users_panel_users_grid-body"]/div/table/tbody/tr[4]
+	Selenium Click    id    users_panel_delete_btn-btnEl
+	Selenium Wait For Element Present    id    removeUserWizard_window_removeUser_wizard_save_btn-btnEl
+	Selenium Click    id    removeUserWizard_window_removeUser_wizard_save_btn-btnEl
+	
+Verify Removal Of User Extension 3003
+	Selenium Reload
+	Selenium Wait For Element Present    id    users_tab
+	Selenium Click    id    users_tab
+	Selenium Element Should Not Be Visible    xpath    //*[@id="users_panel_users_grid-body"]/div/table/tbody/tr[4]/td[3]/div
+	
+*** Keywords ***

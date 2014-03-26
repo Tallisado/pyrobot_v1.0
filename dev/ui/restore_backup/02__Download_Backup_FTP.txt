@@ -1,0 +1,27 @@
+*** Settings ***
+Documentation     Download a backup from a NEO to test restore operation
+Library           String
+Library           Collections
+Library			  FtpLibrary
+Library           OperatingSystem
+
+*** Variables ***
+${DEVICE_IP}               10.10.9.164
+${FTP_USER_NAME}        admin
+${FTP_PASSWORD}         password
+
+*** Test Cases ***
+Erase Local Backup
+	Run    rm /tmp/neo.backup
+
+Connect to FTP
+    ftp connect    ${DEVICE_IP}    ${FTP_USER_NAME}    ${FTP_PASSWORD}
+	
+Change to backup directory
+    Cwd    /backup
+	
+Download Backup File
+	Download File    neo.backup    localFilePath=/tmp/neo.backup
+
+Disconnect from FTP Server
+	Ftp Close

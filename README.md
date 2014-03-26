@@ -62,5 +62,5 @@ pyrobot
   2. 	``` Open Pyrobot 	  http://www.google.ca      chrome                  __Local Non-Default Browser TestLevel URL__ ```
   3. 	``` Open Pyrobot 	  ${PYRO_BROWSER}           http://www.google.ca    __Sauce Browser TestLevel URL__ ```
   4. 	``` Open Pyrobot	  ${PYRO_BROWSER}                                   __Sauce Browser BaseUrl URL OnConnect__ ```
-    * base_url is OnConnect only
+    * above this base_url is OnConnect only
 

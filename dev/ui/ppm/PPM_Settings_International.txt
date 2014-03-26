@@ -1,0 +1,83 @@
+*** Settings ***
+Suite Setup
+Suite Teardown    Close Browser
+Library           Selenium2Library
+Library           Collections
+Resource          ../../resources/resource_ui.txt
+Resource          ../../resources/resource_pyrobot.txt
+
+*** Variables ***
+${Neo}            http://${DEVICE_IP}
+${DEVICE_IP}      10.10.9.164
+
+*** Test Cases ***
+Login to PPM
+	Selenium Login    3011    1234    settingsButton-btnIconEl
+
+Set International Settings - French Canadian
+	Selenium Wait For Element Present    id    settingsButton-btnIconEl
+	Selenium Click    id    settingsButton-btnIconEl
+	Selenium Wait For Element Present    id    settingsInternational
+	Selenium Click    id    settingsInternational
+	Selenium Wait For Element Present    id    cbGuiLang-inputEl
+	Selenium Click Text From Combobox    id    cbGuiLang-inputEl    French-Canadian
+	#Selenium Click Text From Combobox    id    cbTuiLang-inputEl    French Canadian
+	Selenium Click	  id     settingInternationalClose
+
+Verify International Settings - French Canadian
+	Selenium Reload
+	Selenium Wait For Element Present    id    settingsButton-btnIconEl
+	Selenium Verify Text From Element    id    logout-btnInnerEl    Logout
+	Selenium Click    id    settingsButton-btnIconEl
+	Selenium Wait For Element Present    id    settingsInternational
+	Selenium Click    id    settingsInternational
+	Selenium Wait For Element Present    id    cbGuiLang-inputEl
+    Selenium Verify Attribute From Element    id    cbGuiLang-inputEl    value    French-Canadian
+    #Selenium Verify Attribute From Element    id    cbTuiLang-inputEl    value    French Canadian
+
+Set International Settings - Spanish-Mexican
+	Selenium Reload
+	Selenium Wait For Element Present    id    settingsButton-btnIconEl
+	Selenium Click    id    settingsButton-btnIconEl
+	Selenium Wait For Element Present    id    settingsInternational
+	Selenium Click    id    settingsInternational
+	Selenium Wait For Element Present    id    cbGuiLang-inputEl
+	Selenium Click Text From Combobox    id    cbGuiLang-inputEl    Spanish-Mexican
+	#Selenium Click Text From Combobox    id    cbTuiLang-inputEl    LatinAm-Spanish
+	Selenium Click	  id     settingInternationalClose
+
+Verify International Settings - Spanish-Mexican
+	Selenium Reload
+	Selenium Wait For Element Present    id    settingsButton-btnIconEl
+	Selenium Verify Text From Element    id    logout-btnInnerEl    Logout
+	Selenium Click    id    settingsButton-btnIconEl
+	Selenium Wait For Element Present    id    settingsInternational
+	Selenium Click    id    settingsInternational
+	Selenium Wait For Element Present    id    cbGuiLang-inputEl
+    Selenium Verify Attribute From Element    id    cbGuiLang-inputEl    value    Spanish-Mexican
+    #Selenium Verify Attribute From Element    id    cbTuiLang-inputEl    value    LatinAm-Spanish
+
+Set International Settings - English-US
+	Selenium Reload
+	Selenium Wait For Element Present    id    settingsButton-btnIconEl
+	Selenium Click    id    settingsButton-btnIconEl
+	Selenium Wait For Element Present    id    settingsInternational
+	Selenium Click    id    settingsInternational
+	Selenium Wait For Element Present    id    cbGuiLang-inputEl
+	Selenium Click Text From Combobox    id    cbGuiLang-inputEl    English-US
+	#Selenium Click Text From Combobox    id    cbTuiLang-inputEl    English
+	Selenium Click	  id     settingInternationalClose
+
+Verify International Settings - English-US
+	Selenium Reload
+	Selenium Wait For Element Present    id    settingsButton-btnIconEl
+	Selenium Verify Text From Element    id    logout-btnInnerEl    Logout
+	Selenium Click    id    settingsButton-btnIconEl
+	Selenium Wait For Element Present    id    settingsInternational
+	Selenium Click    id    settingsInternational
+	Selenium Wait For Element Present    id    cbGuiLang-inputEl
+    Selenium Verify Attribute From Element    id    cbGuiLang-inputEl    value    English-US
+    #Selenium Verify Attribute From Element    id    cbTuiLang-inputEl    value    English
+
+	
+*** Keywords ***

@@ -1,0 +1,365 @@
+*** Settings ***
+Suite Setup
+Suite Teardown    Close Browser
+Library           Selenium2Library
+Library           Collections
+Resource          ../../resources/resource_ui.txt
+Resource          ../../resources/resource_pyrobot.txt
+
+*** Variables ***
+${Neo}            http://${DEVICE_IP}
+${DEVICE_IP}      10.10.9.164
+
+*** Test Cases ***
+Open Phone Dialog
+	Selenium Login    3011    1234    settingsButton-btnIconEl
+	Selenium Click    id    settingsButton-btnIconEl
+	Selenium Wait For Element Present    id    settingsPhone
+	Selenium Click    id    settingsPhone
+	Selenium Wait For Element Present    id    phone_btn0_lbl
+
+Verify Phone Model And Buttons
+	#Selenium Verify Text From Element    id    phoneModel_label    Phone Assigned: ADTRAN VVX 500
+	Selenium Verify Text From Element    id    phone_btn0_lbl    3011
+	Selenium Verify Text From Element    id    phone_btn1_lbl    3011
+	Selenium Verify Text From Element    id    phone_btn2_lbl    ${EMPTY}
+	Selenium Verify Text From Element    id    phone_btn3_lbl    ${EMPTY}
+	Selenium Verify Text From Element    id    phone_btn4_lbl    ${EMPTY}
+	Selenium Verify Text From Element    id    phone_btn5_lbl    ${EMPTY}
+	Selenium Verify Text From Element    id    phone_btn6_lbl    ${EMPTY}
+	Selenium Verify Text From Element    id    phone_btn7_lbl    ${EMPTY}
+	Selenium Verify Text From Element    id    phone_btn8_lbl    ${EMPTY}
+	Selenium Verify Text From Element    id    phone_btn9_lbl    ${EMPTY}
+	Selenium Verify Text From Element    id    phone_btn10_lbl    ${EMPTY}
+	Selenium Verify Text From Element    id    phone_btn11_lbl    ${EMPTY}
+	
+Drag and Drop Blank - BTN2
+	Selenium Drag And Drop    id    phoneFunc0_2    phone_btn2
+	Selenium Verify Text From Element    id    phone_btn2_lbl    Blank
+	
+Drag and Drop Blank - BTN3
+	Selenium Drag And Drop    id    phoneFunc0_2    phone_btn3
+	Selenium Verify Text From Element    id    phone_btn3_lbl    Blank
+	
+Drag and Drop Blank - BTN4
+	Selenium Drag And Drop    id    phoneFunc0_2    phone_btn4
+	Selenium Verify Text From Element    id    phone_btn4_lbl    Blank
+	
+Drag and Drop Blank - BTN5
+	Selenium Drag And Drop    id    phoneFunc0_2    phone_btn5
+	Selenium Verify Text From Element    id    phone_btn5_lbl    Blank
+	
+Drag and Drop Blank - BTN6
+	Selenium Drag And Drop    id    phoneFunc0_2    phone_btn6
+	Selenium Verify Text From Element    id    phone_btn6_lbl    Blank
+
+Drag and Drop Blank - BTN7
+	Selenium Drag And Drop    id    phoneFunc0_2    phone_btn7
+	Selenium Verify Text From Element    id    phone_btn7_lbl    Blank
+	
+Drag and Drop Blank - BTN8
+	Selenium Drag And Drop    id    phoneFunc0_2    phone_btn8
+	Selenium Verify Text From Element    id    phone_btn8_lbl    Blank
+	
+Drag and Drop Blank - BTN9
+	Selenium Drag And Drop    id    phoneFunc0_2    phone_btn9
+	Selenium Verify Text From Element    id    phone_btn9_lbl    Blank
+	
+Drag and Drop Blank - BTN10
+	Selenium Drag And Drop    id    phoneFunc0_2    phone_btn10
+	Selenium Verify Text From Element    id    phone_btn10_lbl    Blank
+	
+Drag and Drop Blank - BTN11
+	Selenium Drag And Drop    id    phoneFunc0_2    phone_btn11
+	Selenium Verify Text From Element    id    phone_btn11_lbl    Blank
+	
+Reload Page 1
+	Selenium Reload
+	Selenium Click    id    settingsButton-btnIconEl
+	Selenium Wait For Element Present    id    settingsPhone
+	Selenium Click    id    settingsPhone
+	Selenium Wait For Element Present    id    phone_btn0_lbl
+	
+Drag and Drop SPRE - BTN2
+	Selenium Drag And Drop    id    phoneFunc0_3    phone_btn2
+	Selenium Verify Text From Element    id    phone_btn2_lbl    SPRE
+	
+Drag and Drop SPRE - BTN3
+	Selenium Drag And Drop    id    phoneFunc0_3    phone_btn3
+	Selenium Verify Text From Element    id    phone_btn3_lbl    SPRE
+	
+Drag and Drop SPRE - BTN4
+	Selenium Drag And Drop    id    phoneFunc0_3    phone_btn4
+	Selenium Verify Text From Element    id    phone_btn4_lbl    SPRE
+	
+Drag and Drop SPRE - BTN5
+	Selenium Drag And Drop    id    phoneFunc0_3    phone_btn5
+	Selenium Verify Text From Element    id    phone_btn5_lbl    SPRE
+	
+Drag and Drop SPRE - BTN6
+	Selenium Drag And Drop    id    phoneFunc0_3    phone_btn6
+	Selenium Verify Text From Element    id    phone_btn6_lbl    SPRE
+
+Drag and Drop SPRE - BTN7
+	Selenium Drag And Drop    id    phoneFunc0_3    phone_btn7
+	Selenium Verify Text From Element    id    phone_btn7_lbl    SPRE
+	
+Drag and Drop SPRE - BTN8
+	Selenium Drag And Drop    id    phoneFunc0_3    phone_btn8
+	Selenium Verify Text From Element    id    phone_btn8_lbl    SPRE
+	
+Drag and Drop SPRE - BTN9
+	Selenium Drag And Drop    id    phoneFunc0_3    phone_btn9
+	Selenium Verify Text From Element    id    phone_btn9_lbl    SPRE
+	
+Drag and Drop SPRE - BTN10
+	Selenium Drag And Drop    id    phoneFunc0_3    phone_btn10
+	Selenium Verify Text From Element    id    phone_btn10_lbl    SPRE
+	
+Drag and Drop SPRE - BTN11
+	Selenium Drag And Drop    id    phoneFunc0_3    phone_btn11
+	Selenium Verify Text From Element    id    phone_btn11_lbl    SPRE
+	
+Reload Page 2
+	Selenium Reload
+	Selenium Click    id    settingsButton-btnIconEl
+	Selenium Wait For Element Present    id    settingsPhone
+	Selenium Click    id    settingsPhone
+	Selenium Wait For Element Present    id    phone_btn0_lbl
+	
+Drag and Drop User - BTN2
+	Selenium Drag And Drop    id    phoneFunc0_5    phone_btn2
+	Selenium Verify Text From Element    id    phone_btn2_lbl    User
+	
+Drag and Drop User - BTN3
+	Selenium Drag And Drop    id    phoneFunc0_5    phone_btn3
+	Selenium Verify Text From Element    id    phone_btn3_lbl    User
+	
+Drag and Drop User - BTN4
+	Selenium Drag And Drop    id    phoneFunc0_5    phone_btn4
+	Selenium Verify Text From Element    id    phone_btn4_lbl    User
+	
+Drag and Drop User - BTN5
+	Selenium Drag And Drop    id    phoneFunc0_5    phone_btn5
+	Selenium Verify Text From Element    id    phone_btn5_lbl    User
+	
+Drag and Drop User - BTN6
+	Selenium Drag And Drop    id    phoneFunc0_5    phone_btn6
+	Selenium Verify Text From Element    id    phone_btn6_lbl    User
+
+Drag and Drop User - BTN7
+	Selenium Drag And Drop    id    phoneFunc0_5    phone_btn7
+	Selenium Verify Text From Element    id    phone_btn7_lbl    User
+	
+Drag and Drop User - BTN8
+	Selenium Drag And Drop    id    phoneFunc0_5    phone_btn8
+	Selenium Verify Text From Element    id    phone_btn8_lbl    User
+	
+Drag and Drop User - BTN9
+	Selenium Drag And Drop    id    phoneFunc0_5    phone_btn9
+	Selenium Verify Text From Element    id    phone_btn9_lbl    User
+	
+Drag and Drop User - BTN10
+	Selenium Drag And Drop    id    phoneFunc0_5    phone_btn10
+	Selenium Verify Text From Element    id    phone_btn10_lbl    User
+	
+Drag and Drop User - BTN11
+	Selenium Drag And Drop    id    phoneFunc0_5    phone_btn11
+	Selenium Verify Text From Element    id    phone_btn11_lbl    User
+	
+Reload Page 3
+	Selenium Reload
+	Selenium Click    id    settingsButton-btnIconEl
+	Selenium Wait For Element Present    id    settingsPhone
+	Selenium Click    id    settingsPhone
+	Selenium Wait For Element Present    id    phone_btn0_lbl
+	
+Drag and Drop Mailbox - BTN2
+	Selenium Drag And Drop    id    phoneFunc0_6    phone_btn2
+	Selenium Verify Text From Element    id    phone_btn2_lbl    Mailbox
+	
+Drag and Drop Mailbox - BTN3
+	Selenium Drag And Drop    id    phoneFunc0_6    phone_btn3
+	Selenium Verify Text From Element    id    phone_btn3_lbl    Mailbox
+	
+Drag and Drop Mailbox - BTN4
+	Selenium Drag And Drop    id    phoneFunc0_6    phone_btn4
+	Selenium Verify Text From Element    id    phone_btn4_lbl    Mailbox
+	
+Drag and Drop Mailbox - BTN5
+	Selenium Drag And Drop    id    phoneFunc0_6    phone_btn5
+	Selenium Verify Text From Element    id    phone_btn5_lbl    Mailbox
+	
+Drag and Drop Mailbox - BTN6
+	Selenium Drag And Drop    id    phoneFunc0_6    phone_btn6
+	Selenium Verify Text From Element    id    phone_btn6_lbl    Mailbox
+
+Drag and Drop Mailbox - BTN7
+	Selenium Drag And Drop    id    phoneFunc0_6    phone_btn7
+	Selenium Verify Text From Element    id    phone_btn7_lbl    Mailbox
+	
+Drag and Drop Mailbox - BTN8
+	Selenium Drag And Drop    id    phoneFunc0_6    phone_btn8
+	Selenium Verify Text From Element    id    phone_btn8_lbl    Mailbox
+	
+Drag and Drop Mailbox - BTN9
+	Selenium Drag And Drop    id    phoneFunc0_6    phone_btn9
+	Selenium Verify Text From Element    id    phone_btn9_lbl    Mailbox
+	
+Drag and Drop Mailbox - BTN10
+	Selenium Drag And Drop    id    phoneFunc0_6    phone_btn10
+	Selenium Verify Text From Element    id    phone_btn10_lbl    Mailbox
+	
+Drag and Drop Mailbox - BTN11
+	Selenium Drag And Drop    id    phoneFunc0_6    phone_btn11
+	Selenium Verify Text From Element    id    phone_btn11_lbl    Mailbox
+	
+Reload Page 4
+	Selenium Reload
+	Selenium Click    id    settingsButton-btnIconEl
+	Selenium Wait For Element Present    id    settingsPhone
+	Selenium Click    id    settingsPhone
+	Selenium Wait For Element Present    id    phone_btn0_lbl
+	
+Drag and Drop Speed Dial - BTN2
+	Selenium Drag And Drop    id    phoneFunc0_7    phone_btn2
+	Selenium Verify Text From Element    id    phone_btn2_lbl    Speed Di...
+	
+Drag and Drop Speed Dial - BTN3
+	Selenium Drag And Drop    id    phoneFunc0_7    phone_btn3
+	Selenium Verify Text From Element    id    phone_btn3_lbl    Speed Di...
+	
+Drag and Drop Speed Dial - BTN4
+	Selenium Drag And Drop    id    phoneFunc0_7    phone_btn4
+	Selenium Verify Text From Element    id    phone_btn4_lbl    Speed Di...
+	
+Drag and Drop Speed Dial - BTN5
+	Selenium Drag And Drop    id    phoneFunc0_7    phone_btn5
+	Selenium Verify Text From Element    id    phone_btn5_lbl    Speed Di...
+	
+Drag and Drop Speed Dial - BTN6
+	Selenium Drag And Drop    id    phoneFunc0_7    phone_btn6
+	Selenium Verify Text From Element    id    phone_btn6_lbl    Speed Di...
+
+Drag and Drop Speed Dial - BTN7
+	Selenium Drag And Drop    id    phoneFunc0_7    phone_btn7
+	Selenium Verify Text From Element    id    phone_btn7_lbl    Speed Di...
+	
+Drag and Drop Speed Dial - BTN8
+	Selenium Drag And Drop    id    phoneFunc0_7    phone_btn8
+	Selenium Verify Text From Element    id    phone_btn8_lbl    Speed Di...
+	
+Drag and Drop Speed Dial - BTN9
+	Selenium Drag And Drop    id    phoneFunc0_7    phone_btn9
+	Selenium Verify Text From Element    id    phone_btn9_lbl    Speed Di...
+	
+Drag and Drop Speed Dial - BTN10
+	Selenium Drag And Drop    id    phoneFunc0_7    phone_btn10
+	Selenium Verify Text From Element    id    phone_btn10_lbl    Speed Di...
+	
+Drag and Drop Speed Dial - BTN11
+	Selenium Drag And Drop    id    phoneFunc0_7    phone_btn11
+	Selenium Verify Text From Element    id    phone_btn11_lbl    Speed Di...
+	
+Reload Page 5
+	Selenium Reload
+	Selenium Click    id    settingsButton-btnIconEl
+	Selenium Wait For Element Present    id    settingsPhone
+	Selenium Click    id    settingsPhone
+	Selenium Wait For Element Present    id    phone_btn0_lbl
+	
+Drag and Drop Park Zone - BTN2
+	Selenium Drag And Drop    id    phoneFunc0_8    phone_btn2
+	Selenium Verify Text From Element    id    phone_btn2_lbl    Park Zon...
+	
+Drag and Drop Park Zone - BTN3
+	Selenium Drag And Drop    id    phoneFunc0_8    phone_btn3
+	Selenium Verify Text From Element    id    phone_btn3_lbl    Park Zon...
+	
+Drag and Drop Park Zone - BTN4
+	Selenium Drag And Drop    id    phoneFunc0_8    phone_btn4
+	Selenium Verify Text From Element    id    phone_btn4_lbl    Park Zon...
+	
+Drag and Drop Park Zone - BTN5
+	Selenium Drag And Drop    id    phoneFunc0_8    phone_btn5
+	Selenium Verify Text From Element    id    phone_btn5_lbl    Park Zon...
+	
+Drag and Drop Park Zone - BTN6
+	Selenium Drag And Drop    id    phoneFunc0_8    phone_btn6
+	Selenium Verify Text From Element    id    phone_btn6_lbl    Park Zon...
+
+Drag and Drop Park Zone - BTN7
+	Selenium Drag And Drop    id    phoneFunc0_8    phone_btn7
+	Selenium Verify Text From Element    id    phone_btn7_lbl    Park Zon...
+	
+Drag and Drop Park Zone - BTN8
+	Selenium Drag And Drop    id    phoneFunc0_8    phone_btn8
+	Selenium Verify Text From Element    id    phone_btn8_lbl    Park Zon...
+	
+Drag and Drop Park Zone - BTN9
+	Selenium Drag And Drop    id    phoneFunc0_8    phone_btn9
+	Selenium Verify Text From Element    id    phone_btn9_lbl    Park Zon...
+	
+Drag and Drop Park Zone - BTN10
+	Selenium Drag And Drop    id    phoneFunc0_8    phone_btn10
+	Selenium Verify Text From Element    id    phone_btn10_lbl    Park Zon...
+	
+Drag and Drop Park Zone - BTN11
+	Selenium Drag And Drop    id    phoneFunc0_8    phone_btn11
+	Selenium Verify Text From Element    id    phone_btn11_lbl    Park Zon...
+	
+Reload Page 6
+	Selenium Reload
+	Selenium Click    id    settingsButton-btnIconEl
+	Selenium Wait For Element Present    id    settingsPhone
+	Selenium Click    id    settingsPhone
+	Selenium Wait For Element Present    id    phone_btn0_lbl
+	
+Drag and Drop Paging Group - BTN2
+	Selenium Drag And Drop    id    phoneFunc0_9    phone_btn2
+	Selenium Verify Text From Element    id    phone_btn2_lbl    Paging G...
+	
+Drag and Drop Paging Group - BTN3
+	Selenium Drag And Drop    id    phoneFunc0_9    phone_btn3
+	Selenium Verify Text From Element    id    phone_btn3_lbl    Paging G...
+	
+Drag and Drop Paging Group - BTN4
+	Selenium Drag And Drop    id    phoneFunc0_9    phone_btn4
+	Selenium Verify Text From Element    id    phone_btn4_lbl    Paging G...
+	
+Drag and Drop Paging Group - BTN5
+	Selenium Drag And Drop    id    phoneFunc0_9    phone_btn5
+	Selenium Verify Text From Element    id    phone_btn5_lbl    Paging G...
+	
+Drag and Drop Paging Group - BTN6
+	Selenium Drag And Drop    id    phoneFunc0_9    phone_btn6
+	Selenium Verify Text From Element    id    phone_btn6_lbl    Paging G...
+
+Drag and Drop Paging Group - BTN7
+	Selenium Drag And Drop    id    phoneFunc0_9    phone_btn7
+	Selenium Verify Text From Element    id    phone_btn7_lbl    Paging G...
+	
+Drag and Drop Paging Group - BTN8
+	Selenium Drag And Drop    id    phoneFunc0_9    phone_btn8
+	Selenium Verify Text From Element    id    phone_btn8_lbl    Paging G...
+	
+Drag and Drop Paging Group - BTN9
+	Selenium Drag And Drop    id    phoneFunc0_9    phone_btn9
+	Selenium Verify Text From Element    id    phone_btn9_lbl    Paging G...
+	
+Drag and Drop Paging Group - BTN10
+	Selenium Drag And Drop    id    phoneFunc0_9    phone_btn10
+	Selenium Verify Text From Element    id    phone_btn10_lbl    Paging G...
+	
+Drag and Drop Paging Group - BTN11
+	Selenium Drag And Drop    id    phoneFunc0_9    phone_btn11
+	Selenium Verify Text From Element    id    phone_btn11_lbl    Paging G...
+	
+Reload Page 7
+	Selenium Reload
+	Selenium Click    id    settingsButton-btnIconEl
+	Selenium Wait For Element Present    id    settingsPhone
+	Selenium Click    id    settingsPhone
+	Selenium Wait For Element Present    id    phone_btn0_lbl
+	
+*** Keywords ***

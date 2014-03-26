@@ -1,0 +1,165 @@
+*** Settings ***
+Suite Setup
+Suite Teardown    Close Browser
+Library           Selenium2Library
+Library           Collections
+Resource          ../../resources/resource_ui.txt
+Resource          ../../resources/resource_pyrobot.txt
+
+*** Variables ***
+${Neo}            http://${DEVICE_IP}
+${DEVICE_IP}      10.10.9.164
+
+*** Test Cases ***
+Create Speed Dial 1
+	Selenium Login    admin    password    helpButton-btnIconEl
+	Selenium Wait For Element Present    id    speedDial_tab
+	Selenium Click    id    speedDial_tab
+	Selenium Wait For Element Present    id	   speedDial_panel_create_btn-btnEl
+	Selenium Click    id    speedDial_panel_create_btn-btnEl
+	Selenium Wait For Element Present    id	   addSysSpeedDialWindow_model_combobox-inputEl
+	Selenium Wait For Element Present    id	   addSpd_nameinput-inputEl
+	Selenium Wait For Element Present    id	   addSpd_numberinput-inputEl
+	Selenium Wait For Element Present    id	   addSysSpeedDialWindow_save_btn
+	Selenium Populate Combo And Click Text    id    addSysSpeedDialWindow_model_combobox-inputEl    01
+	Selenium Type    id    addSpd_nameinput-inputEl    Bart Simpson
+	Selenium Type    id    addSpd_numberinput-inputEl    613-555-1111
+	Selenium Element Should Not Be Visible    xpath    //div[@role='presentation' and @style='']
+	Selenium Click    id    addSysSpeedDialWindow_save_btn
+	Sleep    1
+	
+Verify Speed Dial 1 Exists
+	Selenium Reload
+	Selenium Wait For Element Present    id	   speedDial_tab
+	Selenium Click    id    speedDial_tab
+	Selenium Wait For Element Present    xpath    //*[@id="speedDial_panel_spds_grid-body"]/div/table/tbody/tr[1]/td[1]/div
+	Selenium Verify Text From Element    xpath    //*[@id="speedDial_panel_spds_grid-body"]/div/table/tbody/tr[1]/td[1]/div    01
+	Selenium Wait For Element Present    xpath    //*[@id="speedDial_panel_spds_grid-body"]/div/table/tbody/tr[1]/td[2]/div
+	Selenium Verify Text From Element    xpath    //*[@id="speedDial_panel_spds_grid-body"]/div/table/tbody/tr[1]/td[2]/div    Bart Simpson
+	Selenium Wait For Element Present    xpath    //*[@id="speedDial_panel_spds_grid-body"]/div/table/tbody/tr[1]/td[3]/div
+	Selenium Verify Text From Element    xpath    //*[@id="speedDial_panel_spds_grid-body"]/div/table/tbody/tr[1]/td[3]/div    613-555-1111
+	
+Create Speed Dial 2
+	Selenium Reload
+	Selenium Wait For Element Present    id    speedDial_tab
+	Selenium Click    id    speedDial_tab
+	Selenium Wait For Element Present    id	   speedDial_panel_create_btn-btnEl
+	Selenium Click    id    speedDial_panel_create_btn-btnEl
+	Selenium Wait For Element Present    id	   addSysSpeedDialWindow_model_combobox-inputEl
+	Selenium Wait For Element Present    id	   addSpd_nameinput-inputEl
+	Selenium Wait For Element Present    id	   addSpd_numberinput-inputEl
+	Selenium Wait For Element Present    id	   addSysSpeedDialWindow_save_btn
+	Selenium Populate Combo And Click Text    id    addSysSpeedDialWindow_model_combobox-inputEl    02
+	Selenium Type    id    addSpd_nameinput-inputEl    Homer Simpson
+	Selenium Type    id    addSpd_numberinput-inputEl    613-555-2222
+	Selenium Element Should Not Be Visible    xpath    //div[@role='presentation' and @style='']
+	Selenium Click    id    addSysSpeedDialWindow_save_btn
+	Sleep    1
+	
+Verify Speed Dial 2 Exists
+	Selenium Reload
+	Selenium Wait For Element Present    id	   speedDial_tab
+	Selenium Click    id    speedDial_tab
+	Selenium Wait For Element Present    xpath    //*[@id="speedDial_panel_spds_grid-body"]/div/table/tbody/tr[2]/td[1]/div
+	Selenium Verify Text From Element    xpath    //*[@id="speedDial_panel_spds_grid-body"]/div/table/tbody/tr[2]/td[1]/div    02
+	Selenium Wait For Element Present    xpath    //*[@id="speedDial_panel_spds_grid-body"]/div/table/tbody/tr[2]/td[2]/div
+	Selenium Verify Text From Element    xpath    //*[@id="speedDial_panel_spds_grid-body"]/div/table/tbody/tr[2]/td[2]/div    Homer Simpson
+	Selenium Wait For Element Present    xpath    //*[@id="speedDial_panel_spds_grid-body"]/div/table/tbody/tr[2]/td[3]/div
+	Selenium Verify Text From Element    xpath    //*[@id="speedDial_panel_spds_grid-body"]/div/table/tbody/tr[2]/td[3]/div    613-555-2222
+
+Create Speed Dial 3
+	Selenium Reload
+	Selenium Wait For Element Present    id    speedDial_tab
+	Selenium Click    id    speedDial_tab
+	Selenium Wait For Element Present    id	   speedDial_panel_create_btn-btnEl
+	Selenium Click    id    speedDial_panel_create_btn-btnEl
+	Selenium Wait For Element Present    id	   addSysSpeedDialWindow_model_combobox-inputEl
+	Selenium Wait For Element Present    id	   addSpd_nameinput-inputEl
+	Selenium Wait For Element Present    id	   addSpd_numberinput-inputEl
+	Selenium Wait For Element Present    id	   addSysSpeedDialWindow_save_btn
+	Selenium Populate Combo And Click Text    id    addSysSpeedDialWindow_model_combobox-inputEl    03
+	Selenium Type    id    addSpd_nameinput-inputEl    Marge Simpson
+	Selenium Type    id    addSpd_numberinput-inputEl    613-555-3333
+	Selenium Element Should Not Be Visible    xpath    //div[@role='presentation' and @style='']
+	Selenium Click    id    addSysSpeedDialWindow_save_btn
+	Sleep    1
+	
+Verify Speed Dial 3 Exists
+	Selenium Reload
+	Selenium Wait For Element Present    id	   speedDial_tab
+	Selenium Click    id    speedDial_tab
+	Selenium Wait For Element Present    xpath    //*[@id="speedDial_panel_spds_grid-body"]/div/table/tbody/tr[3]/td[1]/div
+	Selenium Verify Text From Element    xpath    //*[@id="speedDial_panel_spds_grid-body"]/div/table/tbody/tr[3]/td[1]/div    03
+	Selenium Wait For Element Present    xpath    //*[@id="speedDial_panel_spds_grid-body"]/div/table/tbody/tr[3]/td[2]/div
+	Selenium Verify Text From Element    xpath    //*[@id="speedDial_panel_spds_grid-body"]/div/table/tbody/tr[3]/td[2]/div    Marge Simpson
+	Selenium Wait For Element Present    xpath    //*[@id="speedDial_panel_spds_grid-body"]/div/table/tbody/tr[3]/td[3]/div
+	Selenium Verify Text From Element    xpath    //*[@id="speedDial_panel_spds_grid-body"]/div/table/tbody/tr[3]/td[3]/div    613-555-3333
+	
+Create Speed Dial 4
+	Selenium Reload
+	Selenium Wait For Element Present    id    speedDial_tab
+	Selenium Click    id    speedDial_tab
+	Selenium Wait For Element Present    id	   speedDial_panel_create_btn-btnEl
+	Selenium Click    id    speedDial_panel_create_btn-btnEl
+	Selenium Wait For Element Present    id	   addSysSpeedDialWindow_model_combobox-inputEl
+	Selenium Wait For Element Present    id	   addSpd_nameinput-inputEl
+	Selenium Wait For Element Present    id	   addSpd_numberinput-inputEl
+	Selenium Wait For Element Present    id	   addSysSpeedDialWindow_save_btn
+	Selenium Populate Combo And Click Text    id    addSysSpeedDialWindow_model_combobox-inputEl    04
+	Selenium Type    id    addSpd_nameinput-inputEl    Lisa Simpson
+	Selenium Type    id    addSpd_numberinput-inputEl    613-555-4444
+	Selenium Element Should Not Be Visible    xpath    //div[@role='presentation' and @style='']
+	Selenium Click    id    addSysSpeedDialWindow_save_btn
+	Sleep    1
+	
+Verify Speed Dial 4 Exists
+	Selenium Reload
+	Selenium Wait For Element Present    id	   speedDial_tab
+	Selenium Click    id    speedDial_tab
+	Selenium Wait For Element Present    xpath    //*[@id="speedDial_panel_spds_grid-body"]/div/table/tbody/tr[4]/td[1]/div
+	Selenium Verify Text From Element    xpath    //*[@id="speedDial_panel_spds_grid-body"]/div/table/tbody/tr[4]/td[1]/div    04
+	Selenium Wait For Element Present    xpath    //*[@id="speedDial_panel_spds_grid-body"]/div/table/tbody/tr[4]/td[2]/div
+	Selenium Verify Text From Element    xpath    //*[@id="speedDial_panel_spds_grid-body"]/div/table/tbody/tr[4]/td[2]/div    Lisa Simpson
+	Selenium Wait For Element Present    xpath    //*[@id="speedDial_panel_spds_grid-body"]/div/table/tbody/tr[4]/td[3]/div
+	Selenium Verify Text From Element    xpath    //*[@id="speedDial_panel_spds_grid-body"]/div/table/tbody/tr[4]/td[3]/div    613-555-4444
+	
+Edit Speed Dial 4
+	Selenium Click    xpath    //*[@id="speedDial_panel_spds_grid-body"]/div/table/tbody/tr[4]
+	Selenium Wait For Element Present    id	   speedDial_panel_edit_btn-btnEl
+	Selenium Click    id    speedDial_panel_edit_btn-btnEl
+	Selenium Wait For Element Present    id	   addSpd_nameinput-inputEl
+	Selenium Wait For Element Present    id	   addSpd_numberinput-inputEl
+	Selenium Wait For Element Present    id	   editSysSpeedDialWindow_save_btn
+	Selenium Clear    id    addSpd_nameinput-inputEl
+	Selenium Type    id    addSpd_nameinput-inputEl    Ned Flanders
+	Selenium Clear    id    addSpd_numberinput-inputEl
+	Selenium Type    id    addSpd_numberinput-inputEl    613-556-1111
+	Selenium Element Should Not Be Visible    xpath    //div[@role='presentation' and @style='']
+	Selenium Click    id    editSysSpeedDialWindow_save_btn
+
+Verify Edit To Speed Dial 4
+	Selenium Reload
+	Selenium Wait For Element Present    id	   speedDial_tab
+	Selenium Click    id    speedDial_tab
+	Selenium Wait For Element Present    xpath    //*[@id="speedDial_panel_spds_grid-body"]/div/table/tbody/tr[4]/td[1]/div
+	Selenium Verify Text From Element    xpath    //*[@id="speedDial_panel_spds_grid-body"]/div/table/tbody/tr[4]/td[1]/div    04
+	Selenium Wait For Element Present    xpath    //*[@id="speedDial_panel_spds_grid-body"]/div/table/tbody/tr[4]/td[2]/div
+	Selenium Verify Text From Element    xpath    //*[@id="speedDial_panel_spds_grid-body"]/div/table/tbody/tr[4]/td[2]/div    Ned Flanders
+	Selenium Wait For Element Present    xpath    //*[@id="speedDial_panel_spds_grid-body"]/div/table/tbody/tr[4]/td[3]/div
+	Selenium Verify Text From Element    xpath    //*[@id="speedDial_panel_spds_grid-body"]/div/table/tbody/tr[4]/td[3]/div    613-556-1111
+	
+Delete Speed Dial 4
+	Selenium Click    xpath    //*[@id="speedDial_panel_spds_grid-body"]/div/table/tbody/tr[4]
+	Selenium Wait For Element Present    id	   speedDial_panel_delete_btn-btnEl
+	Selenium Click    id    speedDial_panel_delete_btn-btnEl
+	Selenium Wait For Element Present    id	   deleteSysSpeedDialWindow_save_btn-btnEl
+	Selenium Click    id    deleteSysSpeedDialWindow_save_btn-btnEl
+	Sleep    1
+
+Verify Removal of Speed Dial 4
+	Selenium Reload
+	Selenium Wait For Element Present    id	   speedDial_tab
+	Selenium Click    id    speedDial_tab
+	Selenium Element Should Not Be Visible    xpath    //*[@id="speedDial_panel_spds_grid-body"]/div/table/tbody/tr[4]
+
+*** Keywords ***

@@ -1,0 +1,56 @@
+*** Settings ***
+Suite Setup
+Suite Teardown    Close Browser
+Library           Selenium2Library
+Library           Collections
+Resource          ../../resources/resource_ui.txt
+Resource          ../../resources/resource_pyrobot.txt
+
+*** Variables ***
+${Neo}            http://${DEVICE_IP}
+${DEVICE_IP}      10.10.9.164
+
+*** Test Cases ***
+Change User PIN - ext 3001
+	Selenium Login    admin    password    helpButton-btnIconEl
+	Selenium Wait For Element Present    id    changePassword_wiz
+	Selenium Click    id    changePassword_wiz
+	Selenium Wait For Element Present    id    changePassWiz_comboBox-inputEl
+	Selenium Click Text From Combobox    id    changePassWiz_comboBox-inputEl    Automated User
+	Selenium Wait For Element Present    id    changePasswordWizard_next_btn-btnIconEl
+	Selenium Click    id    changePasswordWizard_next_btn-btnIconEl
+	Selenium Click    xpath    //*[@id="changePasswordWizard_next_btn-btnIconEl"]
+	Selenium Wait For Element Present    id    changePasswordWizard_save_btn-btnEl
+	Selenium Click    id    changePasswordWizard_save_btn-btnEl
+	
+#Change User SPRE Code PIN - ext 3001
+#	Selenium Reload
+#	Selenium Wait For Element Present    id    changePassword_wiz
+#	Selenium Click    id    changePassword_wiz
+#	Selenium Wait For Element Present    id    changePassWiz_comboBox-inputEl
+#	Selenium Click Text From Combobox    id    changePassWiz_comboBox-inputEl    Automated User
+#	Selenium Wait For Element Present    id    changePasswordWizard_next_btn-btnIconEl
+#	Selenium Click    id    changePasswordWizard_next_btn-btnIconEl
+#	Selenium Click    xpath    //*[@id="changePasswordWizard_next_btn-btnIconEl"]
+#	Selenium Wait For Element Present    id    changePassWiz_card-1_wizPanelForm-innerCt
+#	Selenium Click    xpath    //*[@id="changePassWiz_card-1_wizPanelForm-innerCt"]/table/tbody/tr/td[2]/div/div/div/table[3]/tbody/tr/td[2]/input
+#	Selenium Click    xpath    //*[@id="changePasswordWizard_next_btn-btnIconEl"]
+#	Selenium Wait For Element Present    id    changePasswordWizard_save_btn-btnEl
+#	Selenium Click    id    changePasswordWizard_save_btn-btnEl
+	
+#Change User PIN All - ext 3001
+#	Selenium Reload
+#	Selenium Wait For Element Present    id    changePassword_wiz
+#	Selenium Click    id    changePassword_wiz
+#	Selenium Wait For Element Present    id    changePassWiz_comboBox-inputEl
+#	Selenium Click Text From Combobox    id    changePassWiz_comboBox-inputEl    Automated User
+#	Selenium Wait For Element Present    id    changePasswordWizard_next_btn-btnIconEl
+#	Selenium Click    id    changePasswordWizard_next_btn-btnIconEl
+#	Selenium Click    xpath    //*[@id="changePasswordWizard_next_btn-btnIconEl"]
+#	Selenium Wait For Element Present    id    changePassWiz_card-1_wizPanelForm-innerCt
+#	Selenium Click    xpath    //*[@id="changePassWiz_card-1_wizPanelForm-innerCt"]/table/tbody/tr/td[2]/div/div/div/table[4]/tbody/tr/td[2]/input
+#	Selenium Click    xpath    //*[@id="changePasswordWizard_next_btn-btnIconEl"]
+#	Selenium Wait For Element Present    id    changePasswordWizard_save_btn-btnEl
+#	Selenium Click    id    changePasswordWizard_save_btn-btnEl
+	
+*** Keywords ***

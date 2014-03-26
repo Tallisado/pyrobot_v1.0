@@ -1,0 +1,50 @@
+*** Settings ***
+Suite Setup
+Suite Teardown    Close Browser
+Library           Selenium2Library
+Library           Collections
+Resource          ../../resources/resource_ui.txt
+Resource          ../../resources/resource_pyrobot.txt
+
+*** Variables ***
+${Neo}            http://${DEVICE_IP}
+${DEVICE_IP}      10.10.9.164
+
+*** Test Cases ***
+Edit The Paging Group Membership And Add The User To Page Group
+	Selenium Login    admin    password    helpButton-btnIconEl
+	Selenium Wait For Element Present    id    editPagingMembership_wiz
+	Selenium Click    xpath    //*[@id="editPagingMembership_wiz"]
+	Selenium Wait For Element Present    xpath    //*[@id="pagingGroupWiz_grid-body"]
+	Sleep    2
+	Selenium Click    xpath    //*[@id="pagingGroupWiz_grid-body"]/div/table/tbody/tr[1]
+	Selenium Wait For Element Present    xpath    //*[@id="pagingGroupWiz_next_btn-btnEl"]
+	Selenium Click    xpath    //*[@id="pagingGroupWiz_next_btn-btnEl"]
+	Selenium Wait For Element Present    xpath    //*[@id="pagingGroupUser_gridconfig-body"]
+	Selenium Click    xpath    //*[@id="pagingGroupUser_gridconfig-body"]/tr[1]
+	Selenium Wait For Element Present    xpath    //*[@id="pagingGroupRight_button-btnIconEl"]
+	Selenium Click    xpath    //*[@id="pagingGroupRight_button-btnIconEl"]
+	Selenium Wait For Element Present    xpath    //*[@id="pagingGroupWiz_next_btn-btnEl"]
+	Selenium Click    xpath    //*[@id="pagingGroupWiz_next_btn-btnEl"]
+	Selenium Wait For Element Present    xpath    //*[@id="pagingGroupWiz_save_btn-btnEl"]
+	Selenium Click    xpath    //*[@id="pagingGroupWiz_save_btn-btnEl"]
+	
+Edit The Paging Group Membership And Remove The User From The Page Group
+	Selenium Reload
+	Selenium Wait For Element Present    id    editPagingMembership_wiz
+	Selenium Click    xpath    //*[@id="editPagingMembership_wiz"]
+	Selenium Wait For Element Present    xpath    //*[@id="pagingGroupWiz_grid-body"]
+	Sleep    2
+	Selenium Click    xpath    //*[@id="pagingGroupWiz_grid-body"]/div/table/tbody/tr[1]
+	Selenium Wait For Element Present    xpath    //*[@id="pagingGroupWiz_next_btn-btnEl"]
+	Selenium Click    xpath    //*[@id="pagingGroupWiz_next_btn-btnEl"]
+	Selenium Wait For Element Present    xpath    //*[@id="pagingGroupMember_gridconfig-body"]
+	Selenium Click    xpath    //*[@id="pagingGroupMember_gridconfig-body"]/tr[1]
+	Selenium Wait For Element Present    xpath    //*[@id="pagingGroupLeft_button-btnEl"]
+	Selenium Click    xpath    //*[@id="pagingGroupLeft_button-btnEl"]
+	Selenium Wait For Element Present    xpath    //*[@id="pagingGroupWiz_next_btn-btnEl"]
+	Selenium Click    xpath    //*[@id="pagingGroupWiz_next_btn-btnEl"]
+	Selenium Wait For Element Present    xpath    //*[@id="pagingGroupWiz_save_btn-btnEl"]
+	Selenium Click    xpath    //*[@id="pagingGroupWiz_save_btn-btnEl"]
+	
+*** Keywords ***

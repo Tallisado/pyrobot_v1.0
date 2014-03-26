@@ -1,0 +1,51 @@
+*** Settings ***
+Documentation     Check if the predefined users exist
+Library           String
+Library           Collections
+Library			  BuiltIn
+Library			  SSHLibrary
+Library           OperatingSystem
+
+*** Variables ***
+${DEVICE_IP}      10.10.9.164
+${SSH_USER_NAME}        admin
+${SSH_PASSWORD}         password
+${ENABLE_PASSWORD}         password
+${SSH_LOGIN_PROMPT}     Username:
+${SSH_PASSWORD_PROMPT}  Password:
+#${COMMAND_FAIL_REGEX}      (?m)(%\ Unrecognized\ command)|(%\ Invalid\ or\ incomplete)|(%Input\ has\ invalid\ format)|(%-+)
+${PROMPT}                  >
+
+*** Test Cases ***
+Login via SSH
+    [Documentation]    This creates a SSH session, logs into the unit, and stores the unit's hostname in "${HOSTNAME}". \ This keyword leaves you at global enable mode on an AOS unit.
+    ${ssh_id_temp}    Open Connection    ${DEVICE_IP}    timeout=600 seconds
+    Set Global Variable    ${SSH_ID}    ${ssh_id_temp}
+	Set Client Configuration    prompt=${PROMPT}
+    Login    ${SSH_USER_NAME}    ${SSH_PASSWORD}
+    Write    ${EMPTY}
+    ${out}=    Read Until Prompt
+    ${out}=    Replace String    ${out}    >    ${EMPTY}
+    Set Global Variable    ${HOSTNAME}    ${out}
+    Write    enable
+    Read Until    Password:
+	Set Client Configuration    prompt=${HOSTNAME}# 
+    Write    ${ENABLE_PASSWORD}
+    Write    no events
+    Write    terminal length 0
+    Read Until Prompt
+	
+Check If User 3011 Exists
+	Write    show voice users
+	${users}=    Read Until Prompt
+	Run Keyword    Should Contain    ${users}    3011
+	
+Check If User 3001 Exists
+	Write    show voice users
+	${users}=    Read Until Prompt
+	Run Keyword    Should Contain    ${users}    3001
+	
+Check If User 3002 Exists
+	Write    show voice users
+	${users}=    Read Until Prompt
+	Run Keyword    Should Contain    ${users}    3002

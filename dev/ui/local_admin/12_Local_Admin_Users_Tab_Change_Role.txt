@@ -1,0 +1,82 @@
+*** Settings ***
+Suite Setup
+Suite Teardown    Close Browser
+Library           Selenium2Library
+Library           Collections
+Resource          ../../resources/resource_ui.txt
+Resource          ../../resources/resource_pyrobot.txt
+
+*** Variables ***
+${Neo}            http://${DEVICE_IP}
+${DEVICE_IP}      10.10.9.164
+
+*** Test Cases ***
+Change User Role To Local Admin
+	Selenium Login    admin    password    helpButton-btnIconEl
+	Selenium Wait For Element Present    id    users_tab
+	Selenium Click    id    users_tab
+	Selenium Wait For Element Present    xpath	   //*[@id="users_panel_users_grid-body"]/div/table/tbody/tr[1]
+	Selenium Click    xpath    //*[@id="users_panel_users_grid-body"]/div/table/tbody/tr[1]
+	Selenium Wait For Element Present    id    users_panel_changeRole_btn
+	Selenium Click    id    users_panel_changeRole_btn
+	Selenium Wait For Element Present    id    changeUserRole_window_localAdmin_radio-inputEl
+	Selenium Check    id    changeUserRole_window_localAdmin_radio-inputEl
+	Selenium Wait For Element Present    id    changeUserRole_window_save_btn-btnEl
+	Selenium Click    id    changeUserRole_window_save_btn-btnEl
+
+Verify Role In Local Admin For User
+	Selenium Reload
+	Selenium Wait For Element Present    id    users_tab
+	Selenium Click    id    users_tab
+	Selenium Wait For Element Present    xpath	   //*[@id="users_panel_users_grid-body"]/div/table/tbody/tr[1]
+	Selenium Verify Text From Element    xpath    //*[@id="users_panel_users_grid-body"]/div/table/tbody/tr[1]/td[4]/div    Local Administrator
+
+Login As User And Verify Local Admin Button Exists Then Access And Verify That Local Admin Loads
+	Selenium Click    id    logout-btnIconEl
+	Selenium Wait For Element Present    id    loginnameid-inputEl
+	Selenium Wait For Element Present    id    loginpasswordid-inputEl
+	Selenium Type    id    loginnameid-inputEl    3011
+	Selenium Type    id    loginpasswordid-inputEl    1234
+	Selenium Wait For Element Present    id    loginbuttonid-btnIconEl
+	Selenium Click    id    loginbuttonid-btnIconEl
+	Selenium Wait For Element Present    id    localAdmin_btn
+	Selenium Click    id    localAdmin_btn
+	Selenium Wait For Element Present    id    myPPM_btn
+
+Change Role Back To User
+	Selenium Click    id    logout-btnIconEl
+	Selenium Wait For Element Present    id    loginnameid-inputEl
+	Selenium Wait For Element Present    id    loginpasswordid-inputEl
+	Selenium Type    id    loginnameid-inputEl    admin
+	Selenium Type    id    loginpasswordid-inputEl    password
+	Selenium Wait For Element Present    id    loginbuttonid-btnIconEl
+	Selenium Click    id    loginbuttonid-btnIconEl
+	Selenium Wait For Element Present    id    users_tab
+	Selenium Click    id    users_tab
+	Selenium Wait For Element Present    xpath	   //*[@id="users_panel_users_grid-body"]/div/table/tbody/tr[1]
+	Selenium Click    xpath    //*[@id="users_panel_users_grid-body"]/div/table/tbody/tr[1]
+	Selenium Wait For Element Present    id    users_panel_changeRole_btn
+	Selenium Click    id    users_panel_changeRole_btn
+	Selenium Wait For Element Present    id    changeUserRole_window_user_radio-inputEl
+	Selenium Check    id    changeUserRole_window_user_radio-inputEl
+	Selenium Wait For Element Present    id    changeUserRole_window_save_btn-btnEl
+	Selenium Click    id    changeUserRole_window_save_btn-btnEl
+
+Verify User Role Change In Local Admin
+	Selenium Reload
+	Selenium Wait For Element Present    id    users_tab
+	Selenium Click    id    users_tab
+	Selenium Wait For Element Present    xpath	   //*[@id="users_panel_users_grid-body"]/div/table/tbody/tr[1]
+	Selenium Verify Text From Element    xpath    //*[@id="users_panel_users_grid-body"]/div/table/tbody/tr[1]/td[4]/div    User
+
+Login As User And Verify Local Admin Button does not exist now
+	Selenium Click    id    logout-btnIconEl
+	Selenium Wait For Element Present    id    loginnameid-inputEl
+	Selenium Wait For Element Present    id    loginpasswordid-inputEl
+	Selenium Type    id    loginnameid-inputEl    3011
+	Selenium Type    id    loginpasswordid-inputEl    1234
+	Selenium Wait For Element Present    id    loginbuttonid-btnIconEl
+	Selenium Click    id    loginbuttonid-btnIconEl
+	Selenium Element Should Not Be Visible    id    localAdmin_btn
+
+*** Keywords ***

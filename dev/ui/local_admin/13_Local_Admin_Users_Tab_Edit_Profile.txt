@@ -1,0 +1,81 @@
+*** Settings ***
+Suite Setup
+Suite Teardown    Close Browser
+Library           Selenium2Library
+Library           Collections
+Resource          ../../resources/resource_ui.txt
+Resource          ../../resources/resource_pyrobot.txt
+
+*** Variables ***
+${Neo}            http://${DEVICE_IP}
+${DEVICE_IP}      10.10.9.164
+
+*** Test Cases ***
+Edit the User Profile
+	Selenium Login    admin    password    helpButton-btnIconEl
+	Selenium Wait For Element Present    id    users_tab
+	Selenium Click    id    users_tab
+	Selenium Wait For Element Present    xpath	   //*[@id="users_panel_users_grid-body"]/div/table/tbody/tr[1]
+	Selenium Click    xpath    //*[@id="users_panel_users_grid-body"]/div/table/tbody/tr[1]
+	Selenium Wait For Element Present    id    users_panel_edit_btn-btnEl
+	Selenium Click    id    users_panel_edit_btn-btnEl
+	Selenium Wait For Element Present    id    users_panel_edit_profile_menuitem-itemEl
+	Selenium Click    id    users_panel_edit_profile_menuitem-itemEl
+	Selenium Wait For Element Present    name    FirstName
+	Selenium Click    name    FirstName
+	Selenium Clear    name    FirstName
+	Selenium Wait For Element Present    id    profileFormPanel_firstName_textfield-errorEl
+	Selenium Type    name    FirstName    Some
+	Selenium Clear    id    profileFormPanel_lastName_textfield-inputEl
+	Selenium Wait For Element Present    id    profileFormPanel_lastName_textfield-errorEl
+	Selenium Type    id    profileFormPanel_lastName_textfield-inputEl    Guy
+	Selenium Wait For Element Present    id    profileFormPanel_description_textfield-inputEl
+	Selenium Clear    id    profileFormPanel_description_textfield-inputEl
+	Selenium Type    id    profileFormPanel_description_textfield-inputEl    Profile for Some Guy
+	Selenium Wait For Element Present    id    saveUserProfileId-btnEl
+	Selenium Click    id    saveUserProfileId-btnEl
+
+Verify User Profile Settings
+	Selenium Reload
+	Selenium Wait For Element Present    id    users_tab
+	Selenium Click    id    users_tab
+	Selenium Wait For Element Present    xpath	   //*[@id="users_panel_users_grid-body"]/div/table/tbody/tr[1]
+	Selenium Verify Text From Element    xpath    //*[@id="users_panel_users_grid-body"]/div/table/tbody/tr[1]/td[1]/div    Some
+	Selenium Verify Text From Element    xpath    //*[@id="users_panel_users_grid-body"]/div/table/tbody/tr[1]/td[2]/div    Guy
+	Selenium Verify Text From Element    xpath    //*[@id="users_panel_users_grid-body"]/div/table/tbody/tr[1]/td[3]/div    3011
+	Selenium Verify Text From Element    xpath    //*[@id="users_panel_users_grid-body"]/div/table/tbody/tr[1]/td[4]/div    User
+
+Edit The User Profile To Original Values
+	Selenium Reload
+	Selenium Wait For Element Present    id    users_tab
+	Selenium Click    id    users_tab
+	Selenium Wait For Element Present    xpath	   //*[@id="users_panel_users_grid-body"]/div/table/tbody/tr[1]
+	Selenium Click    xpath    //*[@id="users_panel_users_grid-body"]/div/table/tbody/tr[1]
+	Selenium Wait For Element Present    id    users_panel_edit_btn-btnEl
+	Selenium Click    id    users_panel_edit_btn-btnEl
+	Selenium Wait For Element Present    id    users_panel_edit_profile_menuitem-itemEl
+	Selenium Click    id    users_panel_edit_profile_menuitem-itemEl
+	Selenium Wait For Element Present    name    FirstName
+	Selenium Click    name    FirstName
+	Selenium Clear    name    FirstName
+	Selenium Wait For Element Present    id    profileFormPanel_firstName_textfield-errorEl
+	Selenium Type    name    FirstName    Wizard
+	Selenium Clear    id    profileFormPanel_lastName_textfield-inputEl
+	Selenium Wait For Element Present    id    profileFormPanel_lastName_textfield-errorEl
+	Selenium Type    id    profileFormPanel_lastName_textfield-inputEl    User
+	Selenium Wait For Element Present    id    profileFormPanel_description_textfield-inputEl
+	Selenium Clear    id    profileFormPanel_description_textfield-inputEl
+	Selenium Wait For Element Present    id    saveUserProfileId-btnEl
+	Selenium Click    id    saveUserProfileId-btnEl
+
+Verify Original User Profile Settings
+	Selenium Reload
+	Selenium Wait For Element Present    id    users_tab
+	Selenium Click    id    users_tab
+	Selenium Wait For Element Present    xpath	   //*[@id="users_panel_users_grid-body"]/div/table/tbody/tr[1]
+	Selenium Verify Text From Element    xpath    //*[@id="users_panel_users_grid-body"]/div/table/tbody/tr[1]/td[1]/div    Wizard
+	Selenium Verify Text From Element    xpath    //*[@id="users_panel_users_grid-body"]/div/table/tbody/tr[1]/td[2]/div    User
+	Selenium Verify Text From Element    xpath    //*[@id="users_panel_users_grid-body"]/div/table/tbody/tr[1]/td[3]/div    3011
+	Selenium Verify Text From Element    xpath    //*[@id="users_panel_users_grid-body"]/div/table/tbody/tr[1]/td[4]/div    User
+
+*** Keywords ***

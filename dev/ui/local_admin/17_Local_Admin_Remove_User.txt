@@ -1,0 +1,34 @@
+*** Settings ***
+Suite Setup
+Suite Teardown    Close Browser
+Library           Selenium2Library
+Library           Collections
+Resource          ../../resources/resource_ui.txt
+Resource          ../../resources/resource_pyrobot.txt
+
+*** Variables ***
+${Neo}            http://${DEVICE_IP}
+${DEVICE_IP}      10.10.9.164
+
+*** Test Cases ***
+Remove User 3001
+	Selenium Login    admin    password    helpButton-btnIconEl
+	Selenium Wait For Element Present    xpath    //div[@id="removeUser_wiz"]
+	Selenium Click    xpath    //div[@id="removeUser_wiz"]
+	Selenium Wait For Element Present    name    removeUserWizard_window_removeUser_wizard_user_combobox-inputEl
+	Selenium Click Text From Combobox    name    removeUserWizard_window_removeUser_wizard_user_combobox-inputEl    Automated User
+	Selenium Wait For Element Present    xpath    //*[@id="removeUserWizard_window_removeUser_wizard_next_btn"]
+	Selenium Click    xpath    //*[@id="removeUserWizard_window_removeUser_wizard_next_btn"]
+	Selenium Wait For Element Present    xpath    //*[@id="removeUserWizard_window_removeUser_wizard_save_btn"]
+	Selenium Click    xpath    //*[@id="removeUserWizard_window_removeUser_wizard_save_btn"]
+	
+Remove User 3002
+	Selenium Reload
+	Selenium Wait For Element Present    xpath    //div[@id="removeUser_wiz"]
+	Selenium Click    xpath    //div[@id="removeUser_wiz"]
+	Selenium Wait For Element Present    name    removeUserWizard_window_removeUser_wizard_user_combobox-inputEl
+	Selenium Click Text From Combobox    name    removeUserWizard_window_removeUser_wizard_user_combobox-inputEl    Reassign Test
+	Selenium Wait For Element Present    xpath    //*[@id="removeUserWizard_window_removeUser_wizard_next_btn"]
+	Selenium Click    xpath    //*[@id="removeUserWizard_window_removeUser_wizard_next_btn"]
+	Selenium Wait For Element Present    xpath    //*[@id="removeUserWizard_window_removeUser_wizard_save_btn"]
+	Selenium Click    xpath    //*[@id="removeUserWizard_window_removeUser_wizard_save_btn"]

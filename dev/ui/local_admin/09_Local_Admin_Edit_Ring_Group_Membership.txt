@@ -1,0 +1,158 @@
+*** Settings ***
+Suite Setup
+Suite Teardown    Close Browser
+Library           Selenium2Library
+Library           Collections
+Resource          ../../resources/resource_ui.txt
+Resource          ../../resources/resource_pyrobot.txt
+
+*** Variables ***
+${Neo}            http://${DEVICE_IP}
+${DEVICE_IP}      10.10.9.164
+
+*** Test Cases ***
+Add A User To The Linear Ring Group
+	Selenium Login    admin    password    helpButton-btnIconEl
+	Selenium Wait For Element Present    xpath    //*[@id="editRingMembership_wiz"]
+	Selenium Click    xpath    //*[@id="editRingMembership_wiz"]
+	Selenium Wait For Element Present    xpath    //*[@id="ringGroupWiz_grid-body"]
+	Sleep    2
+	Selenium Click    xpath    //*[@id="ringGroupWiz_grid-body"]/div/table/tbody/tr[1]
+	Selenium Wait For Element Present    xpath    //*[@id="ringGroupWiz_next_btn-btnEl"]
+	Selenium Click    xpath    //*[@id="ringGroupWiz_next_btn-btnEl"]
+	Selenium Wait For Element Present    xpath    //*[@id="ringGroupUser_gridconfig-body"]
+	Selenium Click    xpath    //*[@id="ringGroupUser_gridconfig-body"]/tr[1]
+	Selenium Wait For Element Present    xpath    //*[@id="ringGroupRight_button-btnEl"]
+	Selenium Click    xpath    //*[@id="ringGroupRight_button-btnEl"]
+	Selenium Wait For Element Present    xpath    //*[@id="ringGroupWiz_next_btn-btnEl"]
+	Selenium Click    xpath    //*[@id="ringGroupWiz_next_btn-btnEl"]
+	Selenium Wait For Element Present    xpath    //*[@id="ringGroupWiz_save_btn-btnEl"]
+	Selenium Click    xpath    //*[@id="ringGroupWiz_save_btn-btnEl"]
+	
+Remove A User From The Linear Ring Group
+	Selenium Reload
+	Selenium Wait For Element Present    xpath    //*[@id="editRingMembership_wiz"]
+	Selenium Click    xpath    //*[@id="editRingMembership_wiz"]
+	Selenium Wait For Element Present    xpath    //*[@id="ringGroupWiz_grid-body"]
+	Sleep    2
+	Selenium Click    xpath    //*[@id="ringGroupWiz_grid-body"]/div/table/tbody/tr[1]
+	Selenium Wait For Element Present    xpath    //*[@id="ringGroupWiz_next_btn-btnEl"]
+	Selenium Click    xpath    //*[@id="ringGroupWiz_next_btn-btnEl"]
+	Selenium Wait For Element Present    xpath    //*[@id="ringGroupMember_gridconfig-body"]
+	Selenium Click    xpath    //*[@id="ringGroupMember_gridconfig-body"]/tr[1]
+	Selenium Wait For Element Present    xpath    //*[@id="ringGroupLeft_button-btnEl"]
+	Selenium Click    xpath    //*[@id="ringGroupLeft_button-btnEl"]
+	Selenium Wait For Element Present    xpath    //*[@id="ringGroupWiz_next_btn-btnEl"]
+	Selenium Click    xpath    //*[@id="ringGroupWiz_next_btn-btnEl"]
+	Selenium Wait For Element Present    xpath    //*[@id="ringGroupWiz_save_btn-btnEl"]
+	Selenium Click    xpath    //*[@id="ringGroupWiz_save_btn-btnEl"]
+
+Add A User To The All Ring Group
+	Selenium Reload
+	Selenium Wait For Element Present    xpath    //*[@id="editRingMembership_wiz"]
+	Selenium Click    xpath    //*[@id="editRingMembership_wiz"]
+	Selenium Wait For Element Present    xpath    //*[@id="ringGroupWiz_grid-body"]
+	Sleep    2
+	Selenium Click    xpath    //*[@id="ringGroupWiz_grid-body"]/div/table/tbody/tr[2]
+	Selenium Wait For Element Present    xpath    //*[@id="ringGroupWiz_next_btn-btnEl"]
+	Selenium Click    xpath    //*[@id="ringGroupWiz_next_btn-btnEl"]
+	Selenium Wait For Element Present    xpath    //*[@id="ringGroupUser_gridconfig-body"]
+	Selenium Click    xpath    //*[@id="ringGroupUser_gridconfig-body"]/tr[1]
+	Selenium Wait For Element Present    xpath    //*[@id="ringGroupRight_button-btnEl"]
+	Selenium Click    xpath    //*[@id="ringGroupRight_button-btnEl"]
+	Selenium Wait For Element Present    xpath    //*[@id="ringGroupWiz_next_btn-btnEl"]
+	Selenium Click    xpath    //*[@id="ringGroupWiz_next_btn-btnEl"]
+	Selenium Wait For Element Present    xpath    //*[@id="ringGroupWiz_save_btn-btnEl"]
+	Selenium Click    xpath    //*[@id="ringGroupWiz_save_btn-btnEl"]
+	
+Remove A User From The All Ring Group
+	Selenium Reload
+	Selenium Wait For Element Present    xpath    //*[@id="editRingMembership_wiz"]
+	Selenium Click    xpath    //*[@id="editRingMembership_wiz"]
+	Selenium Wait For Element Present    xpath    //*[@id="ringGroupWiz_grid-body"]
+	Sleep    2
+	Selenium Click    xpath    //*[@id="ringGroupWiz_grid-body"]/div/table/tbody/tr[2]
+	Selenium Wait For Element Present    xpath    //*[@id="ringGroupWiz_next_btn-btnEl"]
+	Selenium Click    xpath    //*[@id="ringGroupWiz_next_btn-btnEl"]
+	Selenium Wait For Element Present    xpath    //*[@id="ringGroupMember_gridconfig-body"]
+	Selenium Click    xpath    //*[@id="ringGroupMember_gridconfig-body"]/tr[1]
+	Selenium Wait For Element Present    xpath    //*[@id="ringGroupLeft_button-btnEl"]
+	Selenium Click    xpath    //*[@id="ringGroupLeft_button-btnEl"]
+	Selenium Wait For Element Present    xpath    //*[@id="ringGroupWiz_next_btn-btnEl"]
+	Selenium Click    xpath    //*[@id="ringGroupWiz_next_btn-btnEl"]
+	Selenium Wait For Element Present    xpath    //*[@id="ringGroupWiz_save_btn-btnEl"]
+	Selenium Click    xpath    //*[@id="ringGroupWiz_save_btn-btnEl"]
+	
+#Add A User To The Uniform Ring Group
+#	Selenium Reload
+#	Selenium Wait For Element Present    xpath    //*[@id="editRingMembership_wiz"]
+#	Selenium Click    xpath    //*[@id="editRingMembership_wiz"]
+#	Selenium Wait For Element Present    xpath    //*[@id="ringGroupWiz_grid-body"]
+#	Sleep    2
+#	Selenium Click    xpath    //*[@id="ringGroupWiz_grid-body"]/div/table/tbody/tr[3]
+#	Selenium Wait For Element Present    xpath    //*[@id="ringGroupWiz_next_btn-btnEl"]
+#	Selenium Click    xpath    //*[@id="ringGroupWiz_next_btn-btnEl"]
+#	Selenium Wait For Element Present    xpath    //*[@id="ringGroupUser_gridconfig-body"]
+#	Selenium Click    xpath    //*[@id="ringGroupUser_gridconfig-body"]/tr[1]
+#	Selenium Wait For Element Present    xpath    //*[@id="ringGroupRight_button-btnEl"]
+#	Selenium Click    xpath    //*[@id="ringGroupRight_button-btnEl"]
+#	Selenium Wait For Element Present    xpath    //*[@id="ringGroupWiz_next_btn-btnEl"]
+#	Selenium Click    xpath    //*[@id="ringGroupWiz_next_btn-btnEl"]
+#	Selenium Wait For Element Present    xpath    //*[@id="ringGroupWiz_save_btn-btnEl"]
+#	Selenium Click    xpath    //*[@id="ringGroupWiz_save_btn-btnEl"]
+	
+#Remove A User From The Uniform Ring Group
+#	Selenium Reload
+#	Selenium Wait For Element Present    xpath    //*[@id="editRingMembership_wiz"]
+#	Selenium Click    xpath    //*[@id="editRingMembership_wiz"]
+#	Selenium Wait For Element Present    xpath    //*[@id="ringGroupWiz_grid-body"]
+#	Sleep    2
+#	Selenium Click    xpath    //*[@id="ringGroupWiz_grid-body"]/div/table/tbody/tr[3]
+#	Selenium Wait For Element Present    xpath    //*[@id="ringGroupWiz_next_btn-btnEl"]
+#	Selenium Click    xpath    //*[@id="ringGroupWiz_next_btn-btnEl"]
+#	Selenium Wait For Element Present    xpath    //*[@id="ringGroupMember_gridconfig-body"]
+#	Selenium Click    xpath    //*[@id="ringGroupMember_gridconfig-body"]/tr[1]
+#	Selenium Wait For Element Present    xpath    //*[@id="ringGroupLeft_button-btnEl"]
+#	Selenium Click    xpath    //*[@id="ringGroupLeft_button-btnEl"]
+#	Selenium Wait For Element Present    xpath    //*[@id="ringGroupWiz_next_btn-btnEl"]
+#	Selenium Click    xpath    //*[@id="ringGroupWiz_next_btn-btnEl"]
+#	Selenium Wait For Element Present    xpath    //*[@id="ringGroupWiz_save_btn-btnEl"]
+#	Selenium Click    xpath    //*[@id="ringGroupWiz_save_btn-btnEl"]
+	
+#Add A User To The Executive Ring Group
+#	Selenium Reload
+#	Selenium Wait For Element Present    xpath    //*[@id="editRingMembership_wiz"]
+#	Selenium Click    xpath    //*[@id="editRingMembership_wiz"]
+#	Selenium Wait For Element Present    xpath    //*[@id="ringGroupWiz_grid-body"]
+#	Sleep    2
+#	Selenium Click    xpath    //*[@id="ringGroupWiz_grid-body"]/div/table/tbody/tr[4]
+#	Selenium Wait For Element Present    xpath    //*[@id="ringGroupWiz_next_btn-btnEl"]
+#	Selenium Click    xpath    //*[@id="ringGroupWiz_next_btn-btnEl"]
+#	Selenium Wait For Element Present    xpath    //*[@id="ringGroupUser_gridconfig-body"]
+#	Selenium Click    xpath    //*[@id="ringGroupUser_gridconfig-body"]/tr[1]
+#	Selenium Wait For Element Present    xpath    //*[@id="ringGroupRight_button-btnEl"]
+#	Selenium Click    xpath    //*[@id="ringGroupRight_button-btnEl"]
+#	Selenium Wait For Element Present    xpath    //*[@id="ringGroupWiz_next_btn-btnEl"]
+#	Selenium Click    xpath    //*[@id="ringGroupWiz_next_btn-btnEl"]
+#	Selenium Wait For Element Present    xpath    //*[@id="ringGroupWiz_save_btn-btnEl"]
+#	Selenium Click    xpath    //*[@id="ringGroupWiz_save_btn-btnEl"]
+	
+#Remove A User From The Executive Ring Group
+#	Selenium Reload
+#	Selenium Wait For Element Present    xpath    //*[@id="editRingMembership_wiz"]
+#	Selenium Click    xpath    //*[@id="editRingMembership_wiz"]
+#	Selenium Wait For Element Present    xpath    //*[@id="ringGroupWiz_grid-body"]
+#	Sleep    2
+#	Selenium Click    xpath    //*[@id="ringGroupWiz_grid-body"]/div/table/tbody/tr[4]
+#	Selenium Wait For Element Present    xpath    //*[@id="ringGroupWiz_next_btn-btnEl"]
+#	Selenium Click    xpath    //*[@id="ringGroupWiz_next_btn-btnEl"]
+#	Selenium Wait For Element Present    xpath    //*[@id="ringGroupMember_gridconfig-body"]
+#	Selenium Click    xpath    //*[@id="ringGroupMember_gridconfig-body"]/tr[1]
+#	Selenium Wait For Element Present    xpath    //*[@id="ringGroupLeft_button-btnEl"]
+#	Selenium Click    xpath    //*[@id="ringGroupLeft_button-btnEl"]
+#	Selenium Wait For Element Present    xpath    //*[@id="ringGroupWiz_next_btn-btnEl"]
+#	Selenium Click    xpath    //*[@id="ringGroupWiz_next_btn-btnEl"]
+#	Selenium Wait For Element Present    xpath    //*[@id="ringGroupWiz_save_btn-btnEl"]
+#	Selenium Click    xpath    //*[@id="ringGroupWiz_save_btn-btnEl"]
+	
+*** Keywords ***

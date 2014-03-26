@@ -1,0 +1,37 @@
+*** Settings ***
+Suite Setup
+Suite Teardown    Close Browser
+Library           Selenium2Library
+Library           Collections
+
+*** Variables ***
+${Neo}            http://admin:password@${DEVICE_IP}:81
+${DEVICE_IP}      10.10.9.164
+
+*** Test Cases ***
+Go to Neo
+    Open Browser to ${Neo}
+
+Go to Wizard
+	Wait Until Element Is Visible    WizardToggleIcon
+	Click Image    WizardToggleIcon
+    Selenium2Library.Go To    ${DEVICE_IP}:81/main/wizard/startup/factory_default.html
+	
+Restore Factory Defaults
+    Wait Until Element Is Visible    new
+	#Click Link    xpath=//*[@id="new"]
+	Selenium2Library.Go To    ${DEVICE_IP}:81/main/wizard/startup/summary/scripts/applyFactoryDefault.html
+	Sleep    80s
+	
+Wait For Unit To Restart
+	Wait Until Keyword Succeeds    5 min    5 sec    Check UI ${DEVICE_IP}
+	
+*** Keywords ***
+Open Browser to ${URL}
+    Open Browser    ${URL}
+    Maximize Browser Window
+    Set Selenium Speed    1
+	
+Check UI ${URL}
+    Selenium2Library.Go To    ${URL}/Login/index.php
+	Wait Until Element Is Visible    loginnameid-inputEl

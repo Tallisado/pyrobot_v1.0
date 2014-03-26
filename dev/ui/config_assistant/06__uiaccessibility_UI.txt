@@ -1,0 +1,27 @@
+*** Settings ***
+Suite Setup
+Suite Teardown    Close Browser
+Library           Selenium2Library
+Library           Collections
+Variables         phone_dictionary.py
+
+*** Variables ***
+${Neo}            http://admin:password@${DEVICE_IP}
+${DEVICE_IP}      10.10.9.164
+
+*** Test Cases ***
+Go to Neo
+    Open Browser to ${Neo}
+
+Go to Login Page
+    Selenium2Library.Go To    ${DEVICE_IP}/Login/index.php
+	
+Check Login Page
+	Wait Until Element Is Visible    loginnameid-inputEl    timeout=5
+	Title Should Be    ADTRAN Neo
+
+*** Keywords ***
+Open Browser to ${URL}
+    Open Browser    ${URL}
+    Maximize Browser Window
+    Set Selenium Speed    1

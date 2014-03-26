@@ -1,0 +1,29 @@
+*** Settings ***
+Suite Setup
+Suite Teardown    Close Browser
+Library           Selenium2Library
+Library           Collections
+Resource          ../../resources/resource_ui.txt
+
+*** Variables ***
+${Neo}            http://${DEVICE_IP}
+${DEVICE_IP}      10.10.9.164
+
+*** Test Cases ***
+Restore Backup
+	Selenium Login    admin    password    helpButton-btnIconEl
+	Selenium Wait For Element Present    id    restoreSystem_wiz
+	Selenium Click    id    restoreSystem_wiz
+	Selenium Wait For Element Present    id    restoreSystemWiz_next_btn
+	Selenium Click    id    restoreSystemWiz_next_btn
+	Selenium Wait For Element Present    id    restoreSystemWiz_prev_btn
+	Selenium Wait For Element Present    id    restoreSystemWiz_save_btn-btnEl
+	Selenium Click    id    restoreSystemWiz_save_btn-btnEl
+	Sleep    1
+	${CHECK_TXT}=    Page Should Contain    NEO is rebooting please wait    loglevel=NONE
+	Run Keyword If    '${CHECK_TXT}' == 'FALSE'    Click Save Button
+	Page Should Contain    NEO is rebooting please wait
+
+*** Keywords ***
+Click Save Button
+	Selenium Click    id    restoreSystemWiz_save_btn-btnEl

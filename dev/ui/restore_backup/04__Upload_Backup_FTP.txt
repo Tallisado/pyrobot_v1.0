@@ -1,0 +1,24 @@
+*** Settings ***
+Documentation     Upload a backup to a NEO to test restore operation
+Library           String
+Library           Collections
+Library			  FtpLibrary
+Library           OperatingSystem
+
+*** Variables ***
+${DEVICE_IP}               10.10.9.164
+${FTP_USER_NAME}        admin
+${FTP_PASSWORD}         password
+
+*** Test Cases ***
+Connect to FTP
+    ftp connect    ${DEVICE_IP}    ${FTP_USER_NAME}    ${FTP_PASSWORD}
+	
+Change to backup directory
+    Cwd    /backup
+	
+Upload Backup File
+	Upload File    /tmp/neo.backup    remoteFileName=neo.backup
+	
+Disconnect from FTP Server
+	Ftp Close

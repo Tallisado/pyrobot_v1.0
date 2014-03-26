@@ -1,0 +1,58 @@
+*** Settings ***
+Documentation     Enable Restore Operation in NEO
+Library           String
+Library           Collections
+Library			  BuiltIn
+Library			  SSHLibrary
+Library           OperatingSystem
+
+*** Variables ***
+${TELNET_USER_NAME}        admin
+${TELNET_PASSWORD}         password
+${ENABLE_PASSWORD}         password
+${TELNET_LOGIN_PROMPT}     Username:
+${TELNET_PASSWORD_PROMPT}  Password:
+#${COMMAND_FAIL_REGEX}      (?m)(%\ Unrecognized\ command)|(%\ Invalid\ or\ incomplete)|(%Input\ has\ invalid\ format)|(%-+)
+${PROMPT}                  >
+${DEVICE_IP}      10.10.9.164
+
+*** Test Cases ***
+Login via SSH
+    [Documentation]    This creates a SSH session, logs into the unit, and stores the unit's hostname in "${HOSTNAME}". \ This keyword leaves you at global enable mode on an AOS unit.
+    ${telnet_id_temp}    Open Connection    ${DEVICE_IP}    timeout=3 seconds
+    Set Global Variable    ${TELNET_ID}    ${telnet_id_temp}
+	Set Client Configuration    prompt=${PROMPT}
+    Login    ${TELNET_USER_NAME}    ${TELNET_PASSWORD}
+    Write    ${EMPTY}
+    ${out}=    Read Until Prompt
+    ${out}=    Replace String    ${out}    >    ${EMPTY}
+    Set Global Variable    ${HOSTNAME}    ${out}
+    Write    enable
+    Read Until    Password:
+	Set Client Configuration    prompt=${HOSTNAME}# 
+    Write    ${ENABLE_PASSWORD}
+    Write    no events
+    Write    terminal length 0
+    Read Until Prompt
+	
+Enter Linux Shell
+	Write    shell
+	${pass}=    Run Keyword And Return Status    Read Until     Response:
+    Run Keyword If    ${pass} == False    En8 Mode Shell
+	Write    1234
+	Set Client Configuration    prompt=sh-4.2#
+	Read Until Prompt
+	
+Set Restore Operation
+	Write    password="VUf+^1N}]Dye(Pa"
+	Read Until Prompt
+	Write    openssl enc -d -aes-128-cbc -in /media/mmcblk0p1/backup/neo.backup -pass pass:$password 2> /dev/null | tar -xC / 2> /dev/null
+	Read Until Prompt
+	
+*** Keywords ***
+En8 Mode Shell
+	Write    en 8
+	Read Until    Password:
+	Write    eng9638000
+	Read Until Prompt
+	Write    shell

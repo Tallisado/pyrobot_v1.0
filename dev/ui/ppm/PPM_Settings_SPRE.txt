@@ -1,0 +1,538 @@
+*** Settings ***
+Suite Setup
+Suite Teardown    Close Browser
+Library           Selenium2Library
+Library           Collections
+Resource          ../../resources/resource_ui.txt
+Resource          ../../resources/resource_pyrobot.txt
+
+*** Variables ***
+${Neo}            http://${DEVICE_IP}
+${DEVICE_IP}      10.10.9.164
+
+*** Test Cases ***
+Drag And Drop SPRE Settings - System Speed Dial
+	Selenium Login    3011    1234    settingsButton-btnIconEl
+#	Selenium Wait For Element Present    id    settingsButton-btnIconEl
+#	Selenium Click    id    settingsButton-btnIconEl
+#	Selenium Wait For Element Present    id    settingsPhone
+#	Selenium Click    id    settingsPhone
+#	Selenium Wait For Element Present    id    phone_btn0_lbl
+#	Selenium Drag And Drop    id    phoneFunc0_3    phone_btn2
+#	Selenium Verify Text From Element    id    phone_btn2_lbl    SPRE
+#	Selenium Double Click    id    phone_btn2_lbl
+#	Selenium Wait For Element Present    xpath    //div[@id='spreSetting_grid-body']
+#	Selenium Click    xpath    //div[@id='spreSetting_grid-body']/div/table/tbody/tr[1]
+#	Selenium Wait For Element Present    name    select_cmb-inputEl
+#	Selenium Click Text From Combobox    name    select_cmb-inputEl    Homer Simpson
+#	Selenium Wait For Element Present    id    spreOK_btn
+#	Selenium Click    id    spreOK_btn
+#	Selenium Wait For Element Present    id    phone_btn2_lbl
+#	Selenium Verify Text From Element    id    phone_btn2_lbl    Homer Si...
+#	Selenium Click    id    phone_btn2_del-innerCt
+#	Selenium Verify Text From Element    id    phone_btn2_lbl    ""
+	
+Drag And Drop SPRE Settings - Page-Overhead
+	Selenium Reload
+	Selenium Wait For Element Present    id    settingsButton-btnIconEl
+	Selenium Click    id    settingsButton-btnIconEl
+	Selenium Wait For Element Present    id    settingsPhone
+	Selenium Click    id    settingsPhone
+	Selenium Wait For Element Present    id    phone_btn0_lbl
+	Selenium Drag And Drop    id    phoneFunc0_3    phone_btn2
+	Selenium Verify Text From Element    id    phone_btn2_lbl    SPRE
+	Selenium Double Click    id    phone_btn2_lbl
+	Selenium Wait For Element Present    xpath    //div[@id='spreSetting_grid-body']
+	Selenium Click    xpath    //div[@id='spreSetting_grid-body']/div/table/tbody/tr[2]
+	Selenium Wait For Element Present    id    spreOK_btn
+	Selenium Click    id    spreOK_btn
+	Selenium Wait For Element Present    id    phone_btn2_lbl
+	Selenium Verify Text From Element    id    phone_btn2_lbl    pageOver...
+#	Selenium Click    id    phone_btn2_del-innerCt
+#	Execute Javascript    document.getElementById('phone_btn2_del-innerCt').click();
+#	Selenium Verify Text From Element    id    phone_btn2_lbl    ""
+
+Drag And Drop SPRE Settings - Forward Notification Cancel
+	Selenium Reload
+	Selenium Wait For Element Present    id    settingsButton-btnIconEl
+	Selenium Click    id    settingsButton-btnIconEl
+	Selenium Wait For Element Present    id    settingsPhone
+	Selenium Click    id    settingsPhone
+	Selenium Wait For Element Present    id    phone_btn0_lbl
+	Selenium Drag And Drop    id    phoneFunc0_3    phone_btn2
+	Selenium Verify Text From Element    id    phone_btn2_lbl    SPRE
+	Selenium Double Click    id    phone_btn2_lbl
+	Selenium Wait For Element Present    xpath    //div[@id='spreSetting_grid-body']
+	Selenium Click    xpath    //div[@id='spreSetting_grid-body']/div/table/tbody/tr[3]
+	Selenium Wait For Element Present    id    spreOK_btn
+	Selenium Click    id    spreOK_btn
+	Selenium Wait For Element Present    id    phone_btn2_lbl
+	Selenium Verify Text From Element    id    phone_btn2_lbl    Forward ...
+#	Selenium Click    id    phone_btn2_del-innerCt
+#	Execute Javascript    document.getElementById('phone_btn2_del-innerCt').click();
+#	Selenium Verify Text From Element    id    phone_btn2_lbl    ""
+
+#Drag And Drop SPRE Settings - Call Forward + Extension
+#	Selenium Reload
+#	Selenium Wait For Element Present    id    settingsButton-btnIconEl
+#	Selenium Click    id    settingsButton-btnIconEl
+#	Selenium Wait For Element Present    id    settingsPhone
+#	Selenium Click    id    settingsPhone
+#	Selenium Wait For Element Present    id    phone_btn0_lbl
+#	Selenium Drag And Drop    id    phoneFunc0_3    phone_btn2
+#	Selenium Verify Text From Element    id    phone_btn2_lbl    SPRE
+#	Selenium Double Click    id    phone_btn2_lbl
+#	Selenium Wait For Element Present    xpath    //div[@id='spreSetting_grid-body']
+#	Selenium Click    xpath    //div[@id='spreSetting_grid-body']/div/table/tbody/tr[4]
+#	Selenium Type    name    number    6135551111
+#	Selenium Wait For Element Present    id    spreOK_btn
+#	Selenium Click    id    spreOK_btn
+#	Selenium Wait For Element Present    id    phone_btn2_lbl
+#	Selenium Verify Text From Element    id    phone_btn2_lbl    CallForw...
+#	Selenium Click    id    phone_btn2_del-innerCt
+#	Execute Javascript    document.getElementById('phone_btn2_del-innerCt').click();
+#	Selenium Verify Text From Element    id    phone_btn2_lbl    ""
+
+Drag And Drop SPRE Settings - Call Forward Cancel
+	Selenium Reload
+	Selenium Wait For Element Present    id    settingsButton-btnIconEl
+	Selenium Click    id    settingsButton-btnIconEl
+	Selenium Wait For Element Present    id    settingsPhone
+	Selenium Click    id    settingsPhone
+	Selenium Wait For Element Present    id    phone_btn0_lbl
+	Selenium Drag And Drop    id    phoneFunc0_3    phone_btn2
+	Selenium Verify Text From Element    id    phone_btn2_lbl    SPRE
+	Selenium Double Click    id    phone_btn2_lbl
+	Selenium Wait For Element Present    xpath    //div[@id='spreSetting_grid-body']
+	Selenium Click    xpath    //div[@id='spreSetting_grid-body']/div/table/tbody/tr[5]
+	Selenium Wait For Element Present    id    spreOK_btn
+	Selenium Click    id    spreOK_btn
+	Selenium Wait For Element Present    id    phone_btn2_lbl
+	Selenium Verify Text From Element    id    phone_btn2_lbl    Call For...
+#	Selenium Click    id    phone_btn2_del-innerCt
+#	Execute Javascript    document.getElementById('phone_btn2_del-innerCt').click();
+#	Selenium Verify Text From Element    id    phone_btn2_lbl    ""
+
+#Drag And Drop SPRE Settings - Call Forward Remote
+#	Selenium Reload
+#	Selenium Wait For Element Present    id    settingsButton-btnIconEl
+#	Selenium Click    id    settingsButton-btnIconEl
+#	Selenium Wait For Element Present    id    settingsPhone
+#	Selenium Click    id    settingsPhone
+#	Selenium Wait For Element Present    id    phone_btn0_lbl
+#	Selenium Drag And Drop    id    phoneFunc0_3    phone_btn2
+#	Selenium Verify Text From Element    id    phone_btn2_lbl    SPRE
+#	Selenium Double Click    id    phone_btn2_lbl
+#	Selenium Wait For Element Present    xpath    //div[@id='spreSetting_grid-body']
+#	Selenium Click    xpath    //div[@id='spreSetting_grid-body']/div/table/tbody/tr[6]
+#	Selenium Type    name    extension    3001
+#	Selenium Type    name    number    6135551111
+#	Selenium Type    name    password    1234
+#	Selenium Wait For Element Present    id    spreOK_btn
+#	Selenium Click    id    spreOK_btn
+#	Selenium Wait For Element Present    id    phone_btn2_lbl
+#	Selenium Verify Text From Element    id    phone_btn2_lbl    CallForw...
+#	Selenium Click    id    phone_btn2_del-innerCt
+#	Execute Javascript    document.getElementById('phone_btn2_del-innerCt').click();
+#	Selenium Verify Text From Element    id    phone_btn2_lbl    ""
+
+#Drag And Drop SPRE Settings - Remote Call Forward Cancel
+#	Selenium Reload
+#	Selenium Wait For Element Present    id    settingsButton-btnIconEl
+#	Selenium Click    id    settingsButton-btnIconEl
+#	Selenium Wait For Element Present    id    settingsPhone
+#	Selenium Click    id    settingsPhone
+#	Selenium Wait For Element Present    id    phone_btn0_lbl
+#	Selenium Drag And Drop    id    phoneFunc0_3    phone_btn2
+#	Selenium Verify Text From Element    id    phone_btn2_lbl    SPRE
+#	Selenium Double Click    id    phone_btn2_lbl
+#	Selenium Wait For Element Present    xpath    //div[@id='spreSetting_grid-body']
+#	Selenium Click    xpath    //div[@id='spreSetting_grid-body']/div/table/tbody/tr[7]
+#	Selenium Type    name    number    3001
+#	Selenium Type    name    password    1234
+#	Selenium Type    name    confirmpassword    1234
+#	Selenium Wait For Element Present    id    spreOK_btn
+#	Selenium Click    id    spreOK_btn
+#	Selenium Wait For Element Present    id    phone_btn2_lbl
+#	Selenium Verify Text From Element    id    phone_btn2_lbl    Call For...
+#	Selenium Click    id    phone_btn2_del-innerCt
+#	Execute Javascript    document.getElementById('phone_btn2_del-innerCt').click();
+#	Selenium Verify Text From Element    id    phone_btn2_lbl    ""
+
+Drag And Drop SPRE Settings - Door Phone
+	Selenium Reload
+	Selenium Wait For Element Present    id    settingsButton-btnIconEl
+	Selenium Click    id    settingsButton-btnIconEl
+	Selenium Wait For Element Present    id    settingsPhone
+	Selenium Click    id    settingsPhone
+	Selenium Wait For Element Present    id    phone_btn0_lbl
+	Selenium Drag And Drop    id    phoneFunc0_3    phone_btn2
+	Selenium Verify Text From Element    id    phone_btn2_lbl    SPRE
+	Selenium Double Click    id    phone_btn2_lbl
+	Selenium Wait For Element Present    xpath    //div[@id='spreSetting_grid-body']
+	Selenium Click    xpath    //div[@id='spreSetting_grid-body']/div/table/tbody/tr[8]
+	Selenium Wait For Element Present    id    spreOK_btn
+	Selenium Click    id    spreOK_btn
+	Selenium Wait For Element Present    id    phone_btn2_lbl
+	Selenium Verify Text From Element    id    phone_btn2_lbl    Door Pho...
+#	Selenium Click    id    phone_btn2_del-innerCt
+#	Execute Javascript    document.getElementById('phone_btn2_del-innerCt').click();
+#	Selenium Verify Text From Element    id    phone_btn2_lbl    ""
+
+#Drag And Drop SPRE Settings - Send User Directly to Voicemail
+#	Selenium Reload
+#	Selenium Wait For Element Present    id    settingsButton-btnIconEl
+#	Selenium Click    id    settingsButton-btnIconEl
+#	Selenium Wait For Element Present    id    settingsPhone
+#	Selenium Click    id    settingsPhone
+#	Selenium Wait For Element Present    id    phone_btn0_lbl
+#	Selenium Drag And Drop    id    phoneFunc0_3    phone_btn2
+#	Selenium Verify Text From Element    id    phone_btn2_lbl    SPRE
+#	Selenium Double Click    id    phone_btn2_lbl
+#	Selenium Wait For Element Present    xpath    //div[@id='spreSetting_grid-body']
+#	Selenium Click    xpath    //div[@id='spreSetting_grid-body']/div/table/tbody/tr[9]
+#	Selenium Type    name    number    3001
+#	Selenium Wait For Element Present    id    spreOK_btn
+#	Selenium Click    id    spreOK_btn
+#	Selenium Wait For Element Present    id    phone_btn2_lbl
+#	Selenium Verify Text From Element    id    phone_btn2_lbl    SendToVM...
+#	Selenium Click    id    phone_btn2_del-innerCt
+#	Execute Javascript    document.getElementById('phone_btn2_del-innerCt').click();
+#	Selenium Verify Text From Element    id    phone_btn2_lbl    ""
+
+Drag And Drop SPRE Settings - DND Enable
+	Selenium Reload
+	Selenium Wait For Element Present    id    settingsButton-btnIconEl
+	Selenium Click    id    settingsButton-btnIconEl
+	Selenium Wait For Element Present    id    settingsPhone
+	Selenium Click    id    settingsPhone
+	Selenium Wait For Element Present    id    phone_btn0_lbl
+	Selenium Drag And Drop    id    phoneFunc0_3    phone_btn2
+	Selenium Verify Text From Element    id    phone_btn2_lbl    SPRE
+	Selenium Double Click    id    phone_btn2_lbl
+	Selenium Wait For Element Present    xpath    //div[@id='spreSetting_grid-body']
+	Selenium Click    xpath    //div[@id='spreSetting_grid-body']/div/table/tbody/tr[10]
+	Selenium Click Text From Combobox    name    select_cmb-inputEl    On
+	Selenium Wait For Element Present    id    spreOK_btn
+	Selenium Click    id    spreOK_btn
+	Selenium Wait For Element Present    id    phone_btn2_lbl
+	Selenium Verify Text From Element    id    phone_btn2_lbl    On
+#	Selenium Click    id    phone_btn2_del-innerCt
+#	Execute Javascript    document.getElementById('phone_btn2_del-innerCt').click();
+#	Selenium Verify Text From Element    id    phone_btn2_lbl    ""
+
+Drag And Drop SPRE Settings - DND Disable
+	Selenium Reload
+	Selenium Wait For Element Present    id    settingsButton-btnIconEl
+	Selenium Click    id    settingsButton-btnIconEl
+	Selenium Wait For Element Present    id    settingsPhone
+	Selenium Click    id    settingsPhone
+	Selenium Wait For Element Present    id    phone_btn0_lbl
+	Selenium Drag And Drop    id    phoneFunc0_3    phone_btn2
+	Selenium Verify Text From Element    id    phone_btn2_lbl    SPRE
+	Selenium Double Click    id    phone_btn2_lbl
+	Selenium Wait For Element Present    xpath    //div[@id='spreSetting_grid-body']
+	Selenium Click    xpath    //div[@id='spreSetting_grid-body']/div/table/tbody/tr[10]
+	Selenium Click Text From Combobox    name    select_cmb-inputEl    Off
+	Selenium Wait For Element Present    id    spreOK_btn
+	Selenium Click    id    spreOK_btn
+	Selenium Wait For Element Present    id    phone_btn2_lbl
+	Selenium Verify Text From Element    id    phone_btn2_lbl    Off
+#	Selenium Click    id    phone_btn2_del-innerCt
+#	Execute Javascript    document.getElementById('phone_btn2_del-innerCt').click();
+#	Selenium Verify Text From Element    id    phone_btn2_lbl    ""
+
+#Drag And Drop SPRE Settings - Group Login
+#	Selenium Reload
+#	Selenium Wait For Element Present    id    settingsButton-btnIconEl
+#	Selenium Click    id    settingsButton-btnIconEl
+#	Selenium Wait For Element Present    id    settingsPhone
+#	Selenium Click    id    settingsPhone
+#	Selenium Wait For Element Present    id    phone_btn0_lbl
+#	Selenium Drag And Drop    id    phoneFunc0_3    phone_btn2
+#	Selenium Verify Text From Element    id    phone_btn2_lbl    SPRE
+#	Selenium Double Click    id    phone_btn2_lbl
+#	Selenium Wait For Element Present    xpath    //div[@id='spreSetting_grid-body']
+#	Selenium Click    xpath    //div[@id='spreSetting_grid-body']/div/table/tbody/tr[11]
+#	Selenium Type    name    number    1234
+#	Selenium Wait For Element Present    id    spreOK_btn
+#	Selenium Click    id    spreOK_btn
+#	Selenium Wait For Element Present    id    phone_btn2_lbl
+#	Selenium Verify Text From Element    id    phone_btn2_lbl    GroupLog...
+#	Selenium Click    id    phone_btn2_del-innerCt
+#	Execute Javascript    document.getElementById('phone_btn2_del-innerCt').click();
+#	Selenium Verify Text From Element    id    phone_btn2_lbl    ""
+
+#Drag And Drop SPRE Settings - Group Logout
+#	Selenium Reload
+#	Selenium Wait For Element Present    id    settingsButton-btnIconEl
+#	Selenium Click    id    settingsButton-btnIconEl
+#	Selenium Wait For Element Present    id    settingsPhone
+#	Selenium Click    id    settingsPhone
+#	Selenium Wait For Element Present    id    phone_btn0_lbl
+#	Selenium Drag And Drop    id    phoneFunc0_3    phone_btn2
+#	Selenium Verify Text From Element    id    phone_btn2_lbl    SPRE
+#	Selenium Double Click    id    phone_btn2_lbl
+#	Selenium Wait For Element Present    xpath    //div[@id='spreSetting_grid-body']
+#	Selenium Click    xpath    //div[@id='spreSetting_grid-body']/div/table/tbody/tr[12]
+#	Selenium Type    name    number    1234
+#	Selenium Wait For Element Present    id    spreOK_btn
+#	Selenium Click    id    spreOK_btn
+#	Selenium Wait For Element Present    id    phone_btn2_lbl
+#	Selenium Verify Text From Element    id    phone_btn2_lbl    GroupLog...
+#	Selenium Click    id    phone_btn2_del-innerCt
+#	Execute Javascript    document.getElementById('phone_btn2_del-innerCt').click();
+#	Selenium Verify Text From Element    id    phone_btn2_lbl    ""
+
+#Drag And Drop SPRE Settings - User Station Phone Lock
+#	Selenium Reload
+#	Selenium Wait For Element Present    id    settingsButton-btnIconEl
+#	Selenium Click    id    settingsButton-btnIconEl
+#	Selenium Wait For Element Present    id    settingsPhone
+#	Selenium Click    id    settingsPhone
+#	Selenium Wait For Element Present    id    phone_btn0_lbl
+#	Selenium Drag And Drop    id    phoneFunc0_3    phone_btn2
+#	Selenium Verify Text From Element    id    phone_btn2_lbl    SPRE
+#	Selenium Double Click    id    phone_btn2_lbl
+#	Selenium Wait For Element Present    xpath    //div[@id='spreSetting_grid-body']
+#	Selenium Click    xpath    //div[@id='spreSetting_grid-body']/div/table/tbody/tr[13]
+#	Selenium Type    name    password    1234
+#	Selenium Type    name    confirmpassword    1234
+#	Selenium Wait For Element Present    id    spreOK_btn
+#	Selenium Click    id    spreOK_btn
+#	Selenium Wait For Element Present    id    phone_btn2_lbl
+#	Selenium Verify Text From Element    id    phone_btn2_lbl    PhoneLoc...
+#	Selenium Click    id    phone_btn2_del-innerCt
+#	Execute Javascript    document.getElementById('phone_btn2_del-innerCt').click();
+#	Selenium Verify Text From Element    id    phone_btn2_lbl    ""
+
+#Drag And Drop SPRE Settings - User Station Unlock
+#	Selenium Reload
+#	Selenium Wait For Element Present    id    settingsButton-btnIconEl
+#	Selenium Click    id    settingsButton-btnIconEl
+#	Selenium Wait For Element Present    id    settingsPhone
+#	Selenium Click    id    settingsPhone
+#	Selenium Wait For Element Present    id    phone_btn0_lbl
+#	Selenium Drag And Drop    id    phoneFunc0_3    phone_btn2
+#	Selenium Verify Text From Element    id    phone_btn2_lbl    SPRE
+#	Selenium Double Click    id    phone_btn2_lbl
+#	Selenium Wait For Element Present    xpath    //div[@id='spreSetting_grid-body']
+#	Selenium Click    xpath    //div[@id='spreSetting_grid-body']/div/table/tbody/tr[14]
+#	Selenium Type    name    password    1234
+#	Selenium Type    name    confirmpassword    1234
+#	Selenium Wait For Element Present    id    spreOK_btn
+#	Selenium Click    id    spreOK_btn
+#	Selenium Wait For Element Present    id    phone_btn2_lbl
+#	Selenium Verify Text From Element    id    phone_btn2_lbl    UserPhon...
+#	Selenium Click    id    phone_btn2_del-innerCt
+#	Execute Javascript    document.getElementById('phone_btn2_del-innerCt').click();
+#	Selenium Verify Text From Element    id    phone_btn2_lbl    ""
+
+#Drag And Drop SPRE Settings - Billing Code
+#	Selenium Reload
+#	Selenium Wait For Element Present    id    settingsButton-btnIconEl
+#	Selenium Click    id    settingsButton-btnIconEl
+#	Selenium Wait For Element Present    id    settingsPhone
+#	Selenium Click    id    settingsPhone
+#	Selenium Wait For Element Present    id    phone_btn0_lbl
+#	Selenium Drag And Drop    id    phoneFunc0_3    phone_btn2
+#	Selenium Verify Text From Element    id    phone_btn2_lbl    SPRE
+#	Selenium Double Click    id    phone_btn2_lbl
+#	Selenium Wait For Element Present    xpath    //div[@id='spreSetting_grid-body']
+#	Selenium Click    xpath    //div[@id='spreSetting_grid-body']/div/table/tbody/tr[15]
+#	Selenium Type    name    number    1234
+#	Selenium Wait For Element Present    id    spreOK_btn
+#	Selenium Click    id    spreOK_btn
+#	Selenium Wait For Element Present    id    phone_btn2_lbl
+#	Selenium Verify Text From Element    id    phone_btn2_lbl    BC
+#	Selenium Click    id    phone_btn2_del-innerCt
+#	Execute Javascript    document.getElementById('phone_btn2_del-innerCt').click();
+#	Selenium Verify Text From Element    id    phone_btn2_lbl    ""
+
+Drag And Drop SPRE Settings - Block Caller-ID delivery for this call only
+	Selenium Reload
+	Selenium Wait For Element Present    id    settingsButton-btnIconEl
+	Selenium Click    id    settingsButton-btnIconEl
+	Selenium Wait For Element Present    id    settingsPhone
+	Selenium Click    id    settingsPhone
+	Selenium Wait For Element Present    id    phone_btn0_lbl
+	Selenium Drag And Drop    id    phoneFunc0_3    phone_btn2
+	Selenium Verify Text From Element    id    phone_btn2_lbl    SPRE
+	Selenium Double Click    id    phone_btn2_lbl
+	Selenium Wait For Element Present    xpath    //div[@id='spreSetting_grid-body']
+	Selenium Click    xpath    //div[@id='spreSetting_grid-body']/div/table/tbody/tr[16]
+	Selenium Wait For Element Present    id    spreOK_btn
+	Selenium Click    id    spreOK_btn
+	Selenium Wait For Element Present    id    phone_btn2_lbl
+	Selenium Verify Text From Element    id    phone_btn2_lbl    Block Ca...
+#	Selenium Click    id    phone_btn2_del-innerCt
+#	Execute Javascript    document.getElementById('phone_btn2_del-innerCt').click();
+#	Selenium Verify Text From Element    id    phone_btn2_lbl    ""
+
+Drag And Drop SPRE Settings - Call Return
+	Selenium Reload
+	Selenium Wait For Element Present    id    settingsButton-btnIconEl
+	Selenium Click    id    settingsButton-btnIconEl
+	Selenium Wait For Element Present    id    settingsPhone
+	Selenium Click    id    settingsPhone
+	Selenium Wait For Element Present    id    phone_btn0_lbl
+	Selenium Drag And Drop    id    phoneFunc0_3    phone_btn2
+	Selenium Verify Text From Element    id    phone_btn2_lbl    SPRE
+	Selenium Double Click    id    phone_btn2_lbl
+	Selenium Wait For Element Present    xpath    //div[@id='spreSetting_grid-body']
+	Selenium Click    xpath    //div[@id='spreSetting_grid-body']/div/table/tbody/tr[17]
+	Selenium Wait For Element Present    id    spreOK_btn
+	Selenium Click    id    spreOK_btn
+	Selenium Wait For Element Present    id    phone_btn2_lbl
+	Selenium Verify Text From Element    id    phone_btn2_lbl    Call Ret...
+#	Selenium Click    id    phone_btn2_del-innerCt
+#	Execute Javascript    document.getElementById('phone_btn2_del-innerCt').click();
+#	Selenium Verify Text From Element    id    phone_btn2_lbl    ""
+
+Drag And Drop SPRE Settings - Disable Call Waiting on a per call basis
+	Selenium Reload
+	Selenium Wait For Element Present    id    settingsButton-btnIconEl
+	Selenium Click    id    settingsButton-btnIconEl
+	Selenium Wait For Element Present    id    settingsPhone
+	Selenium Click    id    settingsPhone
+	Selenium Wait For Element Present    id    phone_btn0_lbl
+	Selenium Drag And Drop    id    phoneFunc0_3    phone_btn2
+	Selenium Verify Text From Element    id    phone_btn2_lbl    SPRE
+	Selenium Double Click    id    phone_btn2_lbl
+	Selenium Wait For Element Present    xpath    //div[@id='spreSetting_grid-body']
+	Selenium Click    xpath    //div[@id='spreSetting_grid-body']/div/table/tbody/tr[18]
+	Selenium Wait For Element Present    id    spreOK_btn
+	Selenium Click    id    spreOK_btn
+	Selenium Wait For Element Present    id    phone_btn2_lbl
+	Selenium Verify Text From Element    id    phone_btn2_lbl    Disable ...
+#	Selenium Click    id    phone_btn2_del-innerCt
+#	Execute Javascript    document.getElementById('phone_btn2_del-innerCt').click();
+#	Selenium Verify Text From Element    id    phone_btn2_lbl    ""
+
+Drag And Drop SPRE Settings - Call last dialed number
+	Selenium Reload
+	Selenium Wait For Element Present    id    settingsButton-btnIconEl
+	Selenium Click    id    settingsButton-btnIconEl
+	Selenium Wait For Element Present    id    settingsPhone
+	Selenium Click    id    settingsPhone
+	Selenium Wait For Element Present    id    phone_btn0_lbl
+	Selenium Drag And Drop    id    phoneFunc0_3    phone_btn2
+	Selenium Verify Text From Element    id    phone_btn2_lbl    SPRE
+	Selenium Double Click    id    phone_btn2_lbl
+	Selenium Wait For Element Present    xpath    //div[@id='spreSetting_grid-body']
+	Selenium Click    xpath    //div[@id='spreSetting_grid-body']/div/table/tbody/tr[19]
+	Selenium Wait For Element Present    id    spreOK_btn
+	Selenium Click    id    spreOK_btn
+	Selenium Wait For Element Present    id    phone_btn2_lbl
+	Selenium Verify Text From Element    id    phone_btn2_lbl    Redial
+#	Selenium Click    id    phone_btn2_del-innerCt
+#	Execute Javascript    document.getElementById('phone_btn2_del-innerCt').click();
+#	Selenium Verify Text From Element    id    phone_btn2_lbl    ""
+
+#Drag And Drop SPRE Settings - Pickup Extension
+#	Selenium Reload
+#	Selenium Wait For Element Present    id    settingsButton-btnIconEl
+#	Selenium Click    id    settingsButton-btnIconEl
+#	Selenium Wait For Element Present    id    settingsPhone
+#	Selenium Click    id    settingsPhone
+#	Selenium Wait For Element Present    id    phone_btn0_lbl
+#	Selenium Drag And Drop    id    phoneFunc0_3    phone_btn2
+#	Selenium Verify Text From Element    id    phone_btn2_lbl    SPRE
+#	Selenium Double Click    id    phone_btn2_lbl
+#	Selenium Wait For Element Present    xpath    //div[@id='spreSetting_grid-body']
+#	Selenium Click    xpath    //div[@id='spreSetting_grid-body']/div/table/tbody/tr[20]
+#	Selenium Type    name    number    3001
+#	Selenium Wait For Element Present    id    spreOK_btn
+#	Selenium Click    id    spreOK_btn
+#	Selenium Wait For Element Present    id    phone_btn2_lbl
+#	Selenium Verify Text From Element    id    phone_btn2_lbl    PickExt
+#	Selenium Click    id    phone_btn2_del-innerCt
+#	Execute Javascript    document.getElementById('phone_btn2_del-innerCt').click();
+#	Selenium Verify Text From Element    id    phone_btn2_lbl    ""
+
+Drag And Drop SPRE Settings - Call Park + Zone
+	Selenium Reload
+	Selenium Wait For Element Present    id    settingsButton-btnIconEl
+	Selenium Click    id    settingsButton-btnIconEl
+	Selenium Wait For Element Present    id    settingsPhone
+	Selenium Click    id    settingsPhone
+	Selenium Wait For Element Present    id    phone_btn0_lbl
+	Selenium Drag And Drop    id    phoneFunc0_3    phone_btn2
+	Selenium Verify Text From Element    id    phone_btn2_lbl    SPRE
+	Selenium Double Click    id    phone_btn2_lbl
+	Selenium Wait For Element Present    xpath    //div[@id='spreSetting_grid-body']
+	Selenium Click    xpath    //div[@id='spreSetting_grid-body']/div/table/tbody/tr[21]
+	Selenium Click Text From Combobox    name    select_cmb-inputEl    Park 0
+	Selenium Wait For Element Present    id    spreOK_btn
+	Selenium Click    id    spreOK_btn
+	Selenium Wait For Element Present    id    phone_btn2_lbl
+	Selenium Verify Text From Element    id    phone_btn2_lbl    Park 0
+#	Selenium Click    id    phone_btn2_del-innerCt
+#	Execute Javascript    document.getElementById('phone_btn2_del-innerCt').click();
+#	Selenium Verify Text From Element    id    phone_btn2_lbl    ""
+
+#Drag And Drop SPRE Settings - Held Call Pickup/Park Retrieve - EXT
+#	Selenium Reload
+#	Selenium Wait For Element Present    id    settingsButton-btnIconEl
+#	Selenium Click    id    settingsButton-btnIconEl
+#	Selenium Wait For Element Present    id    settingsPhone
+#	Selenium Click    id    settingsPhone
+#	Selenium Wait For Element Present    id    phone_btn0_lbl
+#	Selenium Drag And Drop    id    phoneFunc0_3    phone_btn2
+#	Selenium Verify Text From Element    id    phone_btn2_lbl    SPRE
+#	Selenium Double Click    id    phone_btn2_lbl
+#	Selenium Wait For Element Present    xpath    //div[@id='spreSetting_grid-body']
+#	Selenium Click    xpath    //div[@id='spreSetting_grid-body']/div/table/tbody/tr[22]
+#	Selenium Type    name    number    3001
+#	Selenium Wait For Element Present    id    spreOK_btn
+#	Selenium Click    id    spreOK_btn
+#	Selenium Wait For Element Present    id    phone_btn2_lbl
+#	Selenium Verify Text From Element    id    phone_btn2_lbl    Pickup
+#	Selenium Click    id    phone_btn2_del-innerCt
+#	Execute Javascript    document.getElementById('phone_btn2_del-innerCt').click();
+#	Selenium Verify Text From Element    id    phone_btn2_lbl    ""
+
+Drag And Drop SPRE Settings - Held Call Pickup/Park Retrieve - Park Zone
+	Selenium Reload
+	Selenium Wait For Element Present    id    settingsButton-btnIconEl
+	Selenium Click    id    settingsButton-btnIconEl
+	Selenium Wait For Element Present    id    settingsPhone
+	Selenium Click    id    settingsPhone
+	Selenium Wait For Element Present    id    phone_btn0_lbl
+	Selenium Drag And Drop    id    phoneFunc0_3    phone_btn2
+	Selenium Verify Text From Element    id    phone_btn2_lbl    SPRE
+	Selenium Double Click    id    phone_btn2_lbl
+	Selenium Wait For Element Present    xpath    //div[@id='spreSetting_grid-body']
+	Selenium Click    xpath    //div[@id='spreSetting_grid-body']/div/table/tbody/tr[22]
+	Selenium Wait For Element Present    id    retrieve-inputEl
+	Selenium Click    id    retrieve-inputEl
+	Selenium Click Text From Combobox    name    parkzone_cmb-inputEl    Park 0
+	Selenium Wait For Element Present    id    spreOK_btn
+	Selenium Click    id    spreOK_btn
+	Selenium Wait For Element Present    id    phone_btn2_lbl
+	Selenium Verify Text From Element    id    phone_btn2_lbl    Pickup
+#	Selenium Click    id    phone_btn2_del-innerCt
+#	Execute Javascript    document.getElementById('phone_btn2_del-innerCt').click();
+#	Selenium Verify Text From Element    id    phone_btn2_lbl    ""
+
+Drag And Drop SPRE Settings - Hands Free Auto-Answer
+	Selenium Reload
+	Selenium Wait For Element Present    id    settingsButton-btnIconEl
+	Selenium Click    id    settingsButton-btnIconEl
+	Selenium Wait For Element Present    id    settingsPhone
+	Selenium Click    id    settingsPhone
+	Selenium Wait For Element Present    id    phone_btn0_lbl
+	Selenium Drag And Drop    id    phoneFunc0_3    phone_btn2
+	Selenium Verify Text From Element    id    phone_btn2_lbl    SPRE
+	Selenium Double Click    id    phone_btn2_lbl
+	Selenium Wait For Element Present    xpath    //div[@id='spreSetting_grid-body']
+	Selenium Click    xpath    //div[@id='spreSetting_grid-body']/div/table/tbody/tr[27]
+	Selenium Wait For Element Present    id    spreOK_btn
+	Selenium Click    id    spreOK_btn
+	Selenium Wait For Element Present    id    phone_btn2_lbl
+	Selenium Verify Text From Element    id    phone_btn2_lbl    Hand Fre...
+#	Selenium Click    id    phone_btn2_del-innerCt
+#	Execute Javascript    document.getElementById('phone_btn2_del-innerCt').click();
+#	Selenium Verify Text From Element    id    phone_btn2_lbl    ""
+
+*** Keywords ***
