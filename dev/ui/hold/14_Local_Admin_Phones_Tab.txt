@@ -1,0 +1,46 @@
+*** Settings ***
+Suite Setup
+Suite Teardown    Close Browser
+Library           Selenium2Library
+Library           Collections
+Resource          ../../resources/resource_ui.txt
+Resource          ../../resources/resource_pyrobot.txt
+
+*** Variables ***
+${Neo}            http://${DEVICE_IP}
+${DEVICE_IP}      10.10.9.164
+
+*** Test Cases ***
+Verify Phone For User 3011
+	Selenium Login    admin    password    helpButton-btnIconEl
+	Selenium Wait For Element Present    id    phones_tab-btnEl
+	Selenium Click    id    phones_tab-btnEl
+	Selenium Wait For Element Present    xpath    //*[@id="phones_panel_phones_grid"]/div/div/table/tbody/tr[2]/td[1]/div
+	Selenium Verify Text From Element    xpath    //*[@id="phones_panel_phones_grid"]/div/div/table/tbody/tr[2]/td[1]/div    ADTRAN VVX 500
+	
+Add A Phone
+	Selenium Wait For Element Present    id    phones_panel_add_btn-btnEl
+	Selenium Click    id    phones_panel_add_btn-btnEl
+	Selenium Wait For Element Present    id    addPhoneWindow_model_combobox-inputEl
+	Selenium Type    id    addPhoneWindow_mac_txtinput-inputEl    01:00:5b:5a:33:11
+	Selenium Click    id    addPhoneWindow_save_btn-btnEl
+	
+Verify New Phone Exists
+	Selenium Reload
+	Selenium Wait For Element Present    id    phones_tab-btnEl
+	Selenium Click    id    phones_tab-btnEl
+	Selenium Verify Text From Element    xpath    //*[@id="phones_panel_phones_grid"]/div/div/table/tbody/tr[3]/td[1]/div    Polycom 321
+	
+#Remove A Phone
+#	Selenium Click    xpath    //*[@id="phones_panel_phones_grid"]/div/div/table/tbody/tr[2]
+#	Selenium Click    id    phones_panel_remove_btn-btnEl
+#	Selenium Wait For Element Present    id    removePhoneWindow-1168_remove_btn-btnIconEl
+#	Selenium Click    id    removePhoneWindow-1168_remove_btn-btnIconEl
+	
+#Verify Removal Of A Phone
+#	Selenium Reload
+#	Selenium Wait For Element Present    id    phones_tab-btnEl
+#	Selenium Click    id    phones_tab-btnEl
+#	Selenium Element Should Not Be Visible    xpath    //*[@id="phones_panel_phones_grid"]/div/div/table/tbody/tr/td[3]/div
+
+*** Keywords ***

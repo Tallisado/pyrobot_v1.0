@@ -13,6 +13,7 @@ Open a Browser Window
     Open Browser to http://www-internal.objectworld.com
 	
 Wait For Unit To Restart
+	Sleep    60
 	Wait Until Keyword Succeeds    5 min    5 sec    Check UI ${DEVICE_IP}
 	
 *** Keywords ***
