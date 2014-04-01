@@ -47,7 +47,7 @@ Set Voicemail Settings
 	Selenium Click   id    settingsVoicemail
 	Selenium Check   id    playEnvelope_checkbox-inputEl
 	Selenium Check   id    autoPlayMessage_checkbox-inputEl
-	Selenium Click Text From Combobox    id    primaryEmailNotification_combobox-inputEl    Never
+	#Selenium Click Text From Combobox    id    primaryEmailNotification_combobox-inputEl    Never
 	Selenium Click Text From Combobox    id    primaryEmailNotification_combobox-inputEl    Always
 	#Selenium Click Text From Combobox    id    secondaryEmailNotification_combobox-inputEl    Never
 	#Selenium Click Text From Combobox    id    secondaryEmailNotification_combobox-inputEl    Always
