@@ -1,8 +1,11 @@
 *** Settings ***
-Documentation  A browser test case for sauce local test (non-onconnect)
-
-Resource       ../resources/resource.txt
-
+Suite Setup
+Suite Teardown    Close Browser
+Library           Selenium2Library
+Library           Collections
+Resource          ../resources/resource_pybot.txt
+Resource          ../resources/resource_ui.txt
+Documentation     A browser test case for sauce local test (non-onconnect)
 
 *** Variables ***
 ${GOOGLE_URL}       http://www.google.ca

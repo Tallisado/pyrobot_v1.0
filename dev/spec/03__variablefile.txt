@@ -9,6 +9,9 @@ Resource          ./resource.txt
 
 *** Test Cases ***
 Valid Login
-    Open Browser To Login Page
+    Open Browser    ${LOGIN URL}    ${BROWSER}
+    Maximize Browser Window
+    Set Selenium Speed    ${DELAY}
+    Page Should Be Open
     Page Should Be Open
     [Teardown]    Close Browser

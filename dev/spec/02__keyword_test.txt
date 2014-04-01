@@ -2,8 +2,8 @@
 Suite Setup
 Suite Teardown    Close Browser
 Library           Selenium2Library
-Library           Collections
-Resource          ../resources/resource.txt
+Resource          ../resources/resource_pybot.txt
+Resource          ../resources/resource_ui.txt
 
 *** Variables ***
 ${Neo}            http://${DEVICE_IP}

@@ -17,7 +17,7 @@
 				<env key="BASE_URL" value="${runtime.base_url}"/>
 				<env key="PAYLOAD"  value="${runtime.payload}"/>
 				<arg value="pyrobot.py"/>
-				<arg value="dev/ui/01__sauce_browser.txt"/>
+				<arg value="dev/ui/ppm/PPM_Settings.txt"/>
 			</exec>
 			<echo message="
 			[PYBOT RUNTIME]${line.separator}
