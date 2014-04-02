@@ -3,7 +3,7 @@ Suite Setup
 Suite Teardown    Close Browser
 Library           Selenium2Library
 Library           Collections
-Resource          ../resources/resource_pybot.txt
+Resource          ../resources/resource_pyrobot.txt
 Resource          ../resources/resource_ui.txt
 Documentation     A browser test case for sauce local test (non-onconnect)
 
@@ -38,6 +38,5 @@ Sauce Browser BaseUrl URL OnConnect
 	[Teardown]  Close Browser
     
 Sauce Browser
-	Open Pyrobot	  ${PYRO_BROWSER}    ${REDDIT_URL}
-	Title Should Be   ${REDDIT_TITLE}
+	Open Pyrobot	  ${PYRO_BROWSER}    http://quirktools.com/screenfly/
 	[Teardown]  Close Browser

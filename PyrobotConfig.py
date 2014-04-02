@@ -20,10 +20,9 @@ DYN_ARGS =  [
 time_between_test_start_up = 0
 
 
-####
+##########
 # NEW
-#
-#######
+##########
 
 SAUCE_USERNAME = 'talliskane'
 SAUCE_ACCESSKEY = "6c3ed64b-e065-4df4-b921-75336e2cb9cf"
@@ -32,6 +31,8 @@ DEFAULT_SOLO_BROWSER = 'firefox'
 DEFAULT_BROWSER_DISPLAY = ":80"
 
 
-BROWSER_CAPABILITIES = 'name:%s,platform:%s,version:%s,browserName:%s,javascriptEnabled:True'
+BROWSER_CAPABILITIES = 'name:%s,platform:%s,version:%s,browserName:%s,javascriptEnabled:True,screen-resolution:1280x1024'
 
 BASE_URL = "http://www.google.ca"
+
+BROWSER_RESOLUTION = "1024x768"

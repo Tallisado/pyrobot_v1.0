@@ -5,7 +5,8 @@
 Selenium Login
 	[Arguments]    ${USERNAME}    ${PASSWORD}    ${ELEMENT}
 #	Open Pyrobot    ${PYRO_BROWSER}    ${Neo}
-	Open Pyrobot    ${Neo}    firefox
+#	Open Pyrobot    ${Neo}    firefox
+	Open Pyrobot	${PYRO_BROWSER}
 	Maximize Browser Window
     Set Selenium Speed    1
 	Wait Until Element Is Visible    loginnameid-inputEl    timeout=5
@@ -14,7 +15,7 @@ Selenium Login
 	Input Text    loginpasswordid-inputEl    ${PASSWORD}
 	Wait Until Element Is Visible    id=loginbuttonid-btnIconEl   timeout=5
 	Click Element    id=loginbuttonid-btnIconEl
-	Wait Until Element Is Visible    id=${ELEMENT}   timeout=5
+	Wait Until Element Is Visible    id=${ELEMENT}   timeout=15
 
 Selenium Drag And Drop
 	[Arguments]    ${LOCTYPE}    ${ELEMENT_SOURCE}    ${ELEMENT_DESTINATION}
@@ -68,6 +69,7 @@ Selenium Verify Attribute From Element
 
 Selenium Click
 	[Arguments]    ${LOCTYPE}    ${ELEMENT}
+	Sleep    5s
 	run keyword if    '${LOCTYPE}'=='id'    Click Element    id=${ELEMENT}
 	run keyword if    '${LOCTYPE}'=='xpath'    Click Element    xpath=${ELEMENT}
 	run keyword if    '${LOCTYPE}'=='name'    Click Element    name=${ELEMENT}

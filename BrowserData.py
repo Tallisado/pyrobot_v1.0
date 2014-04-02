@@ -28,6 +28,8 @@ class BrowserData:
                     
         elif os.environ.get('SELENIUM_DRIVER'):
             print '(SauceTeamCityBrowserData) : Single browser'
+            print '(SauceTeamCityBrowserData) : %s' % os.getenv('SAUCE_USERNAME')
+            print '(SauceTeamCityBrowserData) : %s' % os.getenv('SAUCE_ACCESSKEY')
             self.teamcity_intersect = True
             self.url_list.append(os.environ.get('SELENIUM_DRIVER'))
             
@@ -63,7 +65,8 @@ class BrowserData:
         os.environ[self.envname_pyrobot_default_browser] = config.DEFAULT_SOLO_BROWSER
         os.environ[self.envname_pyrobot_browser] = self.getValue("browser", i)
         os.environ[self.envname_pyrobot_remote_url] = 'http://%s:%s@ondemand.saucelabs.com:80/wd/hub' % (self.getUserName(i), self.getAccessKey(i))
-        os.environ[self.envname_pyrobot_caps] = 'name:%s,platform:%s,version:%s,browserName:%s,javascriptEnabled:True' % (test_name, self.getOS(i), self.getBrowserVersion(i), self.getBrowser(i))
+        os.environ[self.envname_pyrobot_caps] = 'name:%s,platform:%s,version:%s,browserName:%s,javascriptEnabled:True,screen-resolution:%s' % (test_name, self.getOS(i), self.getBrowserVersion(i), self.getBrowser(i), config.BROWSER_RESOLUTION)
+        print "---- BROWSER_RESOLUTION set to %s" % config.BROWSER_RESOLUTION
         
         
         # if os.environ.get(self.envname_pyrobot_browser):
