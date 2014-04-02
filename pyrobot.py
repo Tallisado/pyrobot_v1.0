@@ -206,7 +206,8 @@ else:
             
 suite_name = os.path.basename(os.path.normpath(payload))
 client_cwd = os.path.realpath(base_dir)
-workspace_home = os.path.join("/mnt/wt/pyrobot/workspace/", ''.join(random.choice(string.ascii_uppercase) for i in range(12)))
+uid = os.environ.get("WORKSPACE_UID", ''.join(random.choice(string.ascii_uppercase) for i in range(12)))
+workspace_home = os.path.join("/mnt/wt/pyrobot/workspace/", uid)
 os.mkdir(workspace_home, 0755)
 
 payload = os.path.join(os.path.realpath(base_dir), payload)
