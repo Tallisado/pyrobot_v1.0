@@ -178,12 +178,12 @@ log_folder = config.LOG_DIR
 # Example of Single Browser (TeamCity)
 #os.environ['SELENIUM_DRIVER'] = "sauce-ondemand:?username=talliskane&access-key=6c3ed64b-e065-4df4-b921-75336e2cb9cf&os=Windows 2012 R2&browser=internet explorer&browser-version=11&max-duration=null&idle-timeout=null"
 
-if not os.environ.get('SAUCE_ONDEMAND_BROWSERS') and not os.environ.get('SELENIUM_DRIVER'):
-    print 'WARNING: Pyrobot was unable to intersect the sauce environment variables'
-    print '  -> SAUCE_ONDEMAND_BROWSERS SELENIUM_DRIVER'
-    print '  Entering test mode by overriding SELENIUM_DRIVER with a fake value'
-    print ''
-    os.environ['SELENIUM_DRIVER'] = "sauce-ondemand:?username=talliskane&access-key=6c3ed64b-e065-4df4-b921-75336e2cb9cf&os=Windows 2012 R2&browser=internet explorer&browser-version=11&max-duration=null&idle-timeout=null"
+# if not os.environ.get('SAUCE_ONDEMAND_BROWSERS') and not os.environ.get('SELENIUM_DRIVER'):
+    # print 'WARNING: Pyrobot was unable to intersect the sauce environment variables'
+    # print '  -> SAUCE_ONDEMAND_BROWSERS SELENIUM_DRIVER'
+    # print '  Entering test mode by overriding SELENIUM_DRIVER with a fake value'
+    # print ''
+    # os.environ['SELENIUM_DRIVER'] = "sauce-ondemand:?username=talliskane&access-key=6c3ed64b-e065-4df4-b921-75336e2cb9cf&os=Windows 2012 R2&browser=internet explorer&browser-version=11&max-duration=null&idle-timeout=null"
 
 # parsing command line arguments
 #parseArgs(sys.argv[1:])  
